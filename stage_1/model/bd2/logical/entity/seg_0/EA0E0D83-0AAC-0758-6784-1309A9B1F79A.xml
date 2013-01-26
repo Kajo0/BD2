@@ -1,0 +1,168 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" id="EA0E0D83-0AAC-0758-6784-1309A9B1F79A" directorySegmentName="seg_0" name="Vehicle">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 20:57:24 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<pkName>Vehicle PK</pkName>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Attribute</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<attributes>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="client_id" id="006D1DFC-2085-F2B3-6A9F-89D2102431F0">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 22:58:02 UTC</createdTime>
+<generatorID>2498F338-EC1D-5E8D-328F-1E45D3E966F0</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<referedAttribute>8A5463FE-D288-2513-6548-D8ABFC803106</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="vehicle_id" id="1BB0306B-2AB7-0FB2-3F8D-128D912B4380">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 23:47:43 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="vin_number" id="807ADC95-6087-44A9-FB8F-EBB915093B6F">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 23:48:01 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>17</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="production_date" id="D38CF440-E0EB-93AB-0E7E-98637A187B75">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 23:48:43 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="type" id="12B7AB15-4F60-3C4F-1DD5-ED20C4EAF33F">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 23:49:25 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="brand" id="11FF5A78-3F0F-545B-FE79-792891AEBC25">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 02:00:30 UTC</createdTime>
+<generatorID>414B806A-CEA5-5CC3-2E41-B43EA9306D92</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<referedAttribute>B42E622E-18CF-8902-F4AB-C84349A52046</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+</Attribute>
+</attributes>
+<identifiers>
+<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="A325CE5D-6BC6-7C10-44A7-F30675C03D69" name="Vehicle PK">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 23:48:00 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>1BB0306B-2AB7-0FB2-3F8D-128D912B4380</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="6DECB33C-14EA-FA74-ECFC-162550EEC832" name="Key_2">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 01:25:24 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<usedAttributes>
+<attributeRef>807ADC95-6087-44A9-FB8F-EBB915093B6F</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

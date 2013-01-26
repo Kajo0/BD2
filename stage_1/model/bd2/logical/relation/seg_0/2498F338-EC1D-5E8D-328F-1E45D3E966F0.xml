@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="clients_vehicles" id="2498F338-EC1D-5E8D-328F-1E45D3E966F0" directorySegmentName="seg_0">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 22:32:46 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<identifying>false</identifying>
+<nameOnSource>has</nameOnSource>
+<nameOnTarget>belongs_to</nameOnTarget>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>0E9B079A-F443-B07F-06DE-A815BD4F88D4</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>EA0E0D83-0AAC-0758-6784-1309A9B1F79A</targetEntity>
+<transferable>true</transferable>
+</Relation>

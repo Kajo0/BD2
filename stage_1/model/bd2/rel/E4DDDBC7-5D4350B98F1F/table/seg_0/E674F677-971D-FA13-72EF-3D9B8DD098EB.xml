@@ -1,0 +1,84 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="E674F677-971D-FA13-72EF-3D9B8DD098EB" directorySegmentName="seg_0" name="Service_Types">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:27:19 UTC</createdTime>
+<generatorID>CCEC4540-11BA-A1AA-5FC3-D66C72AAE4A7</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<pkName>Service_Type PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="service_type" id="5DB76905-35A6-76B7-F185-2BA80009BE7B">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:27:19 UTC</createdTime>
+<generatorID>AF612A2C-253C-EB1C-66C9-1A2B01A4F8C2</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="default_charge" id="9CB6D36F-F3C8-5588-8F9D-F0FC03BAD5EE">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:27:19 UTC</createdTime>
+<generatorID>2961D7C7-A5D6-A9C4-D0FB-8859B90825C5</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="B7019572-3693-EEA1-D75F-9626F5085330" name="Service_Type PK">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:27:19 UTC</createdTime>
+<generatorID>F1CF2B37-F2F6-9446-7910-D9DCD4CBD052</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="5DB76905-35A6-76B7-F185-2BA80009BE7B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

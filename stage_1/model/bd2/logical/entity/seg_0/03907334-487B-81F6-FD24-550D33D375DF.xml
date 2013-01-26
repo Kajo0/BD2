@@ -1,0 +1,169 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" id="03907334-487B-81F6-FD24-550D33D375DF" directorySegmentName="seg_0" name="Service">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 22:26:10 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<pkName>Service PK</pkName>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Attribute</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<attributes>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="service_id" id="8E33B3CB-0104-CEFB-A7A1-4A61FBB76A18">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 00:02:47 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="order_id" id="80A2A1F6-2CDF-DEDD-118E-5EBCF7C98397">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 23:53:05 UTC</createdTime>
+<generatorID>1B31B2B2-58A1-F2B3-64EE-A25A13760424</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+</engineerTo>
+<referedAttribute>252FF7B3-5981-6324-8209-458D918A355E</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="employee_id" id="CC8F3B9E-26AF-4F1E-13EB-85FE17FF89DF">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 23:59:02 UTC</createdTime>
+<generatorID>5AA438B5-54FC-22D2-01C6-FDAA15667E0B</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<referedAttribute>A9DDB27B-8E0D-DA0B-BBD3-3EF844E24E40</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="begin_date" id="2F72EFC6-3CEC-657A-B652-C358FE2615AD">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 23:59:45 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="end_time" id="55CE2E52-1FB1-EF3A-9CAB-49B51E674659">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 00:00:17 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="cost" id="91B51168-7C80-21F9-B1E7-CFA64970F098">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 00:49:33 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>5</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="comment" id="26EFE341-A6C4-7CD2-1D0F-0510E087F159">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 00:02:12 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1000</dataTypeSize>
+</Attribute>
+</attributes>
+<identifiers>
+<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="C9599457-E4F8-6B88-6F56-FD8F42F18374" name="Service PK">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 00:02:53 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>8E33B3CB-0104-CEFB-A7A1-4A61FBB76A18</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

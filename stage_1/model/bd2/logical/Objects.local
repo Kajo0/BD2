@@ -1,0 +1,33 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.logical.LogicalDesign>
+   <object objectType="Entity" objectID="7BA26EF7-D7DF-9407-7556-A1C969CF0A91" name="Brand" seqName="seg_0"/>
+   <object objectType="Entity" objectID="0E9B079A-F443-B07F-06DE-A815BD4F88D4" name="Client" seqName="seg_0"/>
+   <object objectType="Entity" objectID="8E7AF9E3-FB7E-C3F8-FCFE-D4DE03F5B851" name="Company" seqName="seg_0"/>
+   <object objectType="Entity" objectID="3A5CA1B4-FFF0-B7F3-94D6-9BE4914D7B95" name="Complementation" seqName="seg_0"/>
+   <object objectType="Entity" objectID="BC2FFCA8-993C-B639-9EEC-01C8D209E32B" name="Complementation_Item" seqName="seg_0"/>
+   <object objectType="Entity" objectID="457971B9-0010-ABED-F308-BE8C271FE3E0" name="Employee" seqName="seg_0"/>
+   <object objectType="Entity" objectID="7EA99769-314F-FD35-E251-993705C6B91E" name="Order" seqName="seg_0"/>
+   <object objectType="Entity" objectID="A995513A-BC00-ABD5-975E-B69C3D6EFC98" name="Part" seqName="seg_0"/>
+   <object objectType="Entity" objectID="B85A102D-B4FF-05A5-16DC-8B7350E952DE" name="Part_Type" seqName="seg_0"/>
+   <object objectType="Entity" objectID="C54AB61D-D6C0-ACDF-10E9-1D932130BC76" name="Person" seqName="seg_0"/>
+   <object objectType="Entity" objectID="19759561-373E-2A4B-0028-354792E360F3" name="Position" seqName="seg_0"/>
+   <object objectType="Entity" objectID="7851319A-1379-FA16-6481-266564236ECB" name="Provider" seqName="seg_0"/>
+   <object objectType="Entity" objectID="03907334-487B-81F6-FD24-550D33D375DF" name="Service" seqName="seg_0"/>
+   <object objectType="Entity" objectID="CCEC4540-11BA-A1AA-5FC3-D66C72AAE4A7" name="Service_Type" seqName="seg_0"/>
+   <object objectType="Entity" objectID="EA0E0D83-0AAC-0758-6784-1309A9B1F79A" name="Vehicle" seqName="seg_0"/>
+   <object objectType="Relation" objectID="5AF95AF5-32D4-1A9D-01B0-4EB38766B219" name="clients_orders" seqName="seg_0"/>
+   <object objectType="Relation" objectID="2498F338-EC1D-5E8D-328F-1E45D3E966F0" name="clients_vehicles" seqName="seg_0"/>
+   <object objectType="Relation" objectID="626606AE-6E3B-F7EE-F448-99FBFC1F39B2" name="complementations_compl_items" seqName="seg_0"/>
+   <object objectType="Relation" objectID="04C74E35-4D7E-F7A6-F4C1-96498624AEFF" name="employees_positions" seqName="seg_0"/>
+   <object objectType="Relation" objectID="57BD98CB-F2B1-214F-BC76-8C7375E3EC0A" name="orders_service_types" seqName="seg_0"/>
+   <object objectType="Relation" objectID="1B31B2B2-58A1-F2B3-64EE-A25A13760424" name="orders_services" seqName="seg_0"/>
+   <object objectType="Relation" objectID="D076B001-4FB6-09A5-3B4F-638707BBCD7C" name="orders_vehicles" seqName="seg_0"/>
+   <object objectType="Relation" objectID="04D19078-9284-E89F-2A2B-B93BAB7674F2" name="parts_complementation_items" seqName="seg_0"/>
+   <object objectType="Relation" objectID="507A79CD-CCD3-D455-8BD7-670205F587ED" name="parts_part_types" seqName="seg_0"/>
+   <object objectType="Relation" objectID="6C622D14-D238-B340-9323-2AE812E9D115" name="providers_complementations" seqName="seg_0"/>
+   <object objectType="Relation" objectID="5AA438B5-54FC-22D2-01C6-FDAA15667E0B" name="services_employees" seqName="seg_0"/>
+   <object objectType="Relation" objectID="81207C6C-8EF6-74EB-7812-68309A41C188" name="services_parts" seqName="seg_0"/>
+   <object objectType="Relation" objectID="414B806A-CEA5-5CC3-2E41-B43EA9306D92" name="vehicles_brands" seqName="seg_0"/>
+   <object objectType="Hierarchy relation" objectID="43034D7E-7DF0-2009-FFC5-084562F0002F" name="Hierarchy_1" seqName="seg_0"/>
+   <object objectType="Hierarchy relation" objectID="DCDC00CF-24F3-AF06-B0F0-56136BD245DD" name="Hierarchy_2" seqName="seg_0"/>
+</oracle.dbtools.crest.model.design.logical.LogicalDesign>

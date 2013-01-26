@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="providers_complementations" id="6C622D14-D238-B340-9323-2AE812E9D115" directorySegmentName="seg_0">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 21:23:47 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<identifying>false</identifying>
+<nameOnSource>belongs_to</nameOnSource>
+<nameOnTarget>refers_to</nameOnTarget>
+<optionalSource>false</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>3A5CA1B4-FFF0-B7F3-94D6-9BE4914D7B95</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>7851319A-1379-FA16-6481-266564236ECB</targetEntity>
+<transferable>true</transferable>
+</Relation>

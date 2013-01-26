@@ -1,0 +1,190 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" id="A854070B-038E-F767-7F92-7125F4370E11" directorySegmentName="seg_0" name="Companies">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:32:16 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<userDefined>true</userDefined>
+<userDefinedSQL>SELECT Clients.client_id,&lt;br/&gt;  Clients.additional_address,&lt;br/&gt;  Clients.street,&lt;br/&gt;  Clients.building_number,&lt;br/&gt;  Clients.apartment_number,&lt;br/&gt;  Clients.postal_code,&lt;br/&gt;  Clients.city,&lt;br/&gt;  Clients.phone_number,&lt;br/&gt;  Clients.email,&lt;br/&gt;  Clients.name,&lt;br/&gt;  Clients.nip&lt;br/&gt;FROM Clients</userDefinedSQL>
+<layoutSQL>&lt;?xml version = &apos;1.0&apos; encoding = &apos;UTF-8&apos;?&gt;&lt;br&gt;&lt;ActiveQueryBuilderLayout&gt;&lt;SQL&gt;Select Clients.client_id, Clients.additional_address, Clients.street, Clients.building_number, Clients.apartment_number, Clients.postal_code, Clients.city, Clients.phone_number, Clients.email, Clients.name, Clients.nip From Clients&lt;/SQL&gt;&lt;SubQueries&gt;&lt;SubQuery SQL=&quot;Select Clients.client_id, Clients.additional_address, Clients.street, Clients.building_number, Clients.apartment_number, Clients.postal_code, Clients.city, Clients.phone_number, Clients.email, Clients.name, Clients.nip From Clients&quot;&gt;&lt;UnionSubQuery&gt;&lt;DataSource SQL=&quot;Clients&quot; X=&quot;50&quot; Y=&quot;20&quot; Height=&quot;299&quot; Width=&quot;140&quot;/&gt;&lt;/UnionSubQuery&gt;&lt;/SubQuery&gt;&lt;/SubQueries&gt;&lt;/ActiveQueryBuilderLayout&gt;</layoutSQL>
+<parsed>true</parsed>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+</fonts>
+<usedContainers>
+<container containerID="285A008F-32EC-7546-CAEA-C52432C4FF09"/>
+</usedContainers>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="client_id" id="81F48B44-2FFD-4206-47D7-B5B4F82639A9">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:32:32 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<dataType>NUMBER (5)</dataType>
+<reference>false</reference>
+<referencedColumn>EF370C48-6DCE-77BF-939B-8B75C79EBBFB</referencedColumn>
+<table>285A008F-32EC-7546-CAEA-C52432C4FF09</table>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="additional_address" id="D8E6031E-C418-4FA7-645B-0F948B7000AC">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:32:32 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<dataType>VARCHAR2 (500)</dataType>
+<reference>false</reference>
+<referencedColumn>FCECBAC4-BE8F-7902-42F1-A96865CDB2E4</referencedColumn>
+<table>285A008F-32EC-7546-CAEA-C52432C4FF09</table>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="street" id="CB629258-07C1-E461-95C4-F6371AA224A3">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:32:32 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<dataType>VARCHAR2 (30)</dataType>
+<reference>false</reference>
+<referencedColumn>C348F6D9-3542-3172-6EB2-2B5B4A91EFBD</referencedColumn>
+<table>285A008F-32EC-7546-CAEA-C52432C4FF09</table>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="building_number" id="B3B4E7DA-EC83-AB0C-D131-318EF35C7B86">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:32:32 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<dataType>NUMBER (3)</dataType>
+<reference>false</reference>
+<referencedColumn>4A664A60-CD46-28FC-60C6-8A75BF063C5E</referencedColumn>
+<table>285A008F-32EC-7546-CAEA-C52432C4FF09</table>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="apartment_number" id="A1988A7B-75D1-EF73-AE86-D1DCE87E31F0">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:32:32 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<dataType>NUMBER (4)</dataType>
+<reference>false</reference>
+<referencedColumn>56DFE941-EF81-F28D-F9A6-F290253ED583</referencedColumn>
+<table>285A008F-32EC-7546-CAEA-C52432C4FF09</table>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="postal_code" id="2F1F6437-8373-1A1C-F552-2B13568B5C73">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:32:32 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<dataType>NUMBER (5)</dataType>
+<reference>false</reference>
+<referencedColumn>27D6FACA-A5A1-7DAB-52F5-69B1AFC766EA</referencedColumn>
+<table>285A008F-32EC-7546-CAEA-C52432C4FF09</table>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="city" id="6B1FB704-9599-A788-C427-F06288BB31CD">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:32:32 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<dataType>VARCHAR2 (20)</dataType>
+<reference>false</reference>
+<referencedColumn>96837FE4-4C52-0240-16BC-61229AAD542E</referencedColumn>
+<table>285A008F-32EC-7546-CAEA-C52432C4FF09</table>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="phone_number" id="A0990D52-AD12-7AC0-CEE0-49B5318FEA7E">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:32:32 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<dataType>VARCHAR2 (14)</dataType>
+<reference>false</reference>
+<referencedColumn>611EAEDF-423D-C9A7-1A77-2F390812B469</referencedColumn>
+<table>285A008F-32EC-7546-CAEA-C52432C4FF09</table>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="email" id="D00FE3BE-AC7A-354E-A9CA-7C36407330E4">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:32:32 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<dataType>VARCHAR2 (50)</dataType>
+<reference>false</reference>
+<referencedColumn>5672A4D1-48D4-20BD-20EB-D7F5D11F22DF</referencedColumn>
+<table>285A008F-32EC-7546-CAEA-C52432C4FF09</table>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="name" id="39832485-D674-77BD-C577-991630574D48">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:32:32 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<dataType>VARCHAR2 (30)</dataType>
+<reference>false</reference>
+<referencedColumn>2B7F72AB-DA03-7EA5-5B3F-D69A9D9A1069</referencedColumn>
+<table>285A008F-32EC-7546-CAEA-C52432C4FF09</table>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="nip" id="1DA003EE-460E-DCDD-3922-8E0CC9F5BCE6">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:32:32 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<dataType>NUMBER (10)</dataType>
+<reference>false</reference>
+<referencedColumn>5ABFF6C3-CBC6-09A7-E0F8-991DE48CB3F2</referencedColumn>
+<table>285A008F-32EC-7546-CAEA-C52432C4FF09</table>
+</viewElement>
+</viewElements>
+<usedObjects>
+<UsedObject class="oracle.dbtools.crest.swingui.editor.viewbuilder.SQLNameHelper" id="285A008F-32EC-7546-CAEA-C52432C4FF09">
+<container>true</container>
+<tableName>Clients</tableName>
+</UsedObject>
+<UsedObject class="oracle.dbtools.crest.swingui.editor.viewbuilder.SQLNameHelper" id="EF370C48-6DCE-77BF-939B-8B75C79EBBFB">
+<columnName>client_id</columnName>
+<tableName>Clients</tableName>
+</UsedObject>
+<UsedObject class="oracle.dbtools.crest.swingui.editor.viewbuilder.SQLNameHelper" id="FCECBAC4-BE8F-7902-42F1-A96865CDB2E4">
+<columnName>additional_address</columnName>
+<tableName>Clients</tableName>
+</UsedObject>
+<UsedObject class="oracle.dbtools.crest.swingui.editor.viewbuilder.SQLNameHelper" id="C348F6D9-3542-3172-6EB2-2B5B4A91EFBD">
+<columnName>street</columnName>
+<tableName>Clients</tableName>
+</UsedObject>
+<UsedObject class="oracle.dbtools.crest.swingui.editor.viewbuilder.SQLNameHelper" id="4A664A60-CD46-28FC-60C6-8A75BF063C5E">
+<columnName>building_number</columnName>
+<tableName>Clients</tableName>
+</UsedObject>
+<UsedObject class="oracle.dbtools.crest.swingui.editor.viewbuilder.SQLNameHelper" id="56DFE941-EF81-F28D-F9A6-F290253ED583">
+<columnName>apartment_number</columnName>
+<tableName>Clients</tableName>
+</UsedObject>
+<UsedObject class="oracle.dbtools.crest.swingui.editor.viewbuilder.SQLNameHelper" id="27D6FACA-A5A1-7DAB-52F5-69B1AFC766EA">
+<columnName>postal_code</columnName>
+<tableName>Clients</tableName>
+</UsedObject>
+<UsedObject class="oracle.dbtools.crest.swingui.editor.viewbuilder.SQLNameHelper" id="96837FE4-4C52-0240-16BC-61229AAD542E">
+<columnName>city</columnName>
+<tableName>Clients</tableName>
+</UsedObject>
+<UsedObject class="oracle.dbtools.crest.swingui.editor.viewbuilder.SQLNameHelper" id="611EAEDF-423D-C9A7-1A77-2F390812B469">
+<columnName>phone_number</columnName>
+<tableName>Clients</tableName>
+</UsedObject>
+<UsedObject class="oracle.dbtools.crest.swingui.editor.viewbuilder.SQLNameHelper" id="5672A4D1-48D4-20BD-20EB-D7F5D11F22DF">
+<columnName>email</columnName>
+<tableName>Clients</tableName>
+</UsedObject>
+<UsedObject class="oracle.dbtools.crest.swingui.editor.viewbuilder.SQLNameHelper" id="2B7F72AB-DA03-7EA5-5B3F-D69A9D9A1069">
+<columnName>name</columnName>
+<tableName>Clients</tableName>
+</UsedObject>
+<UsedObject class="oracle.dbtools.crest.swingui.editor.viewbuilder.SQLNameHelper" id="5ABFF6C3-CBC6-09A7-E0F8-991DE48CB3F2">
+<columnName>nip</columnName>
+<tableName>Clients</tableName>
+</UsedObject>
+</usedObjects>
+</TableView>

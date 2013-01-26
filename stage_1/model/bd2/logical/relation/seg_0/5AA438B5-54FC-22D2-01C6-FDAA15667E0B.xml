@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="services_employees" id="5AA438B5-54FC-22D2-01C6-FDAA15667E0B" directorySegmentName="seg_0">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 22:27:02 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<identifying>false</identifying>
+<nameOnSource>is_being_performed</nameOnSource>
+<nameOnTarget>perform</nameOnTarget>
+<optionalSource>false</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>03907334-487B-81F6-FD24-550D33D375DF</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>457971B9-0010-ABED-F308-BE8C271FE3E0</targetEntity>
+<transferable>true</transferable>
+</Relation>

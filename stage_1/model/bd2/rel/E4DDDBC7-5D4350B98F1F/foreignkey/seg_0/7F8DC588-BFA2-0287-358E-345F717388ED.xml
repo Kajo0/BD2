@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" id="7F8DC588-BFA2-0287-358E-345F717388ED" directorySegmentName="seg_0" name="complementations_compl_items">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:39:03 UTC</createdTime>
+<generatorID>626606AE-6E3B-F7EE-F448-99FBFC1F39B2</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<containerWithKeyObject>B0EA5BF9-DAFA-BF15-6549-C570ECEF451D</containerWithKeyObject>
+<deleteRule>CASCADE</deleteRule>
+<localFKIndex>EF8AF02B-35B8-6CDF-7BAA-21572DC3DF16</localFKIndex>
+<keyObject>FBCEF698-8D26-7617-CC47-082BCD51342A</keyObject>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+</FKIndexAssociation>

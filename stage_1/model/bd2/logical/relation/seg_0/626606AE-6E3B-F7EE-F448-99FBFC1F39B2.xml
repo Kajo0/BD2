@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="complementations_compl_items" id="626606AE-6E3B-F7EE-F448-99FBFC1F39B2" directorySegmentName="seg_0">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 22:46:57 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+</engineerTo>
+<identifying>true</identifying>
+<nameOnSource>has</nameOnSource>
+<nameOnTarget>belongs_to</nameOnTarget>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>3A5CA1B4-FFF0-B7F3-94D6-9BE4914D7B95</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>BC2FFCA8-993C-B639-9EEC-01C8D209E32B</targetEntity>
+<transferable>true</transferable>
+</Relation>

@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" id="6EF57CC8-FB73-11FA-2F93-F967C43F4EAF" directorySegmentName="seg_0" name="vehicles_brands">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-30 13:27:19 UTC</createdTime>
+<generatorID>414B806A-CEA5-5CC3-2E41-B43EA9306D92</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<containerWithKeyObject>9B3820FB-856D-2DE5-146E-DF37FA6078F1</containerWithKeyObject>
+<deleteRule>RESTRICT</deleteRule>
+<localFKIndex>38EBEABF-A245-8B77-5A71-FBF4430D167D</localFKIndex>
+<keyObject>A9DC2B0D-1929-3670-1A7B-4E9B6412F02C</keyObject>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+</FKIndexAssociation>

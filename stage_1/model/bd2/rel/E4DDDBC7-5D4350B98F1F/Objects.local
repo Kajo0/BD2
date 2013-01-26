@@ -1,0 +1,34 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.relational.RelationalDesign>
+   <object objectType="Table" objectID="28F0B19D-7DEF-082A-846D-E28EB1791A55" name="Brands" seqName="seg_0"/>
+   <object objectType="Table" objectID="285A008F-32EC-7546-CAEA-C52432C4FF09" name="Clients" seqName="seg_0"/>
+   <object objectType="Table" objectID="B0EA5BF9-DAFA-BF15-6549-C570ECEF451D" name="Complementation_Items" seqName="seg_0"/>
+   <object objectType="Table" objectID="ABCEB189-4236-7D5A-3D19-8AF2D68F8BDE" name="Complementations" seqName="seg_0"/>
+   <object objectType="Table" objectID="C8588D5B-DA85-6B49-DED9-B4B0C0CCC78C" name="Employees" seqName="seg_0"/>
+   <object objectType="Table" objectID="00C6075D-8DE1-F320-B2A8-2A54FB4E9B75" name="Orders" seqName="seg_0"/>
+   <object objectType="Table" objectID="733A6434-B378-CD18-03F4-B57F7E47AB12" name="Part_Types" seqName="seg_0"/>
+   <object objectType="Table" objectID="E6273D24-C33D-58FC-DE77-3CB9D81CEB16" name="Parts" seqName="seg_0"/>
+   <object objectType="Table" objectID="7C1B0698-C1A6-8A31-9E9A-2AF266D019F7" name="Positions" seqName="seg_0"/>
+   <object objectType="Table" objectID="9C77F885-53CD-96D4-86B0-A57A3C9BFB77" name="Providers" seqName="seg_0"/>
+   <object objectType="Table" objectID="E674F677-971D-FA13-72EF-3D9B8DD098EB" name="Service_Types" seqName="seg_0"/>
+   <object objectType="Table" objectID="0BF6908C-9DCC-5B2A-4E52-0B6762D318DE" name="Services" seqName="seg_0"/>
+   <object objectType="Table" objectID="9B3820FB-856D-2DE5-146E-DF37FA6078F1" name="Vehicles" seqName="seg_0"/>
+   <object objectType="Table" objectID="3E1BFD3C-49C7-731D-BECF-A519C26F4760" name="services_parts" seqName="seg_0"/>
+   <object objectType="View" objectID="A854070B-038E-F767-7F92-7125F4370E11" name="Companies" seqName="seg_0"/>
+   <object objectType="View" objectID="A5F710C7-8124-1311-F52D-69A08379E802" name="Persons" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="4E23B983-3D35-FF02-9DD6-B330B9F1166E" name="FK_ASS_13" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="CBB4247C-1C31-8791-299C-D98D3B5EC4DF" name="FK_ASS_14" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="508E0399-6247-3855-CC4E-BC428AC39A40" name="clients_orders" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="39821819-EAAC-B95B-025D-D23B99D1C881" name="clients_vehicles" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="7F8DC588-BFA2-0287-358E-345F717388ED" name="complementations_compl_items" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="833A884E-7534-1A63-F1A0-B62BBE56D711" name="employees_positions" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="8EBC94D8-50E0-6237-39BF-3BB95AD68987" name="orders_service_types" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="2D38A692-92FE-B636-16FF-3F360D5EE4CE" name="orders_services" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="2D402233-5BBF-F644-F8E5-4F7FDA9D7A19" name="orders_services" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="0166B646-C190-493D-1ADF-6228158C8850" name="orders_vehicles" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="929EAF41-8256-6381-0B3A-AA35761A8A51" name="parts_complementation_items" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="8493F5D1-569A-120D-6A20-E2821598DA9D" name="parts_part_types" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="B47226D7-0BC1-5294-232B-831DEC337AE6" name="providers_complementations" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="568038A3-DDF6-30FD-8C29-94C645BF0CE1" name="services_employees" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="6EF57CC8-FB73-11FA-2F93-F967C43F4EAF" name="vehicles_brands" seqName="seg_0"/>
+</oracle.dbtools.crest.model.design.relational.RelationalDesign>

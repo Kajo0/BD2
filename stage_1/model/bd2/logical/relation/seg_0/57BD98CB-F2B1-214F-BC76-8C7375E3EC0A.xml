@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="orders_service_types" id="57BD98CB-F2B1-214F-BC76-8C7375E3EC0A" directorySegmentName="seg_0">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 21:32:59 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<identifying>false</identifying>
+<nameOnSource>refers_to</nameOnSource>
+<nameOnTarget>belongs_to</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>CCEC4540-11BA-A1AA-5FC3-D66C72AAE4A7</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>7EA99769-314F-FD35-E251-993705C6B91E</targetEntity>
+<transferable>true</transferable>
+</Relation>

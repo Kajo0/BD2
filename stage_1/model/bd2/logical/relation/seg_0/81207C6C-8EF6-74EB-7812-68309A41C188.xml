@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="services_parts" id="81207C6C-8EF6-74EB-7812-68309A41C188" directorySegmentName="seg_0">
+<createdBy>Kajo</createdBy>
+<createdTime>2012-12-29 22:28:34 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+</engineerTo>
+<identifying>false</identifying>
+<nameOnSource>has_been_used</nameOnSource>
+<nameOnTarget>using</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>A995513A-BC00-ABD5-975E-B69C3D6EFC98</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>03907334-487B-81F6-FD24-550D33D375DF</targetEntity>
+<transferable>true</transferable>
+</Relation>
