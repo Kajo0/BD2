@@ -141,23 +141,6 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column class="oracle.dbtools.crest.model.design.relational.Column" name="service_id" id="9995087C-5B66-BA15-2503-5ADFA540A660">
-<createdBy>Kajo</createdBy>
-<createdTime>2012-12-30 13:27:19 UTC</createdTime>
-<generatorID>C8CF8F3F-4826-51EB-FE1A-7B4EFAD6B2A9</generatorID>
-<ownerDesignName>bd2</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>5</dataTypePrecision>
-<dataTypeScale>0</dataTypeScale>
-<delegate>582C9C2E-B4AF-1786-EE61-3E743E93E2BB</delegate>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="2D402233-5BBF-F644-F8E5-4F7FDA9D7A19" referredColumn="582C9C2E-B4AF-1786-EE61-3E743E93E2BB"/>
-</associations>
-</Column>
 </columns>
 <indexes>
 <ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="F888349B-8BEB-93D0-471C-94F10DD99C48" name="Order PK">
@@ -169,15 +152,6 @@
 <indexState>Primary Constraint</indexState>
 <indexColumnUsage>
 <colUsage columnID="906DE6B4-635F-96F8-F6AF-EEFE66E48609"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="5C4CDDA7-9706-B9BE-FBF5-470A5DC8511D" name="Order__IDX">
-<createdBy>Kajo</createdBy>
-<createdTime>2012-12-30 13:27:19 UTC</createdTime>
-<ownerDesignName>bd2</ownerDesignName>
-<indexState>Unique Plain Index</indexState>
-<indexColumnUsage>
-<colUsage columnID="9995087C-5B66-BA15-2503-5ADFA540A660"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="1A93EC4C-5CAA-5921-F95D-E7B642E05113" name="clients_orders">
@@ -198,16 +172,6 @@
 <indexState>Foreign Key</indexState>
 <indexColumnUsage>
 <colUsage columnID="9F6C6BBD-8FCF-ABD2-B768-F5AC852736E7"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="AD16CF1B-359C-9ECC-17C3-2468A944F644" name="orders_services">
-<createdBy>Kajo</createdBy>
-<createdTime>2012-12-30 13:27:19 UTC</createdTime>
-<generatorID>1B31B2B2-58A1-F2B3-64EE-A25A13760424</generatorID>
-<ownerDesignName>bd2</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<indexColumnUsage>
-<colUsage columnID="9995087C-5B66-BA15-2503-5ADFA540A660"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="ECA2B8D7-AB8F-4A00-50D7-CA7EE4453222" name="orders_vehicles">

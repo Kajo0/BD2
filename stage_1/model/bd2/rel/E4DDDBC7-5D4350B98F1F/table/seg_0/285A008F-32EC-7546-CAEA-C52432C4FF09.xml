@@ -113,9 +113,8 @@
 <ownerDesignName>bd2</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>5</dataTypePrecision>
-<dataTypeScale>0</dataTypeScale>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5</dataTypeSize>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -236,7 +235,7 @@
 <colUsage columnID="EF370C48-6DCE-77BF-939B-8B75C79EBBFB"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="3DE8C27F-E9EA-68CB-65FC-0E275F9EA596" name="Key_2">
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="3DE8C27F-E9EA-68CB-65FC-0E275F9EA596" name="Key_2a">
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-30 13:27:19 UTC</createdTime>
 <generatorID>938063BB-21D2-3C5C-F3BC-36771C9AD877</generatorID>
@@ -266,7 +265,7 @@
 <colUsage columnID="1BC40941-661B-6476-CB72-C6E91ABF3B75"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9F9E1AB3-A1A4-E928-06EB-17BA9178325B" name="Key_1">
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9F9E1AB3-A1A4-E928-06EB-17BA9178325B" name="Key_1v1">
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-30 13:27:19 UTC</createdTime>
 <generatorID>9016FC2B-A41E-8B3A-C0CC-841C7900CFE1</generatorID>

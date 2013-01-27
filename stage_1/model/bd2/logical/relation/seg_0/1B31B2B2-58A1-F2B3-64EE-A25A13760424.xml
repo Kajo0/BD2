@@ -4,12 +4,12 @@
 <createdTime>2012-12-29 22:27:38 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="4538BE12-8D21-6A34-B3B7-6D98A444DB8F" value="true"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <identifying>false</identifying>
 <nameOnSource>has_realization</nameOnSource>
 <nameOnTarget>refers_to</nameOnTarget>
-<optionalSource>false</optionalSource>
+<optionalSource>true</optionalSource>
 <optionalTarget>false</optionalTarget>
 <sourceCardinality>1</sourceCardinality>
 <sourceEntity>7EA99769-314F-FD35-E251-993705C6B91E</sourceEntity>

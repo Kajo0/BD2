@@ -3,9 +3,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-29 21:02:38 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <pkName>Part_Type PK</pkName>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -56,9 +55,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-29 23:39:53 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -71,9 +69,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-29 23:40:09 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

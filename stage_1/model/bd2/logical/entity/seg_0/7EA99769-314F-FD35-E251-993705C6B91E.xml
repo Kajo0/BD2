@@ -3,9 +3,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-29 20:58:35 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <pkName>Order PK</pkName>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -57,9 +56,8 @@
 <createdTime>2012-12-29 22:58:02 UTC</createdTime>
 <generatorID>5AF95AF5-32D4-1A9D-01B0-4EB38766B219</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <referedAttribute>8A5463FE-D288-2513-6548-D8ABFC803106</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -73,9 +71,8 @@
 <createdTime>2012-12-29 23:43:11 UTC</createdTime>
 <generatorID>57BD98CB-F2B1-214F-BC76-8C7375E3EC0A</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <referedAttribute>AF612A2C-253C-EB1C-66C9-1A2B01A4F8C2</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -88,9 +85,8 @@
 <createdTime>2012-12-29 23:48:33 UTC</createdTime>
 <generatorID>D076B001-4FB6-09A5-3B4F-638707BBCD7C</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <referedAttribute>1BB0306B-2AB7-0FB2-3F8D-128D912B4380</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -103,9 +99,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-29 23:52:44 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -117,9 +112,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-29 23:52:55 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -129,9 +123,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-29 23:53:06 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -143,9 +136,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-29 23:53:59 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -153,30 +145,14 @@
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>1000</dataTypeSize>
 </Attribute>
-<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="service_id" id="C8CF8F3F-4826-51EB-FE1A-7B4EFAD6B2A9">
-<createdBy>Kajo</createdBy>
-<createdTime>2012-12-30 00:02:56 UTC</createdTime>
-<generatorID>1B31B2B2-58A1-F2B3-64EE-A25A13760424</generatorID>
-<ownerDesignName>bd2</ownerDesignName>
-<engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
-</engineerTo>
-<referedAttribute>8E33B3CB-0104-CEFB-A7A1-4A61FBB76A18</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>5</dataTypePrecision>
-<dataTypeScale>0</dataTypeScale>
-</Attribute>
 </attributes>
 <identifiers>
 <identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="D9D018BE-416D-B535-00C5-1A1207A4C810" name="Order PK">
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-29 23:52:54 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

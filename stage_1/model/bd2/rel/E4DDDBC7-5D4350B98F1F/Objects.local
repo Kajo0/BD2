@@ -24,7 +24,6 @@
    <object objectType="FKIndexAssociation" objectID="833A884E-7534-1A63-F1A0-B62BBE56D711" name="employees_positions" seqName="seg_0"/>
    <object objectType="FKIndexAssociation" objectID="8EBC94D8-50E0-6237-39BF-3BB95AD68987" name="orders_service_types" seqName="seg_0"/>
    <object objectType="FKIndexAssociation" objectID="2D38A692-92FE-B636-16FF-3F360D5EE4CE" name="orders_services" seqName="seg_0"/>
-   <object objectType="FKIndexAssociation" objectID="2D402233-5BBF-F644-F8E5-4F7FDA9D7A19" name="orders_services" seqName="seg_0"/>
    <object objectType="FKIndexAssociation" objectID="0166B646-C190-493D-1ADF-6228158C8850" name="orders_vehicles" seqName="seg_0"/>
    <object objectType="FKIndexAssociation" objectID="929EAF41-8256-6381-0B3A-AA35761A8A51" name="parts_complementation_items" seqName="seg_0"/>
    <object objectType="FKIndexAssociation" objectID="8493F5D1-569A-120D-6A20-E2821598DA9D" name="parts_part_types" seqName="seg_0"/>

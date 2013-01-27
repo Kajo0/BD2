@@ -3,9 +3,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-29 22:26:10 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <pkName>Service PK</pkName>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -56,9 +55,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-30 00:02:47 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -86,9 +84,8 @@
 <createdTime>2012-12-29 23:59:02 UTC</createdTime>
 <generatorID>5AA438B5-54FC-22D2-01C6-FDAA15667E0B</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <referedAttribute>A9DDB27B-8E0D-DA0B-BBD3-3EF844E24E40</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -101,9 +98,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-29 23:59:45 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -113,9 +109,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-30 00:00:17 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -126,9 +121,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-30 00:49:33 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -140,9 +134,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-30 00:02:12 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -156,9 +149,8 @@
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-30 00:02:53 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="false"/>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

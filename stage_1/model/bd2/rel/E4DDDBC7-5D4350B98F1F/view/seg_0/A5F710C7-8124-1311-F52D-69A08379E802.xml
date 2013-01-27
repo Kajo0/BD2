@@ -81,7 +81,7 @@
 <createdTime>2012-12-30 13:32:11 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<dataType>NUMBER (5)</dataType>
+<dataType>VARCHAR2 (5)</dataType>
 <reference>false</reference>
 <referencedColumn>27D6FACA-A5A1-7DAB-52F5-69B1AFC766EA</referencedColumn>
 <table>285A008F-32EC-7546-CAEA-C52432C4FF09</table>

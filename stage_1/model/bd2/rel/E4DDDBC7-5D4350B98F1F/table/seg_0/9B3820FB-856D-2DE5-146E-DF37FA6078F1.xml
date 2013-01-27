@@ -137,7 +137,7 @@
 <colUsage columnID="FBC0DB8B-EEE6-5C76-9B15-A46FB8B7DD15"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="76410089-D57C-EE15-89C7-4DCBB9186885" name="Key_2">
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="76410089-D57C-EE15-89C7-4DCBB9186885" name="Key_2f">
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-30 13:27:19 UTC</createdTime>
 <generatorID>6DECB33C-14EA-FA74-ECFC-162550EEC832</generatorID>
