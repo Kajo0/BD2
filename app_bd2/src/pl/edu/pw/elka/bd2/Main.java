@@ -18,10 +18,10 @@ public class Main {
 		System.out.println("Hello BD2!");
 
 		new AppWindow();
-		// List<Brand> brands = DBManager.run(new Query() {
-		// public void prepareQuery(PreparedStatement ps) throws Exception {
-		// }
-		// }, DBManager.brandConverter, "select * from brands");
+//		 List<Brand> brands = DBManager.run(new Query() {
+//		 public void prepareQuery(PreparedStatement ps) throws Exception {
+//		 }
+//		 }, DBManager.brandConverter, "select * from brands");
 		//
 		// for (Brand e : brands) {
 		// System.out.println(e);

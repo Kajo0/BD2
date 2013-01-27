@@ -7,11 +7,18 @@ public class Client {
 	protected String street;
 	protected int buildingNumber;
 	protected int apartmentNumber;
-	protected int postalCode;
+	protected String postalCode;
 	protected String city;
 	protected String phoneNumber;
 	protected String email;
 
+	private String firstName;
+	private String lastName;
+	private String pesel;
+	
+	private String name;
+	private long nip;
+	
 	public Client() {
 
 	}
@@ -27,6 +34,13 @@ public class Client {
 		str.append("\tCity: " + city);
 		str.append("\tPhoneNumber: " + phoneNumber);
 		str.append("\tEmail: " + email);
+		
+		str.append("\tFirstName: " + firstName);
+		str.append("\tLastName: " + lastName);
+		str.append("\tPESEL: " + pesel);
+		
+		str.append("\tName: " + name);
+		str.append("\tNIP: " + nip);
 
 		return str.toString();
 	}
@@ -71,11 +85,11 @@ public class Client {
 		this.apartmentNumber = apartmentNumber;
 	}
 
-	public int getPostalCode() {
+	public String getPostalCode() {
 		return postalCode;
 	}
 
-	public void setPostalCode(int postalCode) {
+	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 
@@ -101,6 +115,46 @@ public class Client {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPesel() {
+		return pesel;
+	}
+
+	public void setPesel(String pesel) {
+		this.pesel = pesel;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public long getNip() {
+		return nip;
+	}
+
+	public void setNip(long nip) {
+		this.nip = nip;
 	}
 
 }

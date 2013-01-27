@@ -1,18 +1,303 @@
 package pl.edu.pw.elka.bd2.views;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
+import pl.edu.pw.elka.bd2.DBManager;
+import pl.edu.pw.elka.bd2.Query;
+import pl.edu.pw.elka.bd2.Task;
+import pl.edu.pw.elka.bd2.models.Brand;
+import pl.edu.pw.elka.bd2.models.Client;
+import pl.edu.pw.elka.bd2.models.Company;
+import pl.edu.pw.elka.bd2.models.Order;
+import pl.edu.pw.elka.bd2.models.Person;
+import pl.edu.pw.elka.bd2.models.Vehicle;
 
 public class AppWindow extends JFrame {
+
+	private Order order = null;
+
+	private Connection connection = null;
+
+	private static int STATE = 10;
+	private static int PREV_STATE = 10;
+
+	public static final int JUST_ADD_CLIENT = 0;
+	public static final int JUST_SHOW_CLIENTS = 1;
+	public static final int JUST_ADD_VEHICLE = 2;
+	public static final int JUST_SHOW_VEHICLES = 3;
+
+	public static final int ADD_ORDER_CHOOSE_CLIENT = 4;
+	public static final int ADD_ORDER_ADD_CLIENT = 5;
+	public static final int ADD_ORDER_CHOOSE_VEHICLE = 6;
+	public static final int ADD_ORDER_ADD_VEHICLE = 7;
+	public static final int ADD_ORDER_COST_THINGS = 8;
+	public static final int ADD_ORDER_FINALIZATION = 9;
+
+	public static final int SHOW_ORDERS = 10;
 
 	/**
 	 * Creates new form MainFrame
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public AppWindow() {
 		initComponents();
 
 		setVisible(true);
 		setResizable(false);
 		setLocation(450, 150);
+
+		this.topPanel.setLayout(new BorderLayout());
+		this.leftPanel.setLayout(new BorderLayout());
+
+		changeTopPanel(this.emptyTop);
+		changeLeftPanel(this.orderTablePanel);
+
+		this.companyPanel.setVisible(false);
+
+		List<Brand> brands = DBManager.run(new Query() {
+			public void prepareQuery(PreparedStatement ps) throws Exception {
+			}
+		}, DBManager.brandConverter, "select * from brands");
+
+		LinkedList<String> brnds = new LinkedList<>();
+		brnds.add("Dowolna");
+		for (Brand e : brands)
+			brnds.add(e.getBrand());
+
+		findByBrandCombo.setModel(new javax.swing.DefaultComboBoxModel(brnds
+				.toArray()));
+
+		brnds.pollFirst();
+		brand.setModel(new javax.swing.DefaultComboBoxModel(brnds.toArray()));
+	}
+
+	/**
+	 * What is visible
+	 * 
+	 * @param nextState
+	 */
+	@SuppressWarnings("unchecked")
+	public void changeState(int nextState) {
+		switch (nextState) {
+		case JUST_ADD_CLIENT:
+			try {
+				if (this.connection != null)
+					this.connection.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			changeTopPanel(this.emptyTop);
+			changeLeftPanel(this.addClientPanel);
+
+			this.addClientButton.setVisible(false);
+			this.addVehicleButton.setVisible(false);
+			this.saveButton.setVisible(true);
+			this.nextButton.setVisible(false);
+			this.cancelButton.setVisible(false);
+
+			break;
+		case JUST_SHOW_CLIENTS:
+			try {
+				if (this.connection != null)
+					this.connection.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			changeTopPanel(this.findClient);
+			changeLeftPanel(this.clientTablePanel);
+
+			this.addClientButton.setVisible(false);
+			this.addVehicleButton.setVisible(false);
+			this.saveButton.setVisible(false);
+			this.nextButton.setVisible(false);
+			this.cancelButton.setVisible(false);
+
+			getClientsToTable();
+
+			break;
+		case JUST_ADD_VEHICLE:
+			try {
+				if (this.connection != null)
+					this.connection.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			changeTopPanel(this.findClient);
+			changeLeftPanel(this.addVehicle);
+
+			this.addClientButton.setVisible(false);
+			this.addVehicleButton.setVisible(false);
+			this.saveButton.setVisible(true);
+			this.nextButton.setVisible(false);
+			this.cancelButton.setVisible(false);
+
+			List<Client> clients = DBManager.run(new Query() {
+				public void prepareQuery(PreparedStatement ps) throws Exception {
+				}
+			}, DBManager.clientConverter, "select * from clients");
+
+			this.client.removeAllItems();
+			for (Client c : clients)
+				this.client
+						.addItem(new Item(c.getClientId(),
+								(c.getFirstName() != null ? c.getFirstName()
+										+ " " : "")
+										+ (c.getLastName() != null ? c
+												.getLastName() + " " : "")
+										+ (c.getName() != null ? c.getName()
+												: "")));
+
+			break;
+		case JUST_SHOW_VEHICLES:
+			try {
+				if (this.connection != null)
+					this.connection.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			changeTopPanel(this.findVehicle);
+			changeLeftPanel(this.vehicleTablePanel);
+
+			this.addClientButton.setVisible(false);
+			this.addVehicleButton.setVisible(false);
+			this.saveButton.setVisible(false);
+			this.nextButton.setVisible(false);
+			this.cancelButton.setVisible(false);
+
+			getVehiclesToTable();
+
+			break;
+		case SHOW_ORDERS:
+			try {
+				if (this.connection != null)
+					this.connection.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			changeTopPanel(this.emptyTop);
+			changeLeftPanel(this.orderTablePanel);
+
+			this.addClientButton.setVisible(false);
+			this.addVehicleButton.setVisible(false);
+			this.saveButton.setVisible(false);
+			this.nextButton.setVisible(false);
+			this.cancelButton.setVisible(false);
+
+			break;
+		case ADD_ORDER_CHOOSE_CLIENT:
+			try {
+				if (this.connection != null)
+					this.connection.rollback();
+
+				// Start transaction
+				this.connection = DBManager.getConnection();
+				this.connection.setAutoCommit(false);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			changeTopPanel(this.findClient);
+			changeLeftPanel(this.clientTablePanel);
+
+			this.addClientButton.setVisible(true);
+			this.addVehicleButton.setVisible(false);
+			this.saveButton.setVisible(false);
+			this.nextButton.setVisible(true);
+			this.cancelButton.setVisible(false);
+
+			break;
+		case ADD_ORDER_ADD_CLIENT:
+			changeTopPanel(this.emptyTop);
+			changeLeftPanel(this.addClientPanel);
+
+			this.addClientButton.setVisible(false);
+			this.addVehicleButton.setVisible(false);
+			this.saveButton.setVisible(false);
+			this.nextButton.setVisible(true);
+			this.cancelButton.setVisible(true);
+
+			break;
+		case ADD_ORDER_CHOOSE_VEHICLE:
+			changeTopPanel(this.findVehicle);
+			changeLeftPanel(this.vehicleTablePanel);
+
+			this.addClientButton.setVisible(false);
+			this.addVehicleButton.setVisible(true);
+			this.saveButton.setVisible(false);
+			this.nextButton.setVisible(true);
+			this.cancelButton.setVisible(true);
+
+			break;
+		case ADD_ORDER_ADD_VEHICLE:
+			changeTopPanel(this.emptyTop);
+			changeLeftPanel(this.addVehicle);
+
+			this.addClientButton.setVisible(false);
+			this.addVehicleButton.setVisible(false);
+			this.saveButton.setVisible(false);
+			this.nextButton.setVisible(true);
+			this.cancelButton.setVisible(true);
+
+			break;
+		case ADD_ORDER_COST_THINGS:
+			changeTopPanel(this.emptyTop);
+			changeLeftPanel(this.finalizationPanel);
+
+			this.addClientButton.setVisible(false);
+			this.addVehicleButton.setVisible(false);
+			this.saveButton.setVisible(true);
+			this.nextButton.setVisible(false);
+			this.cancelButton.setVisible(true);
+
+			break;
+		}
+
+		PREV_STATE = STATE;
+		STATE = nextState;
+	}
+
+	public void changeLeftPanel(JPanel another) {
+		this.leftPanel.removeAll();
+		this.leftPanel.add(another);
+
+		revalidate();
+	}
+
+	public void changeTopPanel(JPanel another) {
+		this.topPanel.removeAll();
+		this.topPanel.add(another);
+
+		revalidate();
 	}
 
 	/**
@@ -25,22 +310,22 @@ public class AppWindow extends JFrame {
 	private void initComponents() {
 
 		findClient = new javax.swing.JPanel();
-		jTextField1 = new javax.swing.JTextField();
+		findClientTextField = new javax.swing.JTextField();
 		jButton1 = new javax.swing.JButton();
-		jRadioButton1 = new javax.swing.JRadioButton();
-		jRadioButton2 = new javax.swing.JRadioButton();
+		findClientPersonRadio = new javax.swing.JRadioButton();
+		findClientCompanyRadio = new javax.swing.JRadioButton();
 		buttonGroup1 = new javax.swing.ButtonGroup();
 		findVehicle = new javax.swing.JPanel();
-		jTextField2 = new javax.swing.JTextField();
+		findByBrandTextField = new javax.swing.JTextField();
 		jButton2 = new javax.swing.JButton();
-		jComboBox1 = new javax.swing.JComboBox();
+		findByBrandCombo = new javax.swing.JComboBox();
 		jLabel1 = new javax.swing.JLabel();
-		vehicleTable = new javax.swing.JPanel();
+		vehicleTablePanel = new javax.swing.JPanel();
 		jScrollPane1 = new javax.swing.JScrollPane();
-		jTable1 = new javax.swing.JTable();
-		clientTable = new javax.swing.JPanel();
+		vehicleTable = new javax.swing.JTable();
+		clientTablePanel = new javax.swing.JPanel();
 		jScrollPane2 = new javax.swing.JScrollPane();
-		jTable2 = new javax.swing.JTable();
+		clientTable = new javax.swing.JTable();
 		addClientPanel = new javax.swing.JPanel();
 		personRadio = new javax.swing.JRadioButton();
 		companyRadio = new javax.swing.JRadioButton();
@@ -91,6 +376,23 @@ public class AppWindow extends JFrame {
 		jLabel19 = new javax.swing.JLabel();
 		jLabel20 = new javax.swing.JLabel();
 		jLabel21 = new javax.swing.JLabel();
+		vehicleType = new javax.swing.JTextField();
+		jLabel27 = new javax.swing.JLabel();
+		emptyTop = new javax.swing.JPanel();
+		finalizationPanel = new javax.swing.JPanel();
+		finalClientLabel = new javax.swing.JLabel();
+		finalVehicleLabel = new javax.swing.JLabel();
+		finalServiceLabel = new javax.swing.JLabel();
+		finalCostLabel = new javax.swing.JLabel();
+		finalNoteLabel = new javax.swing.JLabel();
+		jLabel22 = new javax.swing.JLabel();
+		jLabel23 = new javax.swing.JLabel();
+		jLabel24 = new javax.swing.JLabel();
+		jLabel25 = new javax.swing.JLabel();
+		jLabel26 = new javax.swing.JLabel();
+		orderTablePanel = new javax.swing.JPanel();
+		jScrollPane5 = new javax.swing.JScrollPane();
+		orderTable = new javax.swing.JTable();
 		topPanel = new javax.swing.JPanel();
 		leftPanel = new javax.swing.JPanel();
 		buttons = new javax.swing.JPanel();
@@ -110,6 +412,9 @@ public class AppWindow extends JFrame {
 		jMenuItem5 = new javax.swing.JMenuItem();
 		jMenuItem6 = new javax.swing.JMenuItem();
 
+		findClient.setMaximumSize(new java.awt.Dimension(663, 100));
+		findClient.setMinimumSize(new java.awt.Dimension(663, 100));
+
 		jButton1.setText("Szukaj");
 		jButton1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,12 +422,12 @@ public class AppWindow extends JFrame {
 			}
 		});
 
-		buttonGroup1.add(jRadioButton1);
-		jRadioButton1.setSelected(true);
-		jRadioButton1.setText("Osoby fizyczne");
+		buttonGroup1.add(findClientPersonRadio);
+		findClientPersonRadio.setSelected(true);
+		findClientPersonRadio.setText("Osoby fizyczne");
 
-		buttonGroup1.add(jRadioButton2);
-		jRadioButton2.setText("Firmy");
+		buttonGroup1.add(findClientCompanyRadio);
+		findClientCompanyRadio.setText("Firmy");
 
 		javax.swing.GroupLayout findClientLayout = new javax.swing.GroupLayout(
 				findClient);
@@ -143,17 +448,17 @@ public class AppWindow extends JFrame {
 																findClientLayout
 																		.createSequentialGroup()
 																		.addComponent(
-																				jRadioButton1)
+																				findClientPersonRadio)
 																		.addGap(18,
 																				18,
 																				18)
 																		.addComponent(
-																				jRadioButton2))
+																				findClientCompanyRadio))
 														.addGroup(
 																findClientLayout
 																		.createSequentialGroup()
 																		.addComponent(
-																				jTextField1,
+																				findClientTextField,
 																				javax.swing.GroupLayout.PREFERRED_SIZE,
 																				200,
 																				javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,7 +467,7 @@ public class AppWindow extends JFrame {
 																				18)
 																		.addComponent(
 																				jButton1)))
-										.addContainerGap(297, Short.MAX_VALUE)));
+										.addContainerGap(372, Short.MAX_VALUE)));
 		findClientLayout
 				.setVerticalGroup(findClientLayout
 						.createParallelGroup(
@@ -176,7 +481,7 @@ public class AppWindow extends JFrame {
 														.createParallelGroup(
 																javax.swing.GroupLayout.Alignment.BASELINE)
 														.addComponent(
-																jTextField1,
+																findClientTextField,
 																javax.swing.GroupLayout.PREFERRED_SIZE,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
 																javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,10 +492,13 @@ public class AppWindow extends JFrame {
 														.createParallelGroup(
 																javax.swing.GroupLayout.Alignment.BASELINE)
 														.addComponent(
-																jRadioButton1)
+																findClientPersonRadio)
 														.addComponent(
-																jRadioButton2))
+																findClientCompanyRadio))
 										.addContainerGap(25, Short.MAX_VALUE)));
+
+		findVehicle.setMaximumSize(new java.awt.Dimension(663, 100));
+		findVehicle.setMinimumSize(new java.awt.Dimension(663, 100));
 
 		jButton2.setText("Szukaj");
 		jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -199,13 +507,8 @@ public class AppWindow extends JFrame {
 			}
 		});
 
-		jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] {
-				"Dowolna", "Item 2", "Item 3", "Item 4" }));
-		jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jComboBox1ActionPerformed(evt);
-			}
-		});
+		findByBrandCombo.setModel(new javax.swing.DefaultComboBoxModel(
+				new String[] { "Dowolna", "Item 2", "Item 3", "Item 4" }));
 
 		jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 		jLabel1.setText("Marka");
@@ -238,18 +541,18 @@ public class AppWindow extends JFrame {
 																				18,
 																				18)
 																		.addComponent(
-																				jComboBox1,
+																				findByBrandCombo,
 																				0,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
 																				Short.MAX_VALUE))
 														.addComponent(
-																jTextField2,
+																findByBrandTextField,
 																javax.swing.GroupLayout.PREFERRED_SIZE,
 																200,
 																javax.swing.GroupLayout.PREFERRED_SIZE))
 										.addGap(18, 18, 18)
 										.addComponent(jButton2)
-										.addContainerGap(297, Short.MAX_VALUE)));
+										.addContainerGap(372, Short.MAX_VALUE)));
 		findVehicleLayout
 				.setVerticalGroup(findVehicleLayout
 						.createParallelGroup(
@@ -263,7 +566,7 @@ public class AppWindow extends JFrame {
 														.createParallelGroup(
 																javax.swing.GroupLayout.Alignment.BASELINE)
 														.addComponent(
-																jTextField2,
+																findByBrandTextField,
 																javax.swing.GroupLayout.PREFERRED_SIZE,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
 																javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,49 +578,58 @@ public class AppWindow extends JFrame {
 														.createParallelGroup(
 																javax.swing.GroupLayout.Alignment.BASELINE)
 														.addComponent(
-																jComboBox1,
+																findByBrandCombo,
 																javax.swing.GroupLayout.PREFERRED_SIZE,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
 																javax.swing.GroupLayout.PREFERRED_SIZE)
 														.addComponent(jLabel1))
 										.addContainerGap(35, Short.MAX_VALUE)));
 
-		jTable1.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] {
+		vehicleTablePanel.setMaximumSize(new java.awt.Dimension(495, 295));
+		vehicleTablePanel.setMinimumSize(new java.awt.Dimension(495, 295));
 
-				},
-				new String[] { "ID", "VIN", "Data produkcji", "Typ", "Marka" }) {
-			Class[] types = new Class[] { java.lang.Integer.class,
-					java.lang.String.class, java.lang.Object.class,
-					java.lang.String.class, java.lang.String.class };
-			boolean[] canEdit = new boolean[] { false, false, false, false,
-					false };
+		vehicleTable
+				.setModel(new javax.swing.table.DefaultTableModel(
+						new Object[][] {
 
-			public Class getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
+						}, new String[] { "ID", "VIN", "Data produkcji", "Typ",
+								"Marka" }) {
+					Class[] types = new Class[] { java.lang.Integer.class,
+							java.lang.String.class, java.lang.Object.class,
+							java.lang.String.class, java.lang.String.class };
+					boolean[] canEdit = new boolean[] { false, false, false,
+							false, false };
 
-			public boolean isCellEditable(int rowIndex, int columnIndex) {
-				return canEdit[columnIndex];
-			}
-		});
-		jScrollPane1.setViewportView(jTable1);
+					public Class getColumnClass(int columnIndex) {
+						return types[columnIndex];
+					}
 
-		javax.swing.GroupLayout vehicleTableLayout = new javax.swing.GroupLayout(
-				vehicleTable);
-		vehicleTable.setLayout(vehicleTableLayout);
-		vehicleTableLayout.setHorizontalGroup(vehicleTableLayout
+					public boolean isCellEditable(int rowIndex, int columnIndex) {
+						return canEdit[columnIndex];
+					}
+				});
+		vehicleTable
+				.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+		jScrollPane1.setViewportView(vehicleTable);
+
+		javax.swing.GroupLayout vehicleTablePanelLayout = new javax.swing.GroupLayout(
+				vehicleTablePanel);
+		vehicleTablePanel.setLayout(vehicleTablePanelLayout);
+		vehicleTablePanelLayout.setHorizontalGroup(vehicleTablePanelLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addComponent(jScrollPane1,
 						javax.swing.GroupLayout.DEFAULT_SIZE, 495,
 						Short.MAX_VALUE));
-		vehicleTableLayout.setVerticalGroup(vehicleTableLayout
+		vehicleTablePanelLayout.setVerticalGroup(vehicleTablePanelLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addComponent(jScrollPane1,
 						javax.swing.GroupLayout.DEFAULT_SIZE, 295,
 						Short.MAX_VALUE));
 
-		jTable2.setModel(new javax.swing.table.DefaultTableModel(
+		clientTablePanel.setMaximumSize(new java.awt.Dimension(495, 295));
+		clientTablePanel.setMinimumSize(new java.awt.Dimension(495, 295));
+
+		clientTable.setModel(new javax.swing.table.DefaultTableModel(
 				new Object[][] {
 
 				}, new String[] { "ID", "Adres", "Telefon", "E-mail", "Dane",
@@ -337,21 +649,26 @@ public class AppWindow extends JFrame {
 				return canEdit[columnIndex];
 			}
 		});
-		jScrollPane2.setViewportView(jTable2);
+		clientTable
+				.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+		jScrollPane2.setViewportView(clientTable);
 
-		javax.swing.GroupLayout clientTableLayout = new javax.swing.GroupLayout(
-				clientTable);
-		clientTable.setLayout(clientTableLayout);
-		clientTableLayout.setHorizontalGroup(clientTableLayout
+		javax.swing.GroupLayout clientTablePanelLayout = new javax.swing.GroupLayout(
+				clientTablePanel);
+		clientTablePanel.setLayout(clientTablePanelLayout);
+		clientTablePanelLayout.setHorizontalGroup(clientTablePanelLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addComponent(jScrollPane2,
 						javax.swing.GroupLayout.DEFAULT_SIZE, 495,
 						Short.MAX_VALUE));
-		clientTableLayout.setVerticalGroup(clientTableLayout
+		clientTablePanelLayout.setVerticalGroup(clientTablePanelLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addComponent(jScrollPane2,
 						javax.swing.GroupLayout.DEFAULT_SIZE, 295,
 						Short.MAX_VALUE));
+
+		addClientPanel.setMaximumSize(new java.awt.Dimension(495, 302));
+		addClientPanel.setMinimumSize(new java.awt.Dimension(495, 302));
 
 		buttonGroup2.add(personRadio);
 		personRadio.setSelected(true);
@@ -373,6 +690,7 @@ public class AppWindow extends JFrame {
 		additionalAddress.setColumns(5);
 		additionalAddress.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
 		additionalAddress.setRows(2);
+		additionalAddress.setMinimumSize(new java.awt.Dimension(4, 25));
 		jScrollPane3.setViewportView(additionalAddress);
 
 		street.setText("Ulica");
@@ -410,13 +728,18 @@ public class AppWindow extends JFrame {
 		jLabel9.setText("Telefon");
 
 		companyPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+		companyPanel.setMaximumSize(new java.awt.Dimension(152, 72));
+		companyPanel.setMinimumSize(new java.awt.Dimension(152, 72));
 
 		jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 		jLabel13.setText("Nazwa firmy");
 
 		name.setText("Nazwa");
+		name.setMinimumSize(new java.awt.Dimension(38, 20));
 
 		nip.setText("NIP");
+		nip.setMinimumSize(new java.awt.Dimension(38, 20));
+		nip.setPreferredSize(new java.awt.Dimension(38, 20));
 
 		jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 		jLabel14.setText("NIP");
@@ -463,8 +786,16 @@ public class AppWindow extends JFrame {
 												companyPanelLayout
 														.createParallelGroup(
 																javax.swing.GroupLayout.Alignment.LEADING)
-														.addComponent(name)
-														.addComponent(nip))
+														.addComponent(
+																name,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE)
+														.addComponent(
+																nip,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE))
 										.addContainerGap()));
 		companyPanelLayout
 				.setVerticalGroup(companyPanelLayout
@@ -501,6 +832,8 @@ public class AppWindow extends JFrame {
 												Short.MAX_VALUE)));
 
 		personPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+		personPanel.setMaximumSize(new java.awt.Dimension(226, 108));
+		personPanel.setMinimumSize(new java.awt.Dimension(226, 108));
 
 		firstName.setText("Imię");
 
@@ -908,6 +1241,8 @@ public class AppWindow extends JFrame {
 
 		moneyPanel
 				.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+		moneyPanel.setMaximumSize(new java.awt.Dimension(495, 301));
+		moneyPanel.setMinimumSize(new java.awt.Dimension(495, 301));
 
 		jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] {
 				"Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1037,6 +1372,8 @@ public class AppWindow extends JFrame {
 
 		addVehicle
 				.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+		addVehicle.setMaximumSize(new java.awt.Dimension(495, 301));
+		addVehicle.setMinimumSize(new java.awt.Dimension(495, 301));
 
 		client.setModel(new javax.swing.DefaultComboBoxModel(new String[] {
 				"Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1057,6 +1394,9 @@ public class AppWindow extends JFrame {
 
 		jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 		jLabel21.setText("Marka");
+
+		jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+		jLabel27.setText("Typ nadwozia");
 
 		javax.swing.GroupLayout addVehicleLayout = new javax.swing.GroupLayout(
 				addVehicle);
@@ -1100,6 +1440,11 @@ public class AppWindow extends JFrame {
 																jLabel21,
 																javax.swing.GroupLayout.PREFERRED_SIZE,
 																85,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(
+																jLabel27,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																85,
 																javax.swing.GroupLayout.PREFERRED_SIZE))
 										.addPreferredGap(
 												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1109,6 +1454,8 @@ public class AppWindow extends JFrame {
 																javax.swing.GroupLayout.Alignment.LEADING,
 																false)
 														.addComponent(
+																vehicleType)
+														.addComponent(
 																client,
 																0,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -1116,11 +1463,9 @@ public class AppWindow extends JFrame {
 														.addComponent(vin)
 														.addComponent(
 																productionDate)
-														.addComponent(
-																brand,
-																javax.swing.GroupLayout.PREFERRED_SIZE,
+														.addComponent(brand, 0,
 																200,
-																javax.swing.GroupLayout.PREFERRED_SIZE))
+																Short.MAX_VALUE))
 										.addContainerGap(196, Short.MAX_VALUE)));
 		addVehicleLayout
 				.setVerticalGroup(addVehicleLayout
@@ -1173,16 +1518,268 @@ public class AppWindow extends JFrame {
 																javax.swing.GroupLayout.DEFAULT_SIZE,
 																javax.swing.GroupLayout.PREFERRED_SIZE)
 														.addComponent(jLabel21))
-										.addContainerGap(138, Short.MAX_VALUE)));
+										.addGap(18, 18, 18)
+										.addGroup(
+												addVehicleLayout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(
+																vehicleType,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(jLabel27))
+										.addContainerGap(100, Short.MAX_VALUE)));
+
+		emptyTop.setMaximumSize(new java.awt.Dimension(663, 100));
+		emptyTop.setMinimumSize(new java.awt.Dimension(663, 100));
+		emptyTop.setPreferredSize(new java.awt.Dimension(663, 100));
+
+		javax.swing.GroupLayout emptyTopLayout = new javax.swing.GroupLayout(
+				emptyTop);
+		emptyTop.setLayout(emptyTopLayout);
+		emptyTopLayout.setHorizontalGroup(emptyTopLayout.createParallelGroup(
+				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 663,
+				Short.MAX_VALUE));
+		emptyTopLayout.setVerticalGroup(emptyTopLayout.createParallelGroup(
+				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 100,
+				Short.MAX_VALUE));
+
+		finalizationPanel.setCursor(new java.awt.Cursor(
+				java.awt.Cursor.DEFAULT_CURSOR));
+		finalizationPanel.setMaximumSize(new java.awt.Dimension(495, 301));
+		finalizationPanel.setMinimumSize(new java.awt.Dimension(495, 301));
+
+		finalClientLabel.setFocusable(false);
+
+		finalVehicleLabel.setFocusable(false);
+
+		finalServiceLabel.setFocusable(false);
+
+		finalCostLabel.setFocusable(false);
+
+		finalNoteLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+		finalNoteLabel.setFocusable(false);
+		finalNoteLabel
+				.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+		finalNoteLabel.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+
+		jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+		jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+		jLabel22.setText("Uwagi:");
+		jLabel22.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+		jLabel22.setFocusable(false);
+		jLabel22.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+		jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+		jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+		jLabel23.setText("Wstępny koszt:");
+		jLabel23.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+		jLabel23.setFocusable(false);
+		jLabel23.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+		jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+		jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+		jLabel24.setText("Usługa:");
+		jLabel24.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+		jLabel24.setFocusable(false);
+		jLabel24.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+		jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+		jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+		jLabel25.setText("Pojazd:");
+		jLabel25.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+		jLabel25.setFocusable(false);
+		jLabel25.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+		jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+		jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+		jLabel26.setText("Klient:");
+		jLabel26.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+		jLabel26.setFocusable(false);
+		jLabel26.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+		javax.swing.GroupLayout finalizationPanelLayout = new javax.swing.GroupLayout(
+				finalizationPanel);
+		finalizationPanel.setLayout(finalizationPanelLayout);
+		finalizationPanelLayout
+				.setHorizontalGroup(finalizationPanelLayout
+						.createParallelGroup(
+								javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								finalizationPanelLayout
+										.createSequentialGroup()
+										.addGap(21, 21, 21)
+										.addGroup(
+												finalizationPanelLayout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.TRAILING)
+														.addComponent(
+																jLabel22,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																104,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(
+																jLabel23,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																104,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(
+																jLabel24,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																104,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(
+																jLabel25,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																104,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(
+																jLabel26,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																104,
+																javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+										.addGroup(
+												finalizationPanelLayout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.LEADING,
+																false)
+														.addComponent(
+																finalClientLabel,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE)
+														.addComponent(
+																finalVehicleLabel,
+																javax.swing.GroupLayout.Alignment.TRAILING,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE)
+														.addComponent(
+																finalServiceLabel,
+																javax.swing.GroupLayout.Alignment.TRAILING,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE)
+														.addComponent(
+																finalCostLabel,
+																javax.swing.GroupLayout.Alignment.TRAILING,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE)
+														.addComponent(
+																finalNoteLabel,
+																javax.swing.GroupLayout.Alignment.TRAILING,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																335,
+																Short.MAX_VALUE))
+										.addContainerGap(25, Short.MAX_VALUE)));
+		finalizationPanelLayout
+				.setVerticalGroup(finalizationPanelLayout
+						.createParallelGroup(
+								javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								finalizationPanelLayout
+										.createSequentialGroup()
+										.addGap(24, 24, 24)
+										.addGroup(
+												finalizationPanelLayout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(
+																finalClientLabel)
+														.addComponent(jLabel26))
+										.addGap(18, 18, 18)
+										.addGroup(
+												finalizationPanelLayout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(
+																finalVehicleLabel)
+														.addComponent(jLabel25))
+										.addGap(18, 18, 18)
+										.addGroup(
+												finalizationPanelLayout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(
+																finalServiceLabel)
+														.addComponent(jLabel24))
+										.addGap(18, 18, 18)
+										.addGroup(
+												finalizationPanelLayout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(
+																finalCostLabel)
+														.addComponent(jLabel23))
+										.addGap(18, 18, 18)
+										.addGroup(
+												finalizationPanelLayout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.LEADING)
+														.addComponent(
+																finalNoteLabel,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																105,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(jLabel22))
+										.addContainerGap(44, Short.MAX_VALUE)));
+
+		orderTablePanel.setMaximumSize(new java.awt.Dimension(495, 295));
+		orderTablePanel.setMinimumSize(new java.awt.Dimension(495, 295));
+
+		orderTable.setModel(new javax.swing.table.DefaultTableModel(
+				new Object[][] {
+
+				}, new String[] { "ID", "ID Klienta", "ID Pojazdu",
+						"Data złożenia", "Koszt", "Uwagi" }) {
+			Class[] types = new Class[] { java.lang.Integer.class,
+					java.lang.Integer.class, java.lang.Integer.class,
+					java.lang.Object.class, java.lang.Float.class,
+					java.lang.String.class };
+			boolean[] canEdit = new boolean[] { false, false, false, false,
+					false, false };
+
+			public Class getColumnClass(int columnIndex) {
+				return types[columnIndex];
+			}
+
+			public boolean isCellEditable(int rowIndex, int columnIndex) {
+				return canEdit[columnIndex];
+			}
+		});
+		orderTable
+				.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+		jScrollPane5.setViewportView(orderTable);
+
+		javax.swing.GroupLayout orderTablePanelLayout = new javax.swing.GroupLayout(
+				orderTablePanel);
+		orderTablePanel.setLayout(orderTablePanelLayout);
+		orderTablePanelLayout.setHorizontalGroup(orderTablePanelLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(jScrollPane5,
+						javax.swing.GroupLayout.DEFAULT_SIZE, 495,
+						Short.MAX_VALUE));
+		orderTablePanelLayout.setVerticalGroup(orderTablePanelLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(jScrollPane5,
+						javax.swing.GroupLayout.DEFAULT_SIZE, 295,
+						Short.MAX_VALUE));
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Warsztat samochodowy");
+
+		topPanel.setMaximumSize(new java.awt.Dimension(663, 100));
+		topPanel.setMinimumSize(new java.awt.Dimension(663, 100));
 
 		javax.swing.GroupLayout topPanelLayout = new javax.swing.GroupLayout(
 				topPanel);
 		topPanel.setLayout(topPanelLayout);
 		topPanelLayout.setHorizontalGroup(topPanelLayout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 0,
+				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 663,
 				Short.MAX_VALUE));
 		topPanelLayout.setVerticalGroup(topPanelLayout.createParallelGroup(
 				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 100,
@@ -1190,6 +1787,8 @@ public class AppWindow extends JFrame {
 
 		leftPanel
 				.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+		leftPanel.setMaximumSize(new java.awt.Dimension(495, 301));
+		leftPanel.setMinimumSize(new java.awt.Dimension(495, 301));
 
 		javax.swing.GroupLayout leftPanelLayout = new javax.swing.GroupLayout(
 				leftPanel);
@@ -1200,6 +1799,9 @@ public class AppWindow extends JFrame {
 		leftPanelLayout.setVerticalGroup(leftPanelLayout.createParallelGroup(
 				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 301,
 				Short.MAX_VALUE));
+
+		buttons.setMaximumSize(new java.awt.Dimension(158, 290));
+		buttons.setMinimumSize(new java.awt.Dimension(158, 290));
 
 		addClientButton.setText("Dodaj klienta");
 		addClientButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1414,23 +2016,217 @@ public class AppWindow extends JFrame {
 	private void addVehicleButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		// FIXME dodaj vehicle guzik
+
 	}
 
 	private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		// FIXME zapisz guzik
-	}
 
-	private void personRadioStateChanged(javax.swing.event.ChangeEvent evt) {
-		this.companyPanel.setVisible(false);
-		this.personPanel.setVisible(true);
-		// FIXME radio button osoba fdizyczna w dodawaniu kliunta
-	}
+		if (STATE == JUST_ADD_VEHICLE || STATE == ADD_ORDER_ADD_VEHICLE) {
+			if (STATE == JUST_ADD_VEHICLE) {
+				if (this.client.getSelectedIndex() < 0
+						|| this.brand.getSelectedIndex() < 0
+						|| this.vin.getText().length() != 17)
+					JOptionPane.showMessageDialog(this,
+							"Źle wypełniłeś dane! vin("
+									+ this.vin.getText().length() + "/17)");
+				else {
+					try {
+						final Date date = new SimpleDateFormat("yyyy-MM-dd")
+								.parse(this.productionDate.getText());
+						final int clientId = ((Item) this.client
+								.getSelectedItem()).getId();
+						final String vin = this.vin.getText();
+						final String type = this.vehicleType.getText();
+						final String brand = this.brand.getSelectedItem()
+								.toString();
 
-	private void companyRadioStateChanged(javax.swing.event.ChangeEvent evt) {
-		this.companyPanel.setVisible(true);
-		this.personPanel.setVisible(false);
-		// FIXME radio button firma w dodawaniu klienta
+						boolean result = DBManager.executeTask(
+								new Task<Boolean>() {
+									public Boolean execute(PreparedStatement ps)
+											throws Exception {
+										ps.setInt(1, clientId);
+										ps.setString(2, vin);
+										ps.setDate(
+												3,
+												new java.sql.Date(date
+														.getTime()));
+										ps.setString(4, type);
+										ps.setString(5, brand);
+
+										return ps.executeUpdate() > 0;
+									}
+								},
+								"insert into vehicles (client_id, vin_number, production_date, type, brand) values (?, ?, ? ,?, ?)");
+
+						if (result) {
+							JOptionPane.showMessageDialog(this,
+									"Dodano pojazd!");
+							this.vin.setText("");
+							this.productionDate.setText("YYYY-MM-DD");
+							this.vehicleType.setText("");
+
+							changeState(JUST_SHOW_VEHICLES);
+						} else {
+							JOptionPane.showMessageDialog(this,
+									"Coś nie poszło :/");
+						}
+					} catch (ParseException e) {
+						JOptionPane
+								.showMessageDialog(this, "Niepoprawna data!");
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			} else if (STATE == ADD_ORDER_ADD_VEHICLE) {
+				// TODO
+			}
+		} else if (STATE == JUST_ADD_CLIENT || STATE == ADD_ORDER_ADD_CLIENT) {
+			if (this.street.getText().length() == 0
+					|| this.city.getText().length() == 0
+					|| this.phoneNumber.getText().length() == 0
+					|| this.email.getText().length() == 0)
+				JOptionPane.showMessageDialog(this, "Źle wypełniłeś dane!");
+			else {
+				final boolean company = this.companyRadio.isSelected();
+
+				try {
+					final String street = this.street.getText();
+					final int buildingNumber = (int) this.buildingNumber
+							.getValue();
+					final int apartmentNumber = (int) this.apartmentNumber
+							.getValue();
+					final String postalCode = this.postalCode.getText()
+							.replaceAll("[A-z\\-]*", "");
+					final String city = this.city.getText();
+					final String additionalAddress = this.additionalAddress
+							.getText();
+					final String phone = this.phoneNumber.getText();
+					final String email = this.email.getText();
+					final String firstName = this.firstName.getText();
+					final String lastName = this.lastName.getText();
+					final String peselString = this.pesel.getText();
+					final String name = this.name.getText();
+					final String nipString = this.nip.getText();
+
+					if (postalCode.length() != 5)
+						throw new IllegalArgumentException(
+								"Kod pocztowy nie taki!");
+
+					Pattern pattern = Pattern
+							.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+					Matcher matcher = pattern.matcher(email);
+					if (!matcher.matches())
+						throw new IllegalArgumentException(
+								"Podaj poprawny email!");
+
+					String sql = "insert into clients (street, building_number, apartment_number, postal_code, city, additional_address, phone_number, email";
+
+					long psl = 0;
+					long np = 0;
+					if (company) {
+						if (name.length() == 0 || nipString.length() != 10)
+							throw new IllegalArgumentException(
+									"Nie wypełniłeś dobrze danych! nip("
+											+ nipString.length() + "/10)");
+
+						sql += ", name, nip) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+						np = Long.parseLong(nipString);
+					} else {
+						if (firstName.length() == 0 || lastName.length() == 0
+								|| peselString.length() != 11)
+							throw new IllegalArgumentException(
+									"Nie wypełniłeś dobrze danych! pesel("
+											+ peselString.length() + "/11)");
+
+						sql += ", first_name, last_name, pesel) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+						psl = Long.parseLong(peselString);
+					}
+
+					final long pesel = psl;
+					final long nip = np;
+
+					if (STATE == JUST_ADD_CLIENT) {
+						boolean result = DBManager.executeTask(
+								new Task<Boolean>() {
+									public Boolean execute(PreparedStatement ps)
+											throws Exception {
+										ps.setString(1, street);
+										ps.setInt(2, buildingNumber);
+										ps.setInt(3, apartmentNumber);
+										ps.setString(4, postalCode);
+										ps.setString(5, city);
+										ps.setString(6, additionalAddress);
+										ps.setString(7, phone);
+										ps.setString(8, email);
+
+										if (!company) {
+											ps.setString(9, firstName);
+											ps.setString(10, lastName);
+											ps.setLong(11, pesel);
+										} else {
+											ps.setString(9, name);
+											ps.setLong(10, nip);
+										}
+
+										return ps.executeUpdate() > 0;
+									}
+								}, sql);
+
+						if (result) {
+							JOptionPane.showMessageDialog(this,
+									"Dodano klienta!");
+
+							this.additionalAddress.setText("");
+							this.street.setText("Ulica");
+							this.buildingNumber.setValue(0);
+							this.apartmentNumber.setValue(0);
+							this.postalCode.setText("00-000");
+							this.city.setText("Miasto");
+							this.phoneNumber.setText("Telefon");
+							this.email.setText("Email");
+							this.firstName.setText("Imię");
+							this.lastName.setText("Nazwisko");
+							this.pesel.setText("pesel");
+							this.name.setText("Nazwa");
+							this.nip.setText("NIP");
+
+							changeState(JUST_SHOW_CLIENTS);
+						} else {
+							JOptionPane.showMessageDialog(this,
+									"Coś nie poszło :/");
+						}
+
+					} else if (STATE == ADD_ORDER_ADD_CLIENT) {
+						// TODO
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(this, "Coś źle "
+							+ (company ? "nip" : "pesel") + " piszesz!");
+				} catch (IllegalArgumentException e) {
+					JOptionPane.showMessageDialog(this, e.getMessage());
+				} catch (RuntimeException e) {
+					if (e.getMessage().indexOf("KEY_2A") != -1)
+						JOptionPane.showMessageDialog(this,
+								"Numer telefonu nie jest unikalny!");
+					else if (e.getMessage().indexOf("KEY_3") != -1)
+						JOptionPane.showMessageDialog(this,
+								"Adres email nie jest unikalny!");
+					else if (e.getMessage().indexOf("KEY_1") != -1)
+						JOptionPane.showMessageDialog(this,
+								"PESEL nie jest unikalny!");
+					else if (e.getMessage().indexOf("KEY_1V1") != -1)
+						JOptionPane.showMessageDialog(this,
+								"NIP nie jest unikalny!");
+				}
+			}
+		}
 	}
 
 	private void jComboBox2PropertyChange(java.beans.PropertyChangeEvent evt) {
@@ -1438,14 +2234,125 @@ public class AppWindow extends JFrame {
 		// FIXME zmieniony combo box typu uslugi
 	}
 
+	@SuppressWarnings("unchecked")
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		// FIXME szukaj w znajdz klienta
+
+		boolean company = this.findClientCompanyRadio.isSelected();
+		List<Client> clients = new LinkedList<>();
+		List<Company> companies;
+		List<Person> persons;
+
+		final String search = this.findClientTextField.getText();
+
+		if (!company) {
+			persons = DBManager.run(
+					new Query() {
+						public void prepareQuery(PreparedStatement ps)
+								throws Exception {
+							ps.setString(1, "%" + search + "%");
+							ps.setString(2, "%" + search + "%");
+						}
+					},
+					DBManager.personConverter,
+					"select * from clients where pesel is not null and (first_name like ? or last_name like ?) order by client_id asc");
+
+			clients.addAll(persons);
+		} else {
+			companies = DBManager.run(new Query() {
+				public void prepareQuery(PreparedStatement ps) throws Exception {
+					ps.setString(1, "%" + search + "%");
+				}
+			}, DBManager.companyConverter,
+					"select * from clients where pesel is null and name like ?");
+
+			clients.addAll(companies);
+		}
+
+		if (STATE == JUST_SHOW_CLIENTS) {
+			Object[][] data = new Object[clients.size()][clientTable.getModel()
+					.getColumnCount()];
+
+			int i = 0;
+			for (Client c : clients) {
+				data[i][0] = c.getClientId();
+				data[i][1] = "ul. " + c.getStreet() + " "
+						+ c.getBuildingNumber() + "/" + c.getApartmentNumber()
+						+ ", " + c.getPostalCode().substring(0, 2) + "-"
+						+ c.getPostalCode().substring(2, 5) + " " + c.getCity();
+				data[i][2] = c.getPhoneNumber();
+				data[i][3] = c.getEmail();
+				if (!company) {
+					data[i][4] = ((Person) c).getFirstName() + " "
+							+ ((Person) c).getLastName();
+					data[i][5] = ((Person) c).getPesel();
+				} else {
+					data[i][4] = ((Company) c).getName();
+					data[i][5] = ((Company) c).getNip();
+				}
+
+				++i;
+			}
+
+			fillTable(clientTable, data);
+		} else if (STATE == JUST_ADD_VEHICLE) {
+			this.client.removeAllItems();
+			for (Client c : clients)
+				this.client
+						.addItem(new Item(c.getClientId(),
+								(c.getFirstName() != null ? c.getFirstName()
+										+ " " : "")
+										+ (c.getLastName() != null ? c
+												.getLastName() + " " : "")
+										+ (c.getName() != null ? c.getName()
+												: "")));
+		}
 	}
 
 	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		// FIXME szukaj w znajdz vehicle
+
+		final String brand = this.findByBrandCombo.getSelectedItem().toString();
+		final int allBrand = this.findByBrandCombo.getSelectedIndex();
+		final String search = this.findByBrandTextField.getText();
+
+		String sql = "select * from vehicles where ";
+
+		if (allBrand != 0)
+			sql += "brand = ? and ";
+
+		if (STATE == ADD_ORDER_CHOOSE_VEHICLE)
+			sql += "client_id = " + this.order.getClientId() + " and ";
+
+		sql += "(vin_number like ? or type like ?)";
+
+		List<Vehicle> vehicles = DBManager.run(new Query() {
+			public void prepareQuery(PreparedStatement ps) throws Exception {
+				int i = 1;
+				if (allBrand != 0)
+					ps.setString(i++, brand);
+				ps.setString(i++, "%" + search + "%");
+				ps.setString(i++, "%" + search + "%");
+			}
+		}, DBManager.vehicleConverter, sql);
+
+		Object[][] data = new Object[vehicles.size()][vehicleTable.getModel()
+				.getColumnCount()];
+
+		int i = 0;
+		for (Vehicle v : vehicles) {
+			data[i][0] = v.getVehicleId();
+			data[i][1] = v.getVinNumber();
+			data[i][2] = v.getProductionDate();
+			data[i][3] = v.getType();
+			data[i][4] = v.getBrand();
+
+			++i;
+		}
+
+		fillTable(vehicleTable, data);
 	}
 
 	private void addClientButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -1466,32 +2373,136 @@ public class AppWindow extends JFrame {
 	private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		// FIXME wyswietl klientow menubar
+		changeState(JUST_SHOW_CLIENTS);
+	}
 
+	public void getClientsToTable() {
+		List<Person> persons = DBManager
+				.run(new Query() {
+					public void prepareQuery(PreparedStatement ps)
+							throws Exception {
+					}
+				}, DBManager.personConverter,
+						"select * from clients where pesel is not null order by client_id asc");
+
+		List<Company> companies = DBManager
+				.run(new Query() {
+					public void prepareQuery(PreparedStatement ps)
+							throws Exception {
+					}
+				}, DBManager.companyConverter,
+						"select * from clients where pesel is null order by client_id asc");
+
+		Object[][] data = new Object[persons.size() + companies.size()][clientTable
+				.getModel().getColumnCount()];
+
+		List<Client> clients = new ArrayList<>();
+		clients.addAll(persons);
+		clients.addAll(companies);
+
+		int i = 0;
+		for (Client c : clients) {
+			data[i][0] = c.getClientId();
+			data[i][1] = "ul. " + c.getStreet() + " " + c.getBuildingNumber()
+					+ "/" + c.getApartmentNumber() + ", "
+					+ c.getPostalCode().substring(0, 2) + "-"
+					+ c.getPostalCode().substring(2, 5) + " " + c.getCity();
+			data[i][2] = c.getPhoneNumber();
+			data[i][3] = c.getEmail();
+			if (c instanceof Person) {
+				data[i][4] = ((Person) c).getFirstName() + " "
+						+ ((Person) c).getLastName();
+				data[i][5] = ((Person) c).getPesel();
+			} else {
+				data[i][4] = ((Company) c).getName();
+				data[i][5] = ((Company) c).getNip();
+			}
+
+			++i;
+		}
+
+		fillTable(clientTable, data);
+	}
+
+	public void fillTable(JTable table, Object[][] data) {
+		DefaultTableModel dm = (DefaultTableModel) table.getModel();
+
+		String[] columns = new String[dm.getColumnCount()];
+		for (int i = 0; i < dm.getColumnCount(); ++i)
+			columns[i] = dm.getColumnName(i);
+
+		table.setModel(new DefaultTableModel(data, columns));
 	}
 
 	private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		// FIXME dodaj klienta menubar
+		changeState(JUST_ADD_CLIENT);
 	}
 
 	private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		// FIXME wysiwetl pojazdy menubar
+		changeState(JUST_SHOW_VEHICLES);
+	}
+
+	public void getVehiclesToTable() {
+		List<Vehicle> vehicles = DBManager.run(new Query() {
+			public void prepareQuery(PreparedStatement ps) throws Exception {
+			}
+		}, DBManager.vehicleConverter, "select * from vehicles");
+
+		Object[][] data = new Object[vehicles.size()][vehicleTable.getModel()
+				.getColumnCount()];
+
+		int i = 0;
+		for (Vehicle v : vehicles) {
+			data[i][0] = v.getVehicleId();
+			data[i][1] = v.getVinNumber();
+			data[i][2] = v.getProductionDate();
+			data[i][3] = v.getType();
+			data[i][4] = v.getBrand();
+
+			++i;
+		}
+
+		fillTable(vehicleTable, data);
 	}
 
 	private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		// FIXME dodaj pojazd menubar
+		changeState(JUST_ADD_VEHICLE);
 	}
 
 	private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		// FIXME wyswietl zamowienie menubar
+		changeState(SHOW_ORDERS);
 	}
 
 	private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		// FIXME dodaj nowe zamowienie menubar
+		changeState(ADD_ORDER_CHOOSE_CLIENT);
+	}
+
+	private void companyRadioStateChanged(javax.swing.event.ChangeEvent evt) {
+		// TODO add your handling code here:
+		if (companyRadio.isSelected()) {
+			this.companyPanel.setVisible(true);
+			this.personPanel.setVisible(false);
+		}
+		// FIXME radio button firma w dodawaniu klienta
+	}
+
+	private void personRadioStateChanged(javax.swing.event.ChangeEvent evt) {
+		// TODO add your handling code here:
+		if (personRadio.isSelected()) {
+			this.companyPanel.setVisible(false);
+			this.personPanel.setVisible(true);
+		}
+		// FIXME radio button osoba fdizyczna w dodawaniu kliunta
 	}
 
 	// Variables declaration - do not modify
@@ -1509,16 +2520,28 @@ public class AppWindow extends JFrame {
 	private javax.swing.JButton cancelButton;
 	private javax.swing.JTextField city;
 	private javax.swing.JComboBox client;
-	private javax.swing.JPanel clientTable;
+	private javax.swing.JTable clientTable;
+	private javax.swing.JPanel clientTablePanel;
 	private javax.swing.JPanel companyPanel;
 	private javax.swing.JRadioButton companyRadio;
 	private javax.swing.JTextField email;
+	private javax.swing.JPanel emptyTop;
+	private javax.swing.JLabel finalClientLabel;
+	private javax.swing.JLabel finalCostLabel;
+	private javax.swing.JLabel finalNoteLabel;
+	private javax.swing.JLabel finalServiceLabel;
+	private javax.swing.JLabel finalVehicleLabel;
+	private javax.swing.JPanel finalizationPanel;
+	private javax.swing.JComboBox findByBrandCombo;
+	private javax.swing.JTextField findByBrandTextField;
 	private javax.swing.JPanel findClient;
+	private javax.swing.JRadioButton findClientCompanyRadio;
+	private javax.swing.JRadioButton findClientPersonRadio;
+	private javax.swing.JTextField findClientTextField;
 	private javax.swing.JPanel findVehicle;
 	private javax.swing.JTextField firstName;
 	private javax.swing.JButton jButton1;
 	private javax.swing.JButton jButton2;
-	private javax.swing.JComboBox jComboBox1;
 	private javax.swing.JComboBox jComboBox2;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel10;
@@ -1534,6 +2557,12 @@ public class AppWindow extends JFrame {
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JLabel jLabel20;
 	private javax.swing.JLabel jLabel21;
+	private javax.swing.JLabel jLabel22;
+	private javax.swing.JLabel jLabel23;
+	private javax.swing.JLabel jLabel24;
+	private javax.swing.JLabel jLabel25;
+	private javax.swing.JLabel jLabel26;
+	private javax.swing.JLabel jLabel27;
 	private javax.swing.JLabel jLabel3;
 	private javax.swing.JLabel jLabel4;
 	private javax.swing.JLabel jLabel5;
@@ -1551,17 +2580,12 @@ public class AppWindow extends JFrame {
 	private javax.swing.JMenuItem jMenuItem4;
 	private javax.swing.JMenuItem jMenuItem5;
 	private javax.swing.JMenuItem jMenuItem6;
-	private javax.swing.JRadioButton jRadioButton1;
-	private javax.swing.JRadioButton jRadioButton2;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JScrollPane jScrollPane2;
 	private javax.swing.JScrollPane jScrollPane3;
 	private javax.swing.JScrollPane jScrollPane4;
-	private javax.swing.JTable jTable1;
-	private javax.swing.JTable jTable2;
+	private javax.swing.JScrollPane jScrollPane5;
 	private javax.swing.JTextArea jTextArea1;
-	private javax.swing.JTextField jTextField1;
-	private javax.swing.JTextField jTextField2;
 	private javax.swing.JTextField jTextField3;
 	private javax.swing.JTextField lastName;
 	private javax.swing.JPanel leftPanel;
@@ -1569,6 +2593,8 @@ public class AppWindow extends JFrame {
 	private javax.swing.JTextField name;
 	private javax.swing.JButton nextButton;
 	private javax.swing.JTextField nip;
+	private javax.swing.JTable orderTable;
+	private javax.swing.JPanel orderTablePanel;
 	private javax.swing.JPanel personPanel;
 	private javax.swing.JRadioButton personRadio;
 	private javax.swing.JTextField pesel;
@@ -1578,7 +2604,9 @@ public class AppWindow extends JFrame {
 	private javax.swing.JButton saveButton;
 	private javax.swing.JTextField street;
 	private javax.swing.JPanel topPanel;
-	private javax.swing.JPanel vehicleTable;
+	private javax.swing.JTable vehicleTable;
+	private javax.swing.JPanel vehicleTablePanel;
+	private javax.swing.JTextField vehicleType;
 	private javax.swing.JTextField vin;
 	// End of variables declaration
 }

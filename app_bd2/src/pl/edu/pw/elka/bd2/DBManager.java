@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import pl.edu.pw.elka.bd2.models.Brand;
 import pl.edu.pw.elka.bd2.models.Client;
 import pl.edu.pw.elka.bd2.models.Company;
@@ -26,11 +28,51 @@ public class DBManager {
 			Class.forName("oracle.jdbc.OracleDriver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Nie udało się podłączyć do bazy. Spróbuj ponownie :)");
+			System.exit(1);
 		}
 	}
 
 	public static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(url, username, password);
+	}
+
+	public static <R> R executeTaskInConnection(Task<R> task, String sql, Connection connection)
+			throws SQLException {
+		R result = null;
+		Connection conn = null;
+
+		try {
+			conn = connection;
+
+			PreparedStatement ps = null;
+			try {
+				ps = conn.prepareStatement(sql);
+				result = task.execute(ps);
+//				conn.commit();
+
+				return result;
+			} catch (Exception ex) {
+				System.err.println("Cannot execute a statement : "
+						+ ex.getMessage());
+//				conn.rollback();
+
+				throw new RuntimeException(ex);
+			} finally {
+				if (ps != null)
+					ps.close();
+			}
+		} catch (Exception ex) {
+			System.err.println("Cannot open a connection : " + ex.getMessage());
+
+			throw new RuntimeException(ex);
+		} finally {
+			try {
+//				if (conn != null)
+//					conn.close();
+			} catch (Exception ignore) {
+			}
+		}
 	}
 
 	public static <R> R executeTask(Task<R> task, String sql)
@@ -183,10 +225,17 @@ public class DBManager {
 			e.setStreet(rs.getString("street"));
 			e.setBuildingNumber(rs.getInt("building_number"));
 			e.setApartmentNumber(rs.getInt("apartment_number"));
-			e.setPostalCode(rs.getInt("postal_code"));
+			e.setPostalCode(rs.getString("postal_code"));
 			e.setCity(rs.getString("city"));
 			e.setPhoneNumber(rs.getString("phone_number"));
 			e.setEmail(rs.getString("email"));
+
+			e.setFirstName(rs.getString("first_name"));
+			e.setLastName(rs.getString("last_name"));
+			e.setPesel(rs.getString("pesel"));
+
+			e.setName(rs.getString("name"));
+			e.setNip(rs.getLong("nip"));
 
 			return e;
 		}
@@ -203,7 +252,7 @@ public class DBManager {
 			e.setStreet(rs.getString("street"));
 			e.setBuildingNumber(rs.getInt("building_number"));
 			e.setApartmentNumber(rs.getInt("apartment_number"));
-			e.setPostalCode(rs.getInt("postal_code"));
+			e.setPostalCode(rs.getString("postal_code"));
 			e.setCity(rs.getString("city"));
 			e.setPhoneNumber(rs.getString("phone_number"));
 			e.setEmail(rs.getString("email"));
@@ -222,7 +271,7 @@ public class DBManager {
 			e.setStreet(rs.getString("street"));
 			e.setBuildingNumber(rs.getInt("building_number"));
 			e.setApartmentNumber(rs.getInt("apartment_number"));
-			e.setPostalCode(rs.getInt("postal_code"));
+			e.setPostalCode(rs.getString("postal_code"));
 			e.setCity(rs.getString("city"));
 			e.setPhoneNumber(rs.getString("phone_number"));
 			e.setEmail(rs.getString("email"));
