@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,8 @@ public class DBManager {
 			Class.forName("oracle.jdbc.OracleDriver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Nie udało się podłączyć do bazy. Spróbuj ponownie :)");
+			JOptionPane.showMessageDialog(null,
+					"Nie udało się podłączyć do bazy. Spróbuj ponownie :)");
 			System.exit(1);
 		}
 	}
@@ -38,8 +38,8 @@ public class DBManager {
 		return DriverManager.getConnection(url, username, password);
 	}
 
-	public static <R> R executeTask(Task<R> task, String sql, Connection connection, String[] columns)
-			throws SQLException {
+	public static <R> R executeTask(Task<R> task, String sql,
+			Connection connection, String[] columns) throws SQLException {
 		R result = null;
 		Connection conn = null;
 
@@ -50,13 +50,13 @@ public class DBManager {
 			try {
 				ps = conn.prepareStatement(sql, columns);
 				result = task.execute(ps);
-//				conn.commit();
+				// conn.commit();
 
 				return result;
 			} catch (Exception ex) {
 				System.err.println("Cannot execute a statement : "
 						+ ex.getMessage());
-//				conn.rollback();
+				// conn.rollback();
 
 				throw new RuntimeException(ex);
 			} finally {
@@ -69,8 +69,8 @@ public class DBManager {
 			throw new RuntimeException(ex);
 		} finally {
 			try {
-//				if (conn != null)
-//					conn.close();
+				// if (conn != null)
+				// conn.close();
 			} catch (Exception ignore) {
 			}
 		}
@@ -184,7 +184,6 @@ public class DBManager {
 			e.setClientId(rs.getInt("client_id"));
 			e.setVehicleId(rs.getInt("vehicle_id"));
 			e.setOrderId(rs.getInt("order_id"));
-			e.setServiceId(rs.getInt("service_id"));
 			e.setNote(rs.getString("note"));
 			e.setOrderDate(rs.getDate("order_date"));
 			e.setServiceType(rs.getString("service_type"));
@@ -261,7 +260,7 @@ public class DBManager {
 			return e;
 		}
 	};
-	
+
 	public final static ResultSetToBean<Company> companyConverter = new ResultSetToBean<Company>() {
 		public Company convert(ResultSet rs) throws Exception {
 			Company e = new Company();
@@ -276,7 +275,7 @@ public class DBManager {
 			e.setCity(rs.getString("city"));
 			e.setPhoneNumber(rs.getString("phone_number"));
 			e.setEmail(rs.getString("email"));
-			
+
 			return e;
 		}
 	};

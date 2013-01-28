@@ -1,3 +1,7 @@
+ALTER TABLE orders MODIFY order_date DEFAULT SYSDATE;
+
+
+
 DROP TRIGGER vehicles_sequence_trigger;
 DROP SEQUENCE vehicles_sequence;
 

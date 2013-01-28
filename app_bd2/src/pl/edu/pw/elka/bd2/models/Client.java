@@ -15,10 +15,10 @@ public class Client {
 	private String firstName;
 	private String lastName;
 	private long pesel;
-	
+
 	private String name;
 	private long nip;
-	
+
 	public Client() {
 
 	}
@@ -34,11 +34,11 @@ public class Client {
 		str.append("\tCity: " + city);
 		str.append("\tPhoneNumber: " + phoneNumber);
 		str.append("\tEmail: " + email);
-		
+
 		str.append("\tFirstName: " + firstName);
 		str.append("\tLastName: " + lastName);
 		str.append("\tPESEL: " + pesel);
-		
+
 		str.append("\tName: " + name);
 		str.append("\tNIP: " + nip);
 

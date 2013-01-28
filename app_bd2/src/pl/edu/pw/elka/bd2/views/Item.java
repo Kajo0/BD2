@@ -10,7 +10,7 @@ public class Item {
 		this.id = id;
 		this.description = description;
 	}
-	
+
 	public Item(int id, String description, float floatThing) {
 		this.id = id;
 		this.description = description;
@@ -24,7 +24,7 @@ public class Item {
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public Float getFloat() {
 		return floatThing;
 	}

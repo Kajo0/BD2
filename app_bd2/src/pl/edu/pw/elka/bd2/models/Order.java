@@ -16,25 +16,29 @@ public class Order {
 	private Date orderDate;
 	private float value;
 	private String note;
-	private int serviceId;
 
 	public Order() {
 
 	}
 
 	public boolean insert() throws SQLException {
-		return DBManager.executeTask(new Task<Boolean>() {
-			public Boolean execute(PreparedStatement ps) throws Exception {
-				ps.setInt(1, clientId);
-				ps.setString(2, serviceType);
-				ps.setInt(3, vehicleId);
-				ps.setInt(4, orderId);
-				ps.setDate(5, new java.sql.Date(orderDate.getTime()));
-				ps.setFloat(6, value);
-				ps.setString(7, note == null ? "" : note);
-				return ps.executeUpdate() > 0;
-			}
-		}, "insert into orders (client_id, service_type, vehicle_id, order_id, order_date, value, note) values (?, ?, ?, ?, ?, ?, ?)");
+		return DBManager
+				.executeTask(
+						new Task<Boolean>() {
+							public Boolean execute(PreparedStatement ps)
+									throws Exception {
+								ps.setInt(1, clientId);
+								ps.setString(2, serviceType);
+								ps.setInt(3, vehicleId);
+								ps.setInt(4, orderId);
+								ps.setDate(5,
+										new java.sql.Date(orderDate.getTime()));
+								ps.setFloat(6, value);
+								ps.setString(7, note == null ? "" : note);
+								return ps.executeUpdate() > 0;
+							}
+						},
+						"insert into orders (client_id, service_type, vehicle_id, order_id, order_date, value, note) values (?, ?, ?, ?, ?, ?, ?)");
 	}
 
 	public String toString() {
@@ -46,7 +50,6 @@ public class Order {
 		str.append("\tServiceType:" + serviceType);
 		str.append("\tValue: " + value);
 		str.append("\tNote: " + note);
-		str.append("\tServiceId: " + serviceId);
 
 		return str.toString();
 	}
@@ -105,14 +108,6 @@ public class Order {
 
 	public void setNote(String note) {
 		this.note = note;
-	}
-
-	public int getServiceId() {
-		return serviceId;
-	}
-
-	public void setServiceId(int serviceId) {
-		this.serviceId = serviceId;
 	}
 
 }

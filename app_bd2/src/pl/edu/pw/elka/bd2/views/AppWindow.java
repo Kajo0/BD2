@@ -1,16 +1,10 @@
 package pl.edu.pw.elka.bd2.views;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,14 +14,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import pl.edu.pw.elka.bd2.DBManager;
 import pl.edu.pw.elka.bd2.Query;
@@ -40,6 +31,7 @@ import pl.edu.pw.elka.bd2.models.Person;
 import pl.edu.pw.elka.bd2.models.ServiceType;
 import pl.edu.pw.elka.bd2.models.Vehicle;
 
+@SuppressWarnings({ "serial", "rawtypes" })
 public class AppWindow extends JFrame {
 
 	public static Object tmp = null;
@@ -50,7 +42,6 @@ public class AppWindow extends JFrame {
 	private Connection connection = null;
 
 	private static int STATE = 10;
-	private static int PREV_STATE = 10;
 
 	public static final int JUST_ADD_CLIENT = 0;
 	public static final int JUST_SHOW_CLIENTS = 1;
@@ -69,7 +60,7 @@ public class AppWindow extends JFrame {
 	/**
 	 * Creates new form MainFrame
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings("unchecked")
 	public AppWindow() {
 		initComponents();
 
@@ -103,6 +94,130 @@ public class AppWindow extends JFrame {
 
 		changeState(STATE);
 	}
+
+	/************************
+	 * DOWN TABLE FILLERS *
+	 ************************/
+
+	public void getOrdersToTable() {
+		List<Order> orders = DBManager.run(new Query() {
+			public void prepareQuery(PreparedStatement ps) throws Exception {
+			}
+		}, DBManager.orderConverter,
+				"select * from orders order by order_date desc");
+
+		Object[][] data = new Object[orders.size()][orderTable.getModel()
+				.getColumnCount()];
+
+		int i = 0;
+		for (Order o : orders) {
+			data[i][0] = o.getOrderId();
+			data[i][1] = o.getClientId();
+			data[i][2] = o.getVehicleId();
+			data[i][3] = o.getOrderDate();
+			data[i][4] = o.getValue();
+			data[i][5] = o.getNote();
+
+			++i;
+		}
+
+		fillTable(orderTable, data);
+	}
+
+	public void getVehiclesToTable() {
+		String sql = "select * from vehicles";
+
+		if (STATE == ADD_ORDER_CHOOSE_VEHICLE || STATE == ADD_ORDER_ADD_VEHICLE
+				|| STATE == ADD_ORDER_CHOOSE_CLIENT)
+			sql += " where client_id = " + this.order.getClientId();
+
+		List<Vehicle> vehicles = DBManager.run(new Query() {
+			public void prepareQuery(PreparedStatement ps) throws Exception {
+			}
+		}, DBManager.vehicleConverter, sql);
+
+		Object[][] data = new Object[vehicles.size()][vehicleTable.getModel()
+				.getColumnCount()];
+
+		int i = 0;
+		for (Vehicle v : vehicles) {
+			data[i][0] = v.getVehicleId();
+			data[i][1] = v.getVinNumber();
+			data[i][2] = v.getProductionDate();
+			data[i][3] = v.getType();
+			data[i][4] = v.getBrand();
+
+			++i;
+		}
+
+		fillTable(vehicleTable, data);
+	}
+
+	public void getClientsToTable() {
+		List<Person> persons = DBManager
+				.run(new Query() {
+					public void prepareQuery(PreparedStatement ps)
+							throws Exception {
+					}
+				}, DBManager.personConverter,
+						"select * from clients where pesel is not null order by client_id asc");
+
+		List<Company> companies = DBManager
+				.run(new Query() {
+					public void prepareQuery(PreparedStatement ps)
+							throws Exception {
+					}
+				}, DBManager.companyConverter,
+						"select * from clients where pesel is null order by client_id asc");
+
+		Object[][] data = new Object[persons.size() + companies.size()][clientTable
+				.getModel().getColumnCount()];
+
+		List<Client> clients = new ArrayList<>();
+		clients.addAll(persons);
+		clients.addAll(companies);
+
+		int i = 0;
+		for (Client c : clients) {
+			data[i][0] = c.getClientId();
+			data[i][1] = "ul. " + c.getStreet() + " " + c.getBuildingNumber()
+					+ "/" + c.getApartmentNumber() + ", "
+					+ c.getPostalCode().substring(0, 2) + "-"
+					+ c.getPostalCode().substring(2, 5) + " " + c.getCity();
+			data[i][2] = c.getPhoneNumber();
+			data[i][3] = c.getEmail();
+			if (c instanceof Person) {
+				data[i][4] = ((Person) c).getFirstName() + " "
+						+ ((Person) c).getLastName();
+				data[i][5] = ((Person) c).getPesel();
+			} else {
+				data[i][4] = ((Company) c).getName();
+				data[i][5] = ((Company) c).getNip();
+			}
+
+			++i;
+		}
+
+		fillTable(clientTable, data);
+	}
+
+	public void fillTable(JTable table, Object[][] data) {
+		DefaultTableModel dm = (DefaultTableModel) table.getModel();
+
+		String[] columns = new String[dm.getColumnCount()];
+		for (int i = 0; i < dm.getColumnCount(); ++i)
+			columns[i] = dm.getColumnName(i);
+
+		table.setModel(new DefaultTableModel(data, columns));
+	}
+
+	/************************
+	 * UP TABLE FILLERS *
+	 ************************/
+
+	/************************************************
+	 * DOWN WINDOWS & PANELS APP STATES & SWITCHES *
+	 ************************************************/
 
 	/**
 	 * What is visible
@@ -220,6 +335,8 @@ public class AppWindow extends JFrame {
 			this.saveButton.setVisible(false);
 			this.nextButton.setVisible(false);
 			this.cancelButton.setVisible(false);
+
+			getOrdersToTable();
 
 			break;
 		case ADD_ORDER_CHOOSE_CLIENT:
@@ -343,7 +460,6 @@ public class AppWindow extends JFrame {
 			break;
 		}
 
-		PREV_STATE = STATE;
 		STATE = nextState;
 	}
 
@@ -360,6 +476,729 @@ public class AppWindow extends JFrame {
 
 		revalidate();
 	}
+
+	/************************************************
+	 * UP WINDOWS & PANELS APP STATES & SWITCHES *
+	 ************************************************/
+
+	/**
+	 * zmiana combo boxa typu uslugi w wyborze kosztow zamowienia
+	 * 
+	 * @param evt
+	 */
+	private void serviceTypeComboBoxItemStateChanged(
+			java.awt.event.ItemEvent evt) {
+		if (this.serviceTypeComboBox.getSelectedIndex() != -1)
+			this.moneyCostTextField.setText(""
+					+ ((Item) this.serviceTypeComboBox.getSelectedItem())
+							.getFloat());
+	}
+
+	/****************
+	 * DOWN GUZIKI *
+	 ****************/
+
+	/**
+	 * dodaj klienta guzik w zamowieniu
+	 * 
+	 * @param evt
+	 */
+	private void addClientButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		changeState(ADD_ORDER_ADD_CLIENT);
+	}
+
+	/**
+	 * dodaj pojazd guzik w zamowieniu
+	 * 
+	 * @param evt
+	 */
+	private void addVehicleButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		changeState(ADD_ORDER_ADD_VEHICLE);
+	}
+
+	/**
+	 * anuluj guzik: - dodaj klienta w zamowieniu - dodaj pojazd w zamowieniu -
+	 * cale skladanie zamowienia
+	 * 
+	 * @param evt
+	 */
+	private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		if (STATE == ADD_ORDER_ADD_CLIENT) {
+			changeState(ADD_ORDER_CHOOSE_CLIENT);
+		} else if (STATE == ADD_ORDER_ADD_VEHICLE) {
+			changeState(ADD_ORDER_CHOOSE_VEHICLE);
+		} else {
+			changeState(SHOW_ORDERS);
+		}
+	}
+
+	/**
+	 * dalej guzik: - zamowienie, przy wyborze klienta - zamowienie, przy
+	 * wyborze pojazdu - zamowienie, przy wyborze uslugi/kosztow
+	 * 
+	 * @param evt
+	 */
+	private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		if (STATE == ADD_ORDER_CHOOSE_CLIENT) {
+			if (this.clientTable.getSelectedRow() == -1)
+				JOptionPane.showMessageDialog(this, "Wybierz klienta!");
+			else {
+				int row = this.clientTable.getSelectedRow();
+				this.order.setClientId((int) this.clientTable
+						.getValueAt(row, 0));
+
+				this.clientTmp.setAdditionalAddress((String) this.clientTable
+						.getValueAt(row, 1));
+				this.clientTmp.setName((String) this.clientTable.getValueAt(
+						row, 4));
+
+				changeState(ADD_ORDER_CHOOSE_VEHICLE);
+			}
+		} else if (STATE == ADD_ORDER_CHOOSE_VEHICLE) {
+			if (this.vehicleTable.getSelectedRow() == -1)
+				JOptionPane.showMessageDialog(this, "Wybierz pojazd!");
+			else {
+				int row = this.vehicleTable.getSelectedRow();
+				this.order.setVehicleId((int) this.vehicleTable.getValueAt(row,
+						0));
+
+				this.vehicleTmp.setVinNumber((String) this.vehicleTable
+						.getValueAt(row, 1));
+				this.vehicleTmp.setType((String) this.vehicleTable.getValueAt(
+						row, 3));
+				this.vehicleTmp.setBrand((String) this.vehicleTable.getValueAt(
+						row, 4));
+
+				changeState(ADD_ORDER_COST_THINGS);
+			}
+		} else if (STATE == ADD_ORDER_COST_THINGS) {
+			try {
+				this.order.setServiceType(this.serviceTypeComboBox
+						.getSelectedItem().toString());
+				this.order.setValue(Float.parseFloat(this.moneyCostTextField
+						.getText()));
+				this.order.setNote(this.moneyNoteArea.getText());
+
+				// Kajo
+
+				Client c = this.clientTmp;
+				Vehicle v = this.vehicleTmp;
+
+				this.finalClientLabel.setText((c.getFirstName() != null
+						&& c.getFirstName().length() != 0 ? c.getFirstName()
+						+ " " : "")
+						+ (c.getLastName() != null
+								&& c.getLastName().length() != 0 ? c
+								.getLastName() + " " : "")
+						+ (c.getName() != null && c.getName().length() != 0 ? c
+								.getName() : ""));
+
+				this.finalCostLabel.setText("" + this.order.getValue());
+				this.finalNoteLabel.setText(this.order.getNote());
+				this.finalServiceLabel.setText(this.order.getServiceType());
+				this.finalVehicleLabel.setText(v.getBrand() + " " + v.getType()
+						+ " " + v.getVinNumber());
+
+				changeState(ADD_ORDER_FINALIZATION);
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(this, "Podaj poprawną wartość!");
+			}
+		}
+	}
+
+	/**
+	 * szukaj w panelu znajdz klienta, uzywane w: - wyswietl klientow - wybierz
+	 * klienta do zamowienia - wybierz klienta do dodawania pojazdu nie podczas
+	 * zamowienia
+	 * 
+	 * @param evt
+	 */
+	@SuppressWarnings("unchecked")
+	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+		boolean company = this.findClientCompanyRadio.isSelected();
+		List<Client> clients = new LinkedList<>();
+		List<Company> companies;
+		List<Person> persons;
+
+		final String search = this.findClientTextField.getText();
+
+		if (!company) {
+			persons = DBManager.run(
+					new Query() {
+						public void prepareQuery(PreparedStatement ps)
+								throws Exception {
+							ps.setString(1, "%" + search + "%");
+							ps.setString(2, "%" + search + "%");
+						}
+					},
+					DBManager.personConverter,
+					"select * from clients where pesel is not null and (first_name like ? or last_name like ?) order by client_id asc");
+
+			clients.addAll(persons);
+		} else {
+			companies = DBManager.run(new Query() {
+				public void prepareQuery(PreparedStatement ps) throws Exception {
+					ps.setString(1, "%" + search + "%");
+				}
+			}, DBManager.companyConverter,
+					"select * from clients where pesel is null and name like ?");
+
+			clients.addAll(companies);
+		}
+
+		if (STATE == JUST_SHOW_CLIENTS || STATE == ADD_ORDER_CHOOSE_CLIENT) {
+			Object[][] data = new Object[clients.size()][clientTable.getModel()
+					.getColumnCount()];
+
+			int i = 0;
+			for (Client c : clients) {
+				data[i][0] = c.getClientId();
+				data[i][1] = "ul. " + c.getStreet() + " "
+						+ c.getBuildingNumber() + "/" + c.getApartmentNumber()
+						+ ", " + c.getPostalCode().substring(0, 2) + "-"
+						+ c.getPostalCode().substring(2, 5) + " " + c.getCity();
+				data[i][2] = c.getPhoneNumber();
+				data[i][3] = c.getEmail();
+				if (!company) {
+					data[i][4] = ((Person) c).getFirstName() + " "
+							+ ((Person) c).getLastName();
+					data[i][5] = ((Person) c).getPesel();
+				} else {
+					data[i][4] = ((Company) c).getName();
+					data[i][5] = ((Company) c).getNip();
+				}
+
+				++i;
+			}
+
+			fillTable(clientTable, data);
+		} else if (STATE == JUST_ADD_VEHICLE) {
+			this.client.removeAllItems();
+			for (Client c : clients)
+				this.client
+						.addItem(new Item(c.getClientId(),
+								(c.getFirstName() != null ? c.getFirstName()
+										+ " " : "")
+										+ (c.getLastName() != null ? c
+												.getLastName() + " " : "")
+										+ (c.getName() != null ? c.getName()
+												: "")));
+		}
+	}
+
+	/**
+	 * szukaj w panelu pojazdu, uzywane w: - wyswietl pojazdy - wybierz pojazd
+	 * do zamowienia
+	 * 
+	 * @param evt
+	 */
+	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+		final String brand = this.findByBrandCombo.getSelectedItem().toString();
+		final int allBrand = this.findByBrandCombo.getSelectedIndex();
+		final String search = this.findByBrandTextField.getText();
+
+		String sql = "select * from vehicles where ";
+
+		if (allBrand != 0)
+			sql += "brand = ? and ";
+
+		if (STATE == ADD_ORDER_CHOOSE_VEHICLE)
+			sql += "client_id = " + this.order.getClientId() + " and ";
+
+		sql += "(vin_number like ? or type like ?)";
+
+		List<Vehicle> vehicles = DBManager.run(new Query() {
+			public void prepareQuery(PreparedStatement ps) throws Exception {
+				int i = 1;
+				if (allBrand != 0)
+					ps.setString(i++, brand);
+				ps.setString(i++, "%" + search + "%");
+				ps.setString(i++, "%" + search + "%");
+			}
+		}, DBManager.vehicleConverter, sql);
+
+		Object[][] data = new Object[vehicles.size()][vehicleTable.getModel()
+				.getColumnCount()];
+
+		int i = 0;
+		for (Vehicle v : vehicles) {
+			data[i][0] = v.getVehicleId();
+			data[i][1] = v.getVinNumber();
+			data[i][2] = v.getProductionDate();
+			data[i][3] = v.getType();
+			data[i][4] = v.getBrand();
+
+			++i;
+		}
+
+		fillTable(vehicleTable, data);
+	}
+
+	/**
+	 * zapisz guzik: - dodawanie nowego klienta - dodawanie nowego pojazdu -
+	 * zapisanie zamowienia na koncu transakcji
+	 * 
+	 * @param evt
+	 */
+	private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		if (STATE == JUST_ADD_VEHICLE || STATE == ADD_ORDER_ADD_VEHICLE) {
+
+			if (this.client.getSelectedIndex() < 0
+					|| this.brand.getSelectedIndex() < 0
+					|| this.vin.getText().length() != 17)
+				JOptionPane.showMessageDialog(this, "Źle wypełniłeś dane! vin("
+						+ this.vin.getText().length() + "/17)");
+			else {
+				try {
+					final Date date = new SimpleDateFormat("yyyy-MM-dd")
+							.parse(this.productionDate.getText());
+					final int clientId = ((Item) this.client.getSelectedItem())
+							.getId();
+					final String vin = this.vin.getText();
+					final String type = this.vehicleType.getText();
+					final String brand = this.brand.getSelectedItem()
+							.toString();
+
+					boolean result = false;
+
+					if (STATE == JUST_ADD_VEHICLE) {
+						result = DBManager.executeTask(
+								new Task<Boolean>() {
+									public Boolean execute(PreparedStatement ps)
+											throws Exception {
+										ps.setInt(1, clientId);
+										ps.setString(2, vin);
+										ps.setDate(
+												3,
+												new java.sql.Date(date
+														.getTime()));
+										ps.setString(4, type);
+										ps.setString(5, brand);
+
+										return ps.executeUpdate() > 0;
+									}
+								},
+								"insert into vehicles (client_id, vin_number, production_date, type, brand) values (?, ?, ? ,?, ?)");
+
+					} else if (STATE == ADD_ORDER_ADD_VEHICLE) {
+
+						result = DBManager.executeTask(
+								new Task<Boolean>() {
+									public Boolean execute(PreparedStatement ps)
+											throws Exception {
+										ps.setInt(1, clientId);
+										ps.setString(2, vin);
+										ps.setDate(
+												3,
+												new java.sql.Date(date
+														.getTime()));
+										ps.setString(4, type);
+										ps.setString(5, brand);
+
+										boolean r = ps.executeUpdate() > 0;
+
+										ResultSet rs = ps.getGeneratedKeys();
+										if (rs.next()) {
+											int key = rs.getInt(1);
+											AppWindow.tmp = key;
+										}
+										return r;
+									}
+								},
+								"insert into vehicles (client_id, vin_number, production_date, type, brand) values (?, ?, ? ,?, ?)",
+								this.connection, new String[] { "vehicle_id" });
+
+					}
+
+					if (result) {
+						JOptionPane.showMessageDialog(this, "Dodano pojazd!");
+						this.vin.setText("");
+						this.productionDate.setText("YYYY-MM-DD");
+						this.vehicleType.setText("");
+
+						if (STATE == ADD_ORDER_ADD_VEHICLE) {
+							this.vehicleTmp.setClientId(clientId);
+							this.vehicleTmp.setVehicleId((int) AppWindow.tmp);
+							this.vehicleTmp.setBrand(brand);
+							this.vehicleTmp.setProductionDate(date);
+							this.vehicleTmp.setType(type);
+							this.vehicleTmp.setVinNumber(vin);
+						}
+
+						if (STATE == JUST_ADD_VEHICLE)
+							changeState(JUST_SHOW_VEHICLES);
+						else if (STATE == ADD_ORDER_ADD_VEHICLE) {
+							this.order.setVehicleId((int) AppWindow.tmp);
+							changeState(ADD_ORDER_COST_THINGS);
+						}
+					} else {
+						JOptionPane
+								.showMessageDialog(this, "Coś nie poszło :/");
+					}
+				} catch (ParseException e) {
+					JOptionPane.showMessageDialog(this, "Niepoprawna data!");
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (RuntimeException e) {
+					if (e.getMessage().indexOf("KEY_2F") != -1)
+						JOptionPane.showMessageDialog(this,
+								"Numer VIN nie jest unikalny!");
+				}
+			}
+		} else if (STATE == JUST_ADD_CLIENT || STATE == ADD_ORDER_ADD_CLIENT) {
+			if (this.street.getText().length() == 0
+					|| this.city.getText().length() == 0
+					|| this.phoneNumber.getText().length() == 0
+					|| this.email.getText().length() == 0)
+				JOptionPane.showMessageDialog(this, "Źle wypełniłeś dane!");
+			else {
+				final boolean company = this.companyRadio.isSelected();
+
+				try {
+					final String street = this.street.getText();
+					final int buildingNumber = (int) this.buildingNumber
+							.getValue();
+					if (buildingNumber <= 0)
+						throw new IllegalArgumentException("Nr budynku <= 0 ?!");
+					final int apartmentNumber = (int) this.apartmentNumber
+							.getValue();
+					if (apartmentNumber < 0)
+						throw new IllegalArgumentException(
+								"Nr mieszkania < 0 ?!");
+					final String postalCode = this.postalCode.getText()
+							.replaceAll("[A-z\\-]*", "");
+					final String city = this.city.getText();
+					final String additionalAddress = this.additionalAddress
+							.getText();
+					final String phone = this.phoneNumber.getText().replaceAll(
+							"[^\\d\\+\\(\\)]*", "");
+					if (phone.length() < 7)
+						throw new IllegalArgumentException(
+								"Numer telefonu coś nie taki! (min 7 liczb: "
+										+ phone.length() + "/7)");
+					final String email = this.email.getText();
+					final String firstName = this.firstName.getText();
+					final String lastName = this.lastName.getText();
+					final String peselString = this.pesel.getText();
+					final String name = this.name.getText();
+					final String nipString = this.nip.getText();
+
+					if (postalCode.length() != 5)
+						throw new IllegalArgumentException(
+								"Kod pocztowy nie taki!");
+
+					Pattern pattern = Pattern
+							.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+					Matcher matcher = pattern.matcher(email);
+					if (!matcher.matches())
+						throw new IllegalArgumentException(
+								"Podaj poprawny email!");
+
+					String sql = "insert into clients (street, building_number, apartment_number, postal_code, city, additional_address, phone_number, email";
+
+					long psl = 0;
+					long np = 0;
+					if (company) {
+						if (name.length() == 0 || nipString.length() != 10)
+							throw new IllegalArgumentException(
+									"Nie wypełniłeś dobrze danych! nip("
+											+ nipString.length() + "/10)");
+
+						sql += ", name, nip) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+						np = Long.parseLong(nipString);
+					} else {
+						if (firstName.length() == 0 || lastName.length() == 0
+								|| peselString.length() != 11)
+							throw new IllegalArgumentException(
+									"Nie wypełniłeś dobrze danych! pesel("
+											+ peselString.length() + "/11)");
+
+						sql += ", first_name, last_name, pesel) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+						psl = Long.parseLong(peselString);
+					}
+
+					final long pesel = psl;
+					final long nip = np;
+
+					boolean result = false;
+
+					if (STATE == JUST_ADD_CLIENT) {
+						result = DBManager.executeTask(new Task<Boolean>() {
+							public Boolean execute(PreparedStatement ps)
+									throws Exception {
+								ps.setString(1, street);
+								ps.setInt(2, buildingNumber);
+								ps.setInt(3, apartmentNumber);
+								ps.setString(4, postalCode);
+								ps.setString(5, city);
+								ps.setString(6, additionalAddress);
+								ps.setString(7, phone);
+								ps.setString(8, email);
+
+								if (!company) {
+									ps.setString(9, firstName);
+									ps.setString(10, lastName);
+									ps.setLong(11, pesel);
+								} else {
+									ps.setString(9, name);
+									ps.setLong(10, nip);
+								}
+
+								return ps.executeUpdate() > 0;
+							}
+						}, sql);
+
+					} else if (STATE == ADD_ORDER_ADD_CLIENT) {
+						result = DBManager.executeTask(new Task<Boolean>() {
+							public Boolean execute(PreparedStatement ps)
+									throws Exception {
+								ps.setString(1, street);
+								ps.setInt(2, buildingNumber);
+								ps.setInt(3, apartmentNumber);
+								ps.setString(4, postalCode);
+								ps.setString(5, city);
+								ps.setString(6, additionalAddress);
+								ps.setString(7, phone);
+								ps.setString(8, email);
+
+								if (!company) {
+									ps.setString(9, firstName);
+									ps.setString(10, lastName);
+									ps.setLong(11, pesel);
+								} else {
+									ps.setString(9, name);
+									ps.setLong(10, nip);
+								}
+
+								boolean r = ps.executeUpdate() > 0;
+
+								ResultSet rs = ps.getGeneratedKeys();
+								if (rs.next()) {
+									int key = rs.getInt(1);
+									AppWindow.tmp = key;
+								}
+								return r;
+							}
+						}, sql, this.connection, new String[] { "client_id" });
+					}
+
+					if (result) {
+						JOptionPane.showMessageDialog(this, "Dodano klienta!");
+
+						this.additionalAddress.setText("");
+						this.street.setText("Ulica");
+						this.buildingNumber.setValue(0);
+						this.apartmentNumber.setValue(0);
+						this.postalCode.setText("00-000");
+						this.city.setText("Miasto");
+						this.phoneNumber.setText("Telefon");
+						this.email.setText("Email");
+						this.firstName.setText("Imię");
+						this.lastName.setText("Nazwisko");
+						this.pesel.setText("pesel");
+						this.name.setText("Nazwa");
+						this.nip.setText("NIP");
+
+						if (STATE == ADD_ORDER_ADD_CLIENT) {
+							this.clientTmp.setClientId((int) AppWindow.tmp);
+							this.clientTmp
+									.setAdditionalAddress(additionalAddress);
+							this.clientTmp.setApartmentNumber(apartmentNumber);
+							this.clientTmp.setBuildingNumber(buildingNumber);
+							this.clientTmp.setCity(city);
+							this.clientTmp.setEmail(email);
+							this.clientTmp.setFirstName(firstName);
+							this.clientTmp.setLastName(lastName);
+							this.clientTmp.setName(name);
+							this.clientTmp.setNip(nip);
+							this.clientTmp.setPesel(pesel);
+							this.clientTmp.setPhoneNumber(phone);
+							this.clientTmp.setPostalCode(postalCode);
+							this.clientTmp.setStreet(street);
+						}
+
+						if (STATE == JUST_ADD_CLIENT)
+							changeState(JUST_SHOW_CLIENTS);
+						else if (STATE == ADD_ORDER_ADD_CLIENT) {
+							this.order.setClientId((int) AppWindow.tmp);
+							changeState(ADD_ORDER_CHOOSE_VEHICLE);
+						}
+					} else {
+						JOptionPane
+								.showMessageDialog(this, "Coś nie poszło :/");
+					}
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(this, "Coś źle "
+							+ (company ? "nip" : "pesel") + " piszesz!");
+				} catch (IllegalArgumentException e) {
+					JOptionPane.showMessageDialog(this, e.getMessage());
+				} catch (RuntimeException e) {
+					if (e.getMessage().indexOf("KEY_2A") != -1)
+						JOptionPane.showMessageDialog(this,
+								"Numer telefonu nie jest unikalny!");
+					else if (e.getMessage().indexOf("KEY_3") != -1)
+						JOptionPane.showMessageDialog(this,
+								"Adres email nie jest unikalny!");
+					else if (e.getMessage().indexOf("KEY_1") != -1)
+						JOptionPane.showMessageDialog(this,
+								"PESEL nie jest unikalny!");
+					else if (e.getMessage().indexOf("KEY_1V1") != -1)
+						JOptionPane.showMessageDialog(this,
+								"NIP nie jest unikalny!");
+				}
+			}
+		} else if (STATE == ADD_ORDER_FINALIZATION) {
+			try {
+
+				final int clientId = this.order.getClientId();
+				final int vehicleId = this.order.getVehicleId();
+				final String note = this.order.getNote();
+				final float value = this.order.getValue();
+				final String serviceType = this.order.getServiceType();
+
+				boolean result = DBManager
+						.executeTask(
+								new Task<Boolean>() {
+									public Boolean execute(PreparedStatement ps)
+											throws Exception {
+										ps.setInt(1, clientId);
+										ps.setInt(2, vehicleId);
+										ps.setString(3, serviceType);
+										ps.setFloat(4, value);
+										ps.setString(5, note);
+
+										return ps.executeUpdate() > 0;
+									}
+								},
+								"insert into orders (client_id, vehicle_id, service_type, value, note) values (?, ?, ?, ?, ?)",
+								this.connection, new String[] { "order_id" });
+
+				if (result) {
+					connection.commit();
+
+					JOptionPane.showMessageDialog(this, "Zamówienie dodane!");
+				} else {
+
+					JOptionPane
+							.showMessageDialog(this,
+									"Coś poszło nie tak :/ pewnie padło połączenie z bazą.");
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			changeState(SHOW_ORDERS);
+		}
+	}
+
+	/****************
+	 * UP GUZIKI *
+	 ****************/
+
+	/********************************
+	 * DOWN MENUBAR ITEMS LISTENERS *
+	 ********************************/
+
+	/**
+	 * wyswietl klientow menubar
+	 * 
+	 * @param evt
+	 */
+	private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {
+		changeState(JUST_SHOW_CLIENTS);
+	}
+
+	/**
+	 * dodaj klienta menubar
+	 * 
+	 * @param evt
+	 */
+	private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {
+		changeState(JUST_ADD_CLIENT);
+	}
+
+	/**
+	 * wyswietl pojazdy menubar
+	 * 
+	 * @param evt
+	 */
+	private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {
+		changeState(JUST_SHOW_VEHICLES);
+	}
+
+	/**
+	 * dodaj pojazd menubar
+	 * 
+	 * @param evt
+	 */
+	private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {
+		changeState(JUST_ADD_VEHICLE);
+	}
+
+	/**
+	 * wyswietl zamowienia menubar
+	 * 
+	 * @param evt
+	 */
+	private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {
+		changeState(SHOW_ORDERS);
+	}
+
+	/**
+	 * dodaj nowe zamowienie menubar
+	 * 
+	 * @param evt
+	 */
+	private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {
+		changeState(ADD_ORDER_CHOOSE_CLIENT);
+	}
+
+	/********************************
+	 * UP MENUBAR ITEMS LISTENERS *
+	 ********************************/
+
+	/****************************************
+	 * DOWN ADD CLIENT FORM RADIO SHOW/HIDE *
+	 ****************************************/
+
+	/**
+	 * radio button firma w dodawaniu klienta
+	 * 
+	 * @param evt
+	 */
+	private void companyRadioStateChanged(javax.swing.event.ChangeEvent evt) {
+		if (companyRadio.isSelected()) {
+			this.companyPanel.setVisible(true);
+			this.personPanel.setVisible(false);
+		}
+	}
+
+	/**
+	 * radio button osoba fizyczna w dodawaniu klienta
+	 * 
+	 * @param evt
+	 */
+	private void personRadioStateChanged(javax.swing.event.ChangeEvent evt) {
+		if (personRadio.isSelected()) {
+			this.companyPanel.setVisible(false);
+			this.personPanel.setVisible(true);
+		}
+	}
+
+	/****************************************
+	 * UP ADD CLIENT FORM RADIO SHOW/HIDE *
+	 ****************************************/
+
+	/********************************
+	 * DOWN NETBEANS GENERATED GUI *
+	 ********************************/
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
@@ -2065,678 +2904,6 @@ public class AppWindow extends JFrame {
 
 		pack();
 	}// </editor-fold>
-
-	private void addVehicleButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-		// FIXME dodaj vehicle guzik
-
-		changeState(ADD_ORDER_ADD_VEHICLE);
-	}
-
-	private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-		// FIXME zapisz guzik
-
-		if (STATE == JUST_ADD_VEHICLE || STATE == ADD_ORDER_ADD_VEHICLE) {
-
-			if (this.client.getSelectedIndex() < 0
-					|| this.brand.getSelectedIndex() < 0
-					|| this.vin.getText().length() != 17)
-				JOptionPane.showMessageDialog(this, "Źle wypełniłeś dane! vin("
-						+ this.vin.getText().length() + "/17)");
-			else {
-				try {
-					final Date date = new SimpleDateFormat("yyyy-MM-dd")
-							.parse(this.productionDate.getText());
-					final int clientId = ((Item) this.client.getSelectedItem())
-							.getId();
-					final String vin = this.vin.getText();
-					final String type = this.vehicleType.getText();
-					final String brand = this.brand.getSelectedItem()
-							.toString();
-
-					boolean result = false;
-
-					if (STATE == JUST_ADD_VEHICLE) {
-						result = DBManager.executeTask(
-								new Task<Boolean>() {
-									public Boolean execute(PreparedStatement ps)
-											throws Exception {
-										ps.setInt(1, clientId);
-										ps.setString(2, vin);
-										ps.setDate(
-												3,
-												new java.sql.Date(date
-														.getTime()));
-										ps.setString(4, type);
-										ps.setString(5, brand);
-
-										return ps.executeUpdate() > 0;
-									}
-								},
-								"insert into vehicles (client_id, vin_number, production_date, type, brand) values (?, ?, ? ,?, ?)");
-
-					} else if (STATE == ADD_ORDER_ADD_VEHICLE) {
-
-						result = DBManager.executeTask(
-								new Task<Boolean>() {
-									public Boolean execute(PreparedStatement ps)
-											throws Exception {
-										ps.setInt(1, clientId);
-										ps.setString(2, vin);
-										ps.setDate(
-												3,
-												new java.sql.Date(date
-														.getTime()));
-										ps.setString(4, type);
-										ps.setString(5, brand);
-
-										boolean r = ps.executeUpdate() > 0;
-
-										ResultSet rs = ps.getGeneratedKeys();
-										if (rs.next()) {
-											int key = rs.getInt(1);
-											AppWindow.tmp = key;
-										}
-										return r;
-									}
-								},
-								"insert into vehicles (client_id, vin_number, production_date, type, brand) values (?, ?, ? ,?, ?)",
-								this.connection, new String[] { "vehicle_id" });
-
-					}
-
-					if (result) {
-						JOptionPane.showMessageDialog(this, "Dodano pojazd!");
-						this.vin.setText("");
-						this.productionDate.setText("YYYY-MM-DD");
-						this.vehicleType.setText("");
-
-						this.vehicleTmp.setClientId(clientId);
-						this.vehicleTmp.setVehicleId((int) AppWindow.tmp);
-						this.vehicleTmp.setBrand(brand);
-						this.vehicleTmp.setProductionDate(date);
-						this.vehicleTmp.setType(type);
-						this.vehicleTmp.setVinNumber(vin);
-
-						if (STATE == JUST_ADD_VEHICLE)
-							changeState(JUST_SHOW_VEHICLES);
-						else if (STATE == ADD_ORDER_ADD_VEHICLE) {
-							this.order.setVehicleId((int) AppWindow.tmp);
-							changeState(ADD_ORDER_COST_THINGS);
-						}
-					} else {
-						JOptionPane
-								.showMessageDialog(this, "Coś nie poszło :/");
-					}
-				} catch (ParseException e) {
-					JOptionPane.showMessageDialog(this, "Niepoprawna data!");
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		} else if (STATE == JUST_ADD_CLIENT || STATE == ADD_ORDER_ADD_CLIENT) {
-			if (this.street.getText().length() == 0
-					|| this.city.getText().length() == 0
-					|| this.phoneNumber.getText().length() == 0
-					|| this.email.getText().length() == 0)
-				JOptionPane.showMessageDialog(this, "Źle wypełniłeś dane!");
-			else {
-				final boolean company = this.companyRadio.isSelected();
-
-				try {
-					final String street = this.street.getText();
-					final int buildingNumber = (int) this.buildingNumber
-							.getValue();
-					final int apartmentNumber = (int) this.apartmentNumber
-							.getValue();
-					final String postalCode = this.postalCode.getText()
-							.replaceAll("[A-z\\-]*", "");
-					final String city = this.city.getText();
-					final String additionalAddress = this.additionalAddress
-							.getText();
-					final String phone = this.phoneNumber.getText();
-					final String email = this.email.getText();
-					final String firstName = this.firstName.getText();
-					final String lastName = this.lastName.getText();
-					final String peselString = this.pesel.getText();
-					final String name = this.name.getText();
-					final String nipString = this.nip.getText();
-
-					if (postalCode.length() != 5)
-						throw new IllegalArgumentException(
-								"Kod pocztowy nie taki!");
-
-					Pattern pattern = Pattern
-							.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-					Matcher matcher = pattern.matcher(email);
-					if (!matcher.matches())
-						throw new IllegalArgumentException(
-								"Podaj poprawny email!");
-
-					String sql = "insert into clients (street, building_number, apartment_number, postal_code, city, additional_address, phone_number, email";
-
-					long psl = 0;
-					long np = 0;
-					if (company) {
-						if (name.length() == 0 || nipString.length() != 10)
-							throw new IllegalArgumentException(
-									"Nie wypełniłeś dobrze danych! nip("
-											+ nipString.length() + "/10)");
-
-						sql += ", name, nip) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-						np = Long.parseLong(nipString);
-					} else {
-						if (firstName.length() == 0 || lastName.length() == 0
-								|| peselString.length() != 11)
-							throw new IllegalArgumentException(
-									"Nie wypełniłeś dobrze danych! pesel("
-											+ peselString.length() + "/11)");
-
-						sql += ", first_name, last_name, pesel) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-						psl = Long.parseLong(peselString);
-					}
-
-					final long pesel = psl;
-					final long nip = np;
-
-					boolean result = false;
-
-					if (STATE == JUST_ADD_CLIENT) {
-						result = DBManager.executeTask(new Task<Boolean>() {
-							public Boolean execute(PreparedStatement ps)
-									throws Exception {
-								ps.setString(1, street);
-								ps.setInt(2, buildingNumber);
-								ps.setInt(3, apartmentNumber);
-								ps.setString(4, postalCode);
-								ps.setString(5, city);
-								ps.setString(6, additionalAddress);
-								ps.setString(7, phone);
-								ps.setString(8, email);
-
-								if (!company) {
-									ps.setString(9, firstName);
-									ps.setString(10, lastName);
-									ps.setLong(11, pesel);
-								} else {
-									ps.setString(9, name);
-									ps.setLong(10, nip);
-								}
-
-								return ps.executeUpdate() > 0;
-							}
-						}, sql);
-
-					} else if (STATE == ADD_ORDER_ADD_CLIENT) {
-						result = DBManager.executeTask(new Task<Boolean>() {
-							public Boolean execute(PreparedStatement ps)
-									throws Exception {
-								ps.setString(1, street);
-								ps.setInt(2, buildingNumber);
-								ps.setInt(3, apartmentNumber);
-								ps.setString(4, postalCode);
-								ps.setString(5, city);
-								ps.setString(6, additionalAddress);
-								ps.setString(7, phone);
-								ps.setString(8, email);
-
-								if (!company) {
-									ps.setString(9, firstName);
-									ps.setString(10, lastName);
-									ps.setLong(11, pesel);
-								} else {
-									ps.setString(9, name);
-									ps.setLong(10, nip);
-								}
-
-								boolean r = ps.executeUpdate() > 0;
-
-								ResultSet rs = ps.getGeneratedKeys();
-								if (rs.next()) {
-									int key = rs.getInt(1);
-									AppWindow.tmp = key;
-								}
-								return r;
-							}
-						}, sql, this.connection, new String[] { "client_id" });
-					}
-
-					if (result) {
-						JOptionPane.showMessageDialog(this, "Dodano klienta!");
-
-						this.additionalAddress.setText("");
-						this.street.setText("Ulica");
-						this.buildingNumber.setValue(0);
-						this.apartmentNumber.setValue(0);
-						this.postalCode.setText("00-000");
-						this.city.setText("Miasto");
-						this.phoneNumber.setText("Telefon");
-						this.email.setText("Email");
-						this.firstName.setText("Imię");
-						this.lastName.setText("Nazwisko");
-						this.pesel.setText("pesel");
-						this.name.setText("Nazwa");
-						this.nip.setText("NIP");
-
-						this.clientTmp.setClientId((int) AppWindow.tmp);
-						this.clientTmp.setAdditionalAddress(additionalAddress);
-						this.clientTmp.setApartmentNumber(apartmentNumber);
-						this.clientTmp.setBuildingNumber(buildingNumber);
-						this.clientTmp.setCity(city);
-						this.clientTmp.setEmail(email);
-						this.clientTmp.setFirstName(firstName);
-						this.clientTmp.setLastName(lastName);
-						this.clientTmp.setName(name);
-						this.clientTmp.setNip(nip);
-						this.clientTmp.setPesel(pesel);
-						this.clientTmp.setPhoneNumber(phone);
-						this.clientTmp.setPostalCode(postalCode);
-						this.clientTmp.setStreet(street);
-
-						if (STATE == JUST_ADD_CLIENT)
-							changeState(JUST_SHOW_CLIENTS);
-						else if (STATE == ADD_ORDER_ADD_CLIENT) {
-							this.order.setClientId((int) AppWindow.tmp);
-							changeState(ADD_ORDER_CHOOSE_VEHICLE);
-						}
-					} else {
-						JOptionPane
-								.showMessageDialog(this, "Coś nie poszło :/");
-					}
-
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-					JOptionPane.showMessageDialog(this, "Coś źle "
-							+ (company ? "nip" : "pesel") + " piszesz!");
-				} catch (IllegalArgumentException e) {
-					JOptionPane.showMessageDialog(this, e.getMessage());
-				} catch (RuntimeException e) {
-					if (e.getMessage().indexOf("KEY_2A") != -1)
-						JOptionPane.showMessageDialog(this,
-								"Numer telefonu nie jest unikalny!");
-					else if (e.getMessage().indexOf("KEY_3") != -1)
-						JOptionPane.showMessageDialog(this,
-								"Adres email nie jest unikalny!");
-					else if (e.getMessage().indexOf("KEY_1") != -1)
-						JOptionPane.showMessageDialog(this,
-								"PESEL nie jest unikalny!");
-					else if (e.getMessage().indexOf("KEY_1V1") != -1)
-						JOptionPane.showMessageDialog(this,
-								"NIP nie jest unikalny!");
-				}
-			}
-		} else if (STATE == ADD_ORDER_FINALIZATION) {
-			// TODO
-		}
-	}
-
-	private void serviceTypeComboBoxItemStateChanged(
-			java.awt.event.ItemEvent evt) {
-		// TODO add your handling code here:
-		// FIXME zmieniony combo box typu uslugi
-
-		if (this.serviceTypeComboBox.getSelectedIndex() != -1)
-			this.moneyCostTextField.setText(""
-					+ ((Item) this.serviceTypeComboBox.getSelectedItem())
-							.getFloat());
-	}
-
-	@SuppressWarnings("unchecked")
-	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-		// FIXME szukaj w znajdz klienta
-
-		boolean company = this.findClientCompanyRadio.isSelected();
-		List<Client> clients = new LinkedList<>();
-		List<Company> companies;
-		List<Person> persons;
-
-		final String search = this.findClientTextField.getText();
-
-		if (!company) {
-			persons = DBManager.run(
-					new Query() {
-						public void prepareQuery(PreparedStatement ps)
-								throws Exception {
-							ps.setString(1, "%" + search + "%");
-							ps.setString(2, "%" + search + "%");
-						}
-					},
-					DBManager.personConverter,
-					"select * from clients where pesel is not null and (first_name like ? or last_name like ?) order by client_id asc");
-
-			clients.addAll(persons);
-		} else {
-			companies = DBManager.run(new Query() {
-				public void prepareQuery(PreparedStatement ps) throws Exception {
-					ps.setString(1, "%" + search + "%");
-				}
-			}, DBManager.companyConverter,
-					"select * from clients where pesel is null and name like ?");
-
-			clients.addAll(companies);
-		}
-
-		if (STATE == JUST_SHOW_CLIENTS || STATE == ADD_ORDER_CHOOSE_CLIENT) {
-			Object[][] data = new Object[clients.size()][clientTable.getModel()
-					.getColumnCount()];
-
-			int i = 0;
-			for (Client c : clients) {
-				data[i][0] = c.getClientId();
-				data[i][1] = "ul. " + c.getStreet() + " "
-						+ c.getBuildingNumber() + "/" + c.getApartmentNumber()
-						+ ", " + c.getPostalCode().substring(0, 2) + "-"
-						+ c.getPostalCode().substring(2, 5) + " " + c.getCity();
-				data[i][2] = c.getPhoneNumber();
-				data[i][3] = c.getEmail();
-				if (!company) {
-					data[i][4] = ((Person) c).getFirstName() + " "
-							+ ((Person) c).getLastName();
-					data[i][5] = ((Person) c).getPesel();
-				} else {
-					data[i][4] = ((Company) c).getName();
-					data[i][5] = ((Company) c).getNip();
-				}
-
-				++i;
-			}
-
-			fillTable(clientTable, data);
-		} else if (STATE == JUST_ADD_VEHICLE) {
-			this.client.removeAllItems();
-			for (Client c : clients)
-				this.client
-						.addItem(new Item(c.getClientId(),
-								(c.getFirstName() != null ? c.getFirstName()
-										+ " " : "")
-										+ (c.getLastName() != null ? c
-												.getLastName() + " " : "")
-										+ (c.getName() != null ? c.getName()
-												: "")));
-		}
-	}
-
-	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-		// FIXME szukaj w znajdz vehicle
-
-		final String brand = this.findByBrandCombo.getSelectedItem().toString();
-		final int allBrand = this.findByBrandCombo.getSelectedIndex();
-		final String search = this.findByBrandTextField.getText();
-
-		String sql = "select * from vehicles where ";
-
-		if (allBrand != 0)
-			sql += "brand = ? and ";
-
-		if (STATE == ADD_ORDER_CHOOSE_VEHICLE)
-			sql += "client_id = " + this.order.getClientId() + " and ";
-
-		sql += "(vin_number like ? or type like ?)";
-
-		List<Vehicle> vehicles = DBManager.run(new Query() {
-			public void prepareQuery(PreparedStatement ps) throws Exception {
-				int i = 1;
-				if (allBrand != 0)
-					ps.setString(i++, brand);
-				ps.setString(i++, "%" + search + "%");
-				ps.setString(i++, "%" + search + "%");
-			}
-		}, DBManager.vehicleConverter, sql);
-
-		Object[][] data = new Object[vehicles.size()][vehicleTable.getModel()
-				.getColumnCount()];
-
-		int i = 0;
-		for (Vehicle v : vehicles) {
-			data[i][0] = v.getVehicleId();
-			data[i][1] = v.getVinNumber();
-			data[i][2] = v.getProductionDate();
-			data[i][3] = v.getType();
-			data[i][4] = v.getBrand();
-
-			++i;
-		}
-
-		fillTable(vehicleTable, data);
-	}
-
-	private void addClientButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-		// FIXME dodaj klienta guzik
-		changeState(ADD_ORDER_ADD_CLIENT);
-	}
-
-	private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-		// FIXME dalej guzik
-
-		if (STATE == ADD_ORDER_CHOOSE_CLIENT) {
-			if (this.clientTable.getSelectedRow() == -1)
-				JOptionPane.showMessageDialog(this, "Wybierz klienta!");
-			else {
-				int row = this.clientTable.getSelectedRow();
-				this.order.setClientId((int) this.clientTable
-						.getValueAt(row, 0));
-
-				this.clientTmp.setAdditionalAddress((String) this.clientTable
-						.getValueAt(row, 1));
-				this.clientTmp.setName((String) this.clientTable.getValueAt(
-						row, 4));
-
-				changeState(ADD_ORDER_CHOOSE_VEHICLE);
-			}
-		} else if (STATE == ADD_ORDER_CHOOSE_VEHICLE) {
-			if (this.vehicleTable.getSelectedRow() == -1)
-				JOptionPane.showMessageDialog(this, "Wybierz pojazd!");
-			else {
-				int row = this.clientTable.getSelectedRow();
-				this.order.setVehicleId((int) this.vehicleTable.getValueAt(row,
-						0));
-
-				this.vehicleTmp.setVinNumber((String) this.vehicleTable
-						.getValueAt(row, 1));
-				this.vehicleTmp.setType((String) this.vehicleTable.getValueAt(
-						row, 3));
-				this.vehicleTmp.setBrand((String) this.vehicleTable.getValueAt(
-						row, 4));
-
-				changeState(ADD_ORDER_COST_THINGS);
-			}
-		} else if (STATE == ADD_ORDER_COST_THINGS) {
-			try {
-				this.order.setServiceType(this.serviceTypeComboBox
-						.getSelectedItem().toString());
-				this.order.setValue(Float.parseFloat(this.moneyCostTextField
-						.getText()));
-				this.order.setNote(this.moneyNoteArea.getText());
-
-				// Kajo
-
-				Client c = this.clientTmp;
-				Vehicle v = this.vehicleTmp;
-
-				this.finalClientLabel.setText((c.getFirstName() != null
-						&& c.getFirstName().length() != 0 ? c.getFirstName()
-						+ " " : "")
-						+ (c.getLastName() != null
-								&& c.getLastName().length() != 0 ? c
-								.getLastName() + " " : "")
-						+ (c.getName() != null && c.getName().length() != 0 ? c
-								.getName() : ""));
-
-				this.finalCostLabel.setText("" + this.order.getValue());
-				this.finalNoteLabel.setText(this.order.getNote());
-				this.finalServiceLabel.setText(this.order.getServiceType());
-				this.finalVehicleLabel.setText(v.getBrand() + " " + v.getType()
-						+ " " + v.getVinNumber());
-
-				changeState(ADD_ORDER_FINALIZATION);
-			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(this, "Podaj poprawną wartość!");
-			}
-		}
-	}
-
-	private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-		// FIXME anuluj guzik
-
-		if (STATE == ADD_ORDER_ADD_CLIENT) {
-			changeState(ADD_ORDER_CHOOSE_CLIENT);
-		} else if (STATE == ADD_ORDER_ADD_VEHICLE) {
-			changeState(ADD_ORDER_CHOOSE_VEHICLE);
-		} else {
-			changeState(SHOW_ORDERS);
-		}
-	}
-
-	private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-		// FIXME wyswietl klientow menubar
-		changeState(JUST_SHOW_CLIENTS);
-	}
-
-	public void getClientsToTable() {
-		List<Person> persons = DBManager
-				.run(new Query() {
-					public void prepareQuery(PreparedStatement ps)
-							throws Exception {
-					}
-				}, DBManager.personConverter,
-						"select * from clients where pesel is not null order by client_id asc");
-
-		List<Company> companies = DBManager
-				.run(new Query() {
-					public void prepareQuery(PreparedStatement ps)
-							throws Exception {
-					}
-				}, DBManager.companyConverter,
-						"select * from clients where pesel is null order by client_id asc");
-
-		Object[][] data = new Object[persons.size() + companies.size()][clientTable
-				.getModel().getColumnCount()];
-
-		List<Client> clients = new ArrayList<>();
-		clients.addAll(persons);
-		clients.addAll(companies);
-
-		int i = 0;
-		for (Client c : clients) {
-			data[i][0] = c.getClientId();
-			data[i][1] = "ul. " + c.getStreet() + " " + c.getBuildingNumber()
-					+ "/" + c.getApartmentNumber() + ", "
-					+ c.getPostalCode().substring(0, 2) + "-"
-					+ c.getPostalCode().substring(2, 5) + " " + c.getCity();
-			data[i][2] = c.getPhoneNumber();
-			data[i][3] = c.getEmail();
-			if (c instanceof Person) {
-				data[i][4] = ((Person) c).getFirstName() + " "
-						+ ((Person) c).getLastName();
-				data[i][5] = ((Person) c).getPesel();
-			} else {
-				data[i][4] = ((Company) c).getName();
-				data[i][5] = ((Company) c).getNip();
-			}
-
-			++i;
-		}
-
-		fillTable(clientTable, data);
-	}
-
-	public void fillTable(JTable table, Object[][] data) {
-		DefaultTableModel dm = (DefaultTableModel) table.getModel();
-
-		String[] columns = new String[dm.getColumnCount()];
-		for (int i = 0; i < dm.getColumnCount(); ++i)
-			columns[i] = dm.getColumnName(i);
-
-		table.setModel(new DefaultTableModel(data, columns));
-	}
-
-	private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-		// FIXME dodaj klienta menubar
-		changeState(JUST_ADD_CLIENT);
-	}
-
-	private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-		// FIXME wysiwetl pojazdy menubar
-		changeState(JUST_SHOW_VEHICLES);
-	}
-
-	public void getVehiclesToTable() {
-		String sql = "select * from vehicles";
-
-		if (STATE == ADD_ORDER_CHOOSE_VEHICLE || STATE == ADD_ORDER_ADD_VEHICLE
-				|| STATE == ADD_ORDER_CHOOSE_CLIENT)
-			sql += " where client_id = " + this.order.getClientId();
-
-		List<Vehicle> vehicles = DBManager.run(new Query() {
-			public void prepareQuery(PreparedStatement ps) throws Exception {
-			}
-		}, DBManager.vehicleConverter, sql);
-
-		Object[][] data = new Object[vehicles.size()][vehicleTable.getModel()
-				.getColumnCount()];
-
-		int i = 0;
-		for (Vehicle v : vehicles) {
-			data[i][0] = v.getVehicleId();
-			data[i][1] = v.getVinNumber();
-			data[i][2] = v.getProductionDate();
-			data[i][3] = v.getType();
-			data[i][4] = v.getBrand();
-
-			++i;
-		}
-
-		fillTable(vehicleTable, data);
-	}
-
-	private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-		// FIXME dodaj pojazd menubar
-		changeState(JUST_ADD_VEHICLE);
-	}
-
-	private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-		// FIXME wyswietl zamowienie menubar
-		changeState(SHOW_ORDERS);
-	}
-
-	private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-		// FIXME dodaj nowe zamowienie menubar
-		changeState(ADD_ORDER_CHOOSE_CLIENT);
-	}
-
-	private void companyRadioStateChanged(javax.swing.event.ChangeEvent evt) {
-		// TODO add your handling code here:
-		if (companyRadio.isSelected()) {
-			this.companyPanel.setVisible(true);
-			this.personPanel.setVisible(false);
-		}
-		// FIXME radio button firma w dodawaniu klienta
-	}
-
-	private void personRadioStateChanged(javax.swing.event.ChangeEvent evt) {
-		// TODO add your handling code here:
-		if (personRadio.isSelected()) {
-			this.companyPanel.setVisible(false);
-			this.personPanel.setVisible(true);
-		}
-		// FIXME radio button osoba fdizyczna w dodawaniu kliunta
-	}
 
 	// Variables declaration - do not modify
 	private javax.swing.JButton addClientButton;
