@@ -6,3 +6,4 @@
 *.ear
 /app_bd2/bin
 /app_bd2/.settings
+/app_bd2/netBeansFormProject/JavaApplication1/build
