@@ -2,7 +2,7 @@ package pl.edu.pw.elka.bd2.models;
 
 public class Client {
 
-	protected int clientId;
+	protected int clientId = -1;
 	protected String additionalAddress;
 	protected String street;
 	protected int buildingNumber;
@@ -14,7 +14,7 @@ public class Client {
 
 	private String firstName;
 	private String lastName;
-	private String pesel;
+	private long pesel;
 	
 	private String name;
 	private long nip;
@@ -133,11 +133,11 @@ public class Client {
 		this.lastName = lastName;
 	}
 
-	public String getPesel() {
+	public long getPesel() {
 		return pesel;
 	}
 
-	public void setPesel(String pesel) {
+	public void setPesel(long pesel) {
 		this.pesel = pesel;
 	}
 

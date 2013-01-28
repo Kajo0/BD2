@@ -4,7 +4,7 @@ public class Person extends Client {
 
 	private String firstName;
 	private String lastName;
-	private String pesel;
+	private long pesel;
 
 	public Person() {
 
@@ -36,11 +36,11 @@ public class Person extends Client {
 		this.lastName = lastName;
 	}
 
-	public String getPesel() {
+	public long getPesel() {
 		return pesel;
 	}
 
-	public void setPesel(String pesel) {
+	public void setPesel(long pesel) {
 		this.pesel = pesel;
 	}
 

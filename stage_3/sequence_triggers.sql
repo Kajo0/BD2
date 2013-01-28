@@ -31,3 +31,21 @@ CREATE OR REPLACE TRIGGER clients_sequence_trigger
 BEGIN
   :new.client_id := clients_sequence.nextval;
 END;
+
+
+
+DROP TRIGGER orders_sequence_trigger;
+DROP SEQUENCE orders_sequence;
+
+
+CREATE SEQUENCE orders_sequence
+  START WITH 1
+  INCREMENT BY 1
+  CACHE 100;
+
+CREATE OR REPLACE TRIGGER orders_sequence_trigger
+  BEFORE INSERT ON orders
+  FOR EACH ROW
+BEGIN
+  :new.order_id := orders_sequence.nextval;
+END;

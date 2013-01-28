@@ -77,11 +77,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         buttonGroup2 = new javax.swing.ButtonGroup();
         moneyPanel = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox();
+        serviceTypeComboBox = new javax.swing.JComboBox();
         jLabel15 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField3 = new javax.swing.JTextField();
+        moneyNoteArea = new javax.swing.JTextArea();
+        moneyCostTextField = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         addVehicle = new javax.swing.JPanel();
@@ -370,10 +370,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel13.setText("Nazwa firmy");
 
         name.setText("Nazwa");
-        name.setMinimumSize(new java.awt.Dimension(23, 20));
+        name.setMinimumSize(new java.awt.Dimension(38, 20));
 
         nip.setText("NIP");
-        nip.setMinimumSize(new java.awt.Dimension(23, 20));
+        nip.setMinimumSize(new java.awt.Dimension(38, 20));
+        nip.setPreferredSize(new java.awt.Dimension(38, 20));
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("NIP");
@@ -561,23 +562,22 @@ public class MainFrame extends javax.swing.JFrame {
         moneyPanel.setMaximumSize(new java.awt.Dimension(495, 301));
         moneyPanel.setMinimumSize(new java.awt.Dimension(495, 301));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jComboBox2PropertyChange(evt);
+        serviceTypeComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                serviceTypeComboBoxItemStateChanged(evt);
             }
         });
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("Typ usługi");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane4.setViewportView(jTextArea1);
+        moneyNoteArea.setColumns(20);
+        moneyNoteArea.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        moneyNoteArea.setRows(5);
+        jScrollPane4.setViewportView(moneyNoteArea);
 
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField3.setText("0.0");
+        moneyCostTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        moneyCostTextField.setText("0.0");
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("Wstępny koszt");
@@ -598,8 +598,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(moneyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(moneyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, 0, 150, Short.MAX_VALUE))
+                        .addComponent(moneyCostTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(serviceTypeComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 150, Short.MAX_VALUE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -608,11 +608,11 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(moneyPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(moneyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(serviceTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addGap(18, 18, 18)
                 .addGroup(moneyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(moneyCostTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addGap(18, 18, 18)
                 .addGroup(moneyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1047,11 +1047,6 @@ public class MainFrame extends javax.swing.JFrame {
         //FIXME zapisz guzik
     }//GEN-LAST:event_saveButtonActionPerformed
 
-    private void jComboBox2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jComboBox2PropertyChange
-        // TODO add your handling code here:
-        // FIXME zmieniony combo box typu uslugi
-    }//GEN-LAST:event_jComboBox2PropertyChange
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //FIXME szukaj w znajdz klienta
@@ -1126,6 +1121,10 @@ public class MainFrame extends javax.swing.JFrame {
         //FIXME radio button osoba fdizyczna w dodawaniu kliunta
     }//GEN-LAST:event_personRadioStateChanged
 
+    private void serviceTypeComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_serviceTypeComboBoxItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_serviceTypeComboBoxItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -1198,7 +1197,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField firstName;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1241,10 +1239,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField lastName;
     private javax.swing.JPanel leftPanel;
+    private javax.swing.JTextField moneyCostTextField;
+    private javax.swing.JTextArea moneyNoteArea;
     private javax.swing.JPanel moneyPanel;
     private javax.swing.JTextField name;
     private javax.swing.JButton nextButton;
@@ -1258,6 +1256,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField postalCode;
     private javax.swing.JTextField productionDate;
     private javax.swing.JButton saveButton;
+    private javax.swing.JComboBox serviceTypeComboBox;
     private javax.swing.JTextField street;
     private javax.swing.JPanel topPanel;
     private javax.swing.JTable vehicleTable;

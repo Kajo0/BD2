@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class DBManager {
 		return DriverManager.getConnection(url, username, password);
 	}
 
-	public static <R> R executeTaskInConnection(Task<R> task, String sql, Connection connection)
+	public static <R> R executeTask(Task<R> task, String sql, Connection connection, String[] columns)
 			throws SQLException {
 		R result = null;
 		Connection conn = null;
@@ -47,7 +48,7 @@ public class DBManager {
 
 			PreparedStatement ps = null;
 			try {
-				ps = conn.prepareStatement(sql);
+				ps = conn.prepareStatement(sql, columns);
 				result = task.execute(ps);
 //				conn.commit();
 
@@ -232,7 +233,7 @@ public class DBManager {
 
 			e.setFirstName(rs.getString("first_name"));
 			e.setLastName(rs.getString("last_name"));
-			e.setPesel(rs.getString("pesel"));
+			e.setPesel(rs.getLong("pesel"));
 
 			e.setName(rs.getString("name"));
 			e.setNip(rs.getLong("nip"));
@@ -246,7 +247,7 @@ public class DBManager {
 			Person e = new Person();
 			e.setFirstName(rs.getString("first_name"));
 			e.setLastName(rs.getString("last_name"));
-			e.setPesel(rs.getString("pesel"));
+			e.setPesel(rs.getLong("pesel"));
 			e.setClientId(rs.getInt("client_id"));
 			e.setAdditionalAddress(rs.getString("additional_address"));
 			e.setStreet(rs.getString("street"));
