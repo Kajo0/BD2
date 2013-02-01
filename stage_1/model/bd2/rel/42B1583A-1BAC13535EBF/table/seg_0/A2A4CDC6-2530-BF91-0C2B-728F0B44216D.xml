@@ -176,7 +176,7 @@
 <colUsage columnID="0CCA130B-1850-A584-111E-07D29D2631FE"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="5ADB4FE6-2B37-C9A4-BA21-8F419E76A010" name="VEHICLE_PARAMETER PK">
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="5ADB4FE6-2B37-C9A4-BA21-8F419E76A010" name="VEHICLE_PARAMETER PKv2">
 <createdBy>kopasiak</createdBy>
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>56C04F7A-1A8F-2C2A-6375-9F9A1675B830</generatorID>

@@ -160,7 +160,6 @@
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>AFA60875-D401-4D49-A617-D3DD86DD20D3</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -173,7 +172,6 @@
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>DAF06763-B01F-D4E6-5D0E-E6926AB5A93E</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -186,7 +184,6 @@
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>3D4C98C1-3AF8-8726-EC2B-E7C061A60E8E</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -200,7 +197,6 @@
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>F5D28D61-EF74-73B2-6A7B-BD00B3CEC8E3</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -213,7 +209,6 @@
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>7A32DAAB-B39B-15A1-B20B-7A2006F548CF</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -265,7 +260,7 @@
 <colUsage columnID="D2AB9E4E-2093-779D-FD29-0510703DC203"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9ED1AAA2-A9E2-3EFB-49AC-0C59D5D9D728" name="Key_1">
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9ED1AAA2-A9E2-3EFB-49AC-0C59D5D9D728" name="Key_1v1">
 <createdBy>kopasiak</createdBy>
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>9016FC2B-A41E-8B3A-C0CC-841C7900CFE1</generatorID>

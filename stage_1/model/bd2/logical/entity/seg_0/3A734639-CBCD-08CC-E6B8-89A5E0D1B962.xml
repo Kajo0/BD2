@@ -4,7 +4,7 @@
 <createdTime>2013-01-31 22:58:32 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pkName>PART_VERSION PK</pkName>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -57,7 +57,7 @@
 <generatorID>817AEF65-C19D-8BCA-DC3A-36E83BBB32FD</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>F0D15688-EA72-CE18-E32E-C31542C2488E</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -70,12 +70,27 @@
 <createdTime>2013-02-01 07:58:43 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="vversion_id" id="4E8C1696-F7B4-472D-F240-EB08C9524A5E">
+<createdBy>Kajo</createdBy>
+<createdTime>2013-02-01 15:02:50 UTC</createdTime>
+<generatorID>817317D3-20C9-6B0B-1C8B-6D4E60098ADE</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
+</engineerTo>
+<referedAttribute>B73A6CA4-CB56-D065-CD89-6CED9445D191</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
 <dataTypeScale>0</dataTypeScale>
 </Attribute>
 </attributes>
@@ -85,7 +100,7 @@
 <createdTime>2013-02-01 08:28:05 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

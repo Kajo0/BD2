@@ -4,7 +4,7 @@
 <createdTime>2013-01-31 21:35:29 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pkName>PARAMETERS PK</pkName>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -56,7 +56,7 @@
 <createdTime>2013-01-31 23:16:19 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -69,7 +69,7 @@
 <createdTime>2013-01-31 23:20:04 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -81,7 +81,7 @@
 <createdTime>2013-01-31 23:20:41 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -93,10 +93,13 @@
 <createdTime>2013-01-31 23:21:30 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1000</dataTypeSize>
 </Attribute>
 </attributes>
 <identifiers>
@@ -105,7 +108,7 @@
 <createdTime>2013-01-31 23:16:52 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

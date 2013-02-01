@@ -84,7 +84,10 @@
 <generatorID>A8C6DCC4-9B8C-1BF6-63AC-4734130BC31A</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1000</dataTypeSize>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>

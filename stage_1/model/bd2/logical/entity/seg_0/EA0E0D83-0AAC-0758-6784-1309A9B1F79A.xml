@@ -4,7 +4,7 @@
 <createdTime>2012-12-29 20:57:24 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pkName>Vehicle PK</pkName>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -57,7 +57,7 @@
 <generatorID>2498F338-EC1D-5E8D-328F-1E45D3E966F0</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>8A5463FE-D288-2513-6548-D8ABFC803106</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -71,7 +71,7 @@
 <createdTime>2012-12-29 23:47:43 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -84,19 +84,31 @@
 <createdTime>2012-12-29 23:48:01 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>17</dataTypeSize>
 </Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="registration" id="14A473C5-253D-46E6-D751-795434940081">
+<createdBy>Kajo</createdBy>
+<createdTime>2013-02-01 15:04:31 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+</Attribute>
 <Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="production_date" id="D38CF440-E0EB-93AB-0E7E-98637A187B75">
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-29 23:48:43 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -108,7 +120,7 @@
 <generatorID>3F4C2E5C-941C-1257-F580-DCD03DD7D1C3</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>B73A6CA4-CB56-D065-CD89-6CED9445D191</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -124,7 +136,7 @@
 <createdTime>2012-12-29 23:48:00 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
@@ -136,10 +148,21 @@
 <createdTime>2012-12-30 01:25:24 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <usedAttributes>
 <attributeRef>807ADC95-6087-44A9-FB8F-EBB915093B6F</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="E6C4D3DB-2984-BAA0-0A95-F5882963806E" name="unique_registration">
+<createdBy>Kajo</createdBy>
+<createdTime>2013-02-01 15:05:39 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
+</engineerTo>
+<usedAttributes>
+<attributeRef>14A473C5-253D-46E6-D751-795434940081</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

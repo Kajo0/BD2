@@ -70,6 +70,23 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="vversion_id" id="6AEE3692-68B3-1E8D-D29B-3D1079FD4383">
+<createdBy>Kajo</createdBy>
+<createdTime>2013-02-01 15:07:38 UTC</createdTime>
+<generatorID>4E8C1696-F7B4-472D-F240-EB08C9524A5E</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>04D94E37-9591-A081-1619-EE3AED81E17F</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="891577FE-F7F9-1B2D-6369-793E85E37390" referredColumn="04D94E37-9591-A081-1619-EE3AED81E17F"/>
+</associations>
+</Column>
 </columns>
 <indexes>
 <ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="93C7CA55-E32C-F7F6-D758-661B07CA6AEF" name="PART_VERSION PK">
@@ -91,6 +108,16 @@
 <indexState>Foreign Key</indexState>
 <indexColumnUsage>
 <colUsage columnID="B0668AB7-8367-AB22-BA92-8E67A61EC842"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="B3097888-F300-F6B3-997F-E0ED4116520C" name="Relation_34">
+<createdBy>Kajo</createdBy>
+<createdTime>2013-02-01 15:07:38 UTC</createdTime>
+<generatorID>817317D3-20C9-6B0B-1C8B-6D4E60098ADE</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="6AEE3692-68B3-1E8D-D29B-3D1079FD4383"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

@@ -4,7 +4,7 @@
 <createdTime>2013-01-31 22:15:52 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pkName>VEHICLE_VERSION PK</pkName>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -57,7 +57,7 @@
 <generatorID>EDECE5D2-6A92-500B-1689-3480A3E66B25</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>79BE4539-7A04-3B16-BCB6-4B09E8A2C302</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -70,7 +70,7 @@
 <createdTime>2013-01-31 23:37:13 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -84,29 +84,13 @@
 <generatorID>C4BA0552-9507-8E05-B36A-72A6D598ED11</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>B42E622E-18CF-8902-F4AB-C84349A52046</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>20</dataTypeSize>
-</Attribute>
-<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="part_number" id="2D22166B-F7E3-D24F-BF05-CC75ECD9725B">
-<createdBy>kopasiak</createdBy>
-<createdTime>2013-02-01 08:28:13 UTC</createdTime>
-<generatorID>817317D3-20C9-6B0B-1C8B-6D4E60098ADE</generatorID>
-<ownerDesignName>bd2</ownerDesignName>
-<engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
-</engineerTo>
-<nullsAllowed>true</nullsAllowed>
-<referedAttribute>B5E0DD2F-DB89-8F88-926B-8DC7E5D8BE29</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>10</dataTypePrecision>
-<dataTypeScale>0</dataTypeScale>
 </Attribute>
 </attributes>
 <identifiers>
@@ -115,7 +99,7 @@
 <createdTime>2013-01-31 23:37:16 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

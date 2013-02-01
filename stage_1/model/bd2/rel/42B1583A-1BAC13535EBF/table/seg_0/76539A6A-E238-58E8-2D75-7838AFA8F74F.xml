@@ -83,6 +83,18 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="registration" id="891026B7-10EA-80F4-9355-E143013B1CF2">
+<createdBy>Kajo</createdBy>
+<createdTime>2013-02-01 15:07:38 UTC</createdTime>
+<generatorID>14A473C5-253D-46E6-D751-795434940081</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column class="oracle.dbtools.crest.model.design.relational.Column" name="production_date" id="6A24637F-2FA8-23CE-C05A-686873429904">
 <createdBy>kopasiak</createdBy>
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
@@ -132,6 +144,16 @@
 <indexState>Unique Constraint</indexState>
 <indexColumnUsage>
 <colUsage columnID="F34FB043-6A63-6E95-53F4-47C1C03FCD6E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="99E641B2-8F13-AE40-D8BE-6F9A78B2F311" name="unique_registration">
+<createdBy>Kajo</createdBy>
+<createdTime>2013-02-01 15:07:38 UTC</createdTime>
+<generatorID>E6C4D3DB-2984-BAA0-0A95-F5882963806E</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="891026B7-10EA-80F4-9355-E143013B1CF2"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="3EEA8EA0-3F03-7113-59C2-2BA106DEBFDD" name="Relation_31">

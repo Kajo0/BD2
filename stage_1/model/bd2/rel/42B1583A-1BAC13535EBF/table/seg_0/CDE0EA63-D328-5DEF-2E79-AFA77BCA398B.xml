@@ -86,24 +86,6 @@
 <colAssociation fkAssociation="26B83738-CCE5-94C0-6F9D-B8DE680EE93E" referredColumn="AFEF00F4-E903-640C-9065-564D796DAE9A"/>
 </associations>
 </Column>
-<Column class="oracle.dbtools.crest.model.design.relational.Column" name="part_number" id="CAA4F7BC-C5C8-9854-A569-FCBA3D7F983C">
-<createdBy>kopasiak</createdBy>
-<createdTime>2013-02-01 14:18:54 UTC</createdTime>
-<generatorID>2D22166B-F7E3-D24F-BF05-CC75ECD9725B</generatorID>
-<ownerDesignName>bd2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>10</dataTypePrecision>
-<dataTypeScale>0</dataTypeScale>
-<delegate>029415C7-7207-F692-FD0D-858BF8617B9B</delegate>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="4E586779-7ADA-E7CA-1BE7-8EF37A2740BC" referredColumn="029415C7-7207-F692-FD0D-858BF8617B9B"/>
-</associations>
-</Column>
 </columns>
 <indexes>
 <ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="B31FF1DA-86C6-8076-A852-2F4DF0D64942" name="VEHICLE_VERSION PK">
@@ -125,16 +107,6 @@
 <indexState>Foreign Key</indexState>
 <indexColumnUsage>
 <colUsage columnID="E01C7F11-A5D2-821E-C368-BB9A1A8C4585"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="EE6E0B0C-C8ED-8D70-567C-FD782551DD54" name="Relation_34">
-<createdBy>kopasiak</createdBy>
-<createdTime>2013-02-01 14:18:54 UTC</createdTime>
-<generatorID>817317D3-20C9-6B0B-1C8B-6D4E60098ADE</generatorID>
-<ownerDesignName>bd2</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<indexColumnUsage>
-<colUsage columnID="CAA4F7BC-C5C8-9854-A569-FCBA3D7F983C"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="F28C142E-799B-D546-1335-08B1A2B2E1B4" name="Relation_37">
