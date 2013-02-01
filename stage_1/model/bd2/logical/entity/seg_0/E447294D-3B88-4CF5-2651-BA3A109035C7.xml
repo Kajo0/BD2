@@ -4,7 +4,7 @@
 <createdTime>2013-02-01 08:45:07 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pkName>PROVIDER_OFFER PK</pkName>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -57,7 +57,7 @@
 <generatorID>88DC0B2F-0A9A-17B2-1408-ED9467268737</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>0A4F2ED2-6706-AAEF-9F74-F938B8F98A98</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -72,7 +72,7 @@
 <generatorID>88DC0B2F-0A9A-17B2-1408-ED9467268737</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>C7BC6EC6-FA5E-9136-FABB-E39E0E62AD67</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -85,13 +85,13 @@
 <createdTime>2013-02-01 08:48:43 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>5</dataTypePrecision>
-<dataTypeScale>0</dataTypeScale>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
 </Attribute>
 <Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="provider_id" id="34CB00FC-E594-EC97-DDF6-5934EF753C67">
 <createdBy>kopasiak</createdBy>
@@ -99,7 +99,7 @@
 <generatorID>C1C31BC8-1613-4512-8EFF-4BA306C704D3</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>C944E426-2DD0-9165-00C8-BC2CC18DD91A</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -115,7 +115,7 @@
 <createdTime>2013-02-01 08:48:03 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
