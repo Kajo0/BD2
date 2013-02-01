@@ -1,4 +1,6 @@
 ALTER TABLE orders MODIFY order_date DEFAULT SYSDATE;
+ALTER TABLE services MODIFY begin_date DEFAULT SYSDATE;
+ALTER TABLE services MODIFY cost DEFAULT 0;
 
 
 
@@ -53,3 +55,69 @@ CREATE OR REPLACE TRIGGER orders_sequence_trigger
 BEGIN
   :new.order_id := orders_sequence.nextval;
 END;
+
+
+
+/* Zmiana kosztu realizacji us³ugi, zwiêksza/zmniejsza koszt zamówienia */
+
+CREATE OR REPLACE TRIGGER update_order_cost_by_service
+before UPDATE OF cost ON services
+FOR EACH ROW
+BEGIN
+  if (:new.cost <> :old.cost) then
+    update orders set value = value + :new.cost - :old.cost where order_id = :old.order_id;
+  end if;
+END;
+/
+
+
+/* Zliczanie sumy kosztów zamówieñ dla klienta o podanym id */
+
+create or replace function get_sum_of_client_orders (i_client_id in clients.client_id%type) return orders.value%type is
+  val orders.value%type;
+begin
+  select sum(value) into val from orders where client_id = i_client_id;
+
+  if val is null then
+    val := 0;
+  end if;
+ 
+  return val;
+end;
+/
+
+set serveroutput on;
+begin
+  dbms_output.put_line('Sum of orders: ' || get_sum_of_client_orders(0));
+end;
+/
+
+
+/* Procedura licz¹ca i wypisuj¹ca klientów którzy nie z³o¿yli zamówienia */
+
+create or replace procedure get_clients_without_orders is
+  amount NUMBER(5,0);
+  cursor cur is select * from clients where client_id not in (select distinct client_id from orders);
+  os clients%rowtype;
+begin
+  amount := 0;
+  open cur;
+  
+  loop
+    fetch cur into os;
+    exit when cur%notfound;
+    dbms_output.put_line(os.client_id || ': ' || os.first_name || ' ' || os.last_name || ' ' || os.name);
+    amount := amount + 1;
+  end loop;
+  
+  close cur;
+
+  dbms_output.put_line('  Total amount of clients without orders: ' || amount);
+end;
+/
+
+set serveroutput on;
+begin
+  get_clients_without_orders();
+end;
+/
