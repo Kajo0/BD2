@@ -4,7 +4,7 @@
 <createdTime>2012-12-29 21:03:30 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pkName>Part PK</pkName>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -56,7 +56,7 @@
 <createdTime>2012-12-29 23:36:46 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -69,7 +69,7 @@
 <createdTime>2012-12-29 23:37:03 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -81,7 +81,7 @@
 <createdTime>2012-12-29 23:39:31 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -94,13 +94,13 @@
 <createdTime>2013-02-01 08:24:21 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>5</dataTypePrecision>
-<dataTypeScale>0</dataTypeScale>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
 </Attribute>
 <Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="part_number" id="E6CB0DD6-0135-5B02-3287-57E9877FC8E5">
 <createdBy>kopasiak</createdBy>
@@ -108,7 +108,7 @@
 <generatorID>C6E1568D-4AF0-7E17-B950-A741E4B8C6B0</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>B5E0DD2F-DB89-8F88-926B-8DC7E5D8BE29</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -123,7 +123,7 @@
 <generatorID>3BA2302A-61FC-76D8-F322-20543C8CFF60</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>A1EB9A54-B5CD-7063-C87E-A2D476B6064F</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -138,7 +138,7 @@
 <createdTime>2012-12-29 23:37:01 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

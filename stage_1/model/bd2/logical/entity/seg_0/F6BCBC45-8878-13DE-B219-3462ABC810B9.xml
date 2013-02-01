@@ -4,7 +4,7 @@
 <createdTime>2013-02-01 08:57:09 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pkName>part_instance PK</pkName>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -56,12 +56,12 @@
 <createdTime>2013-02-01 08:57:22 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>5</dataTypePrecision>
+<dataTypePrecision>30</dataTypePrecision>
 <dataTypeScale>0</dataTypeScale>
 </Attribute>
 <Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="catalog_number" id="FE462117-1AE6-A9C9-587A-DECC2528203B">
@@ -70,7 +70,7 @@
 <generatorID>BC560810-A63C-A066-C5FF-90840866322D</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>0A4F2ED2-6706-AAEF-9F74-F938B8F98A98</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -85,7 +85,7 @@
 <generatorID>BC560810-A63C-A066-C5FF-90840866322D</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>C7BC6EC6-FA5E-9136-FABB-E39E0E62AD67</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -98,12 +98,12 @@
 <createdTime>2013-02-01 09:14:20 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>5</dataTypePrecision>
+<dataTypePrecision>7</dataTypePrecision>
 <dataTypeScale>2</dataTypeScale>
 </Attribute>
 <Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="service_id" id="724AC38F-FFAB-3497-169B-27C80C2F1331">
@@ -112,7 +112,7 @@
 <generatorID>7D79AFB5-E82D-83F7-DD21-AF1B061650CE</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <referedAttribute>8E33B3CB-0104-CEFB-A7A1-4A61FBB76A18</referedAttribute>
@@ -128,7 +128,7 @@
 <generatorID>09F4D94B-EC1F-7692-6A9C-859AC110FABC</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>A1794AE2-E249-4C95-C315-0C46C7496E63</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -144,7 +144,7 @@
 <createdTime>2013-02-01 08:57:53 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
