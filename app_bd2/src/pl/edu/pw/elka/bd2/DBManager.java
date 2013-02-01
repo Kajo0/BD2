@@ -17,6 +17,7 @@ import pl.edu.pw.elka.bd2.models.Order;
 import pl.edu.pw.elka.bd2.models.Person;
 import pl.edu.pw.elka.bd2.models.ServiceType;
 import pl.edu.pw.elka.bd2.models.Vehicle;
+import pl.edu.pw.elka.bd2.models.VehicleVersion;
 
 public class DBManager {
 	private final static String url = "jdbc:oracle:thin:@//ikar.elka.pw.edu.pl:1521/elka.elka.pw.edu.pl";
@@ -114,6 +115,44 @@ public class DBManager {
 		}
 	}
 
+	public static <R> R executeTask(Task<R> task, String sql, String[] columns)
+			throws SQLException {
+		R result = null;
+		Connection conn = null;
+
+		try {
+			conn = getConnection();
+
+			PreparedStatement ps = null;
+			try {
+				ps = conn.prepareStatement(sql, columns);
+				result = task.execute(ps);
+				conn.commit();
+
+				return result;
+			} catch (Exception ex) {
+				System.err.println("Cannot execute a statement : "
+						+ ex.getMessage());
+				conn.rollback();
+
+				throw new RuntimeException(ex);
+			} finally {
+				if (ps != null)
+					ps.close();
+			}
+		} catch (Exception ex) {
+			System.err.println("Cannot open a connection : " + ex.getMessage());
+
+			throw new RuntimeException(ex);
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (Exception ignore) {
+			}
+		}
+	}
+
 	public static <R, B> List<B> run(Query query, ResultSetToBean<B> converter,
 			String sql) {
 		Connection conn = null;
@@ -178,6 +217,17 @@ public class DBManager {
 		}
 	};
 
+	public final static ResultSetToBean<VehicleVersion> vehicleVersionConverter = new ResultSetToBean<VehicleVersion>() {
+		public VehicleVersion convert(ResultSet rs) throws Exception {
+			VehicleVersion e = new VehicleVersion();
+			e.setVehicleVersionId(rs.getInt("vversion_id"));
+			e.setBrand(rs.getString("brand"));
+			e.setModel(rs.getString("model"));
+
+			return e;
+		}
+	};
+
 	public final static ResultSetToBean<Order> orderConverter = new ResultSetToBean<Order>() {
 		public Order convert(ResultSet rs) throws Exception {
 			Order e = new Order();
@@ -199,10 +249,9 @@ public class DBManager {
 			e.setClientId(rs.getInt("client_id"));
 			e.setVehicleId(rs.getInt("vehicle_id"));
 			e.setVinNumber(rs.getString("vin_number"));
-			//e.setType(rs.getString("type"));
 			e.setProductionDate(rs.getDate("production_date"));
-			//e.setBrand(rs.getString("brand"));
 			e.setRegistration(rs.getString("registration"));
+			e.setVversion_id(rs.getInt("vversion_id"));
 
 			return e;
 		}

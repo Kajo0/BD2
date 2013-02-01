@@ -58,6 +58,24 @@ END;
 
 
 
+DROP TRIGGER vversion_sequence_trigger;
+DROP SEQUENCE vversion_sequence;
+
+
+CREATE SEQUENCE vversion_sequence
+  START WITH 1
+  INCREMENT BY 1
+  CACHE 100;
+
+CREATE OR REPLACE TRIGGER vversion_sequence_trigger
+  BEFORE INSERT ON vehicle_version
+  FOR EACH ROW
+BEGIN
+  :new.vversion_id := vversion_sequence.nextval;
+END;
+
+
+
 /* Zmiana kosztu realizacji us³ugi, zwiêksza/zmniejsza koszt zamówienia */
 
 CREATE OR REPLACE TRIGGER update_order_cost_by_service

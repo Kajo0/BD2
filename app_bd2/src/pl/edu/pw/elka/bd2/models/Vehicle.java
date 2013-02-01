@@ -11,6 +11,7 @@ public class Vehicle {
 	private String type;
 	private String brand;
 	private String registration;
+	private int vversion_id;
 
 	public Vehicle() {
 
@@ -22,7 +23,7 @@ public class Vehicle {
 		str.append("\tClientId: " + clientId);
 		str.append("\tVIN: " + vinNumber);
 		str.append("\tProduction: " + productionDate);
-		str.append("\tType: " + type);
+		str.append("\tRegistration: " + registration);
 		str.append("\tBrand: " + brand);
 
 		return str.toString();
@@ -82,6 +83,14 @@ public class Vehicle {
 
 	public void setRegistration(String registration) {
 		this.registration = registration;
+	}
+
+	public int getVversion_id() {
+		return vversion_id;
+	}
+
+	public void setVversion_id(int vversion_id) {
+		this.vversion_id = vversion_id;
 	}
 
 }

@@ -30,6 +30,7 @@ import pl.edu.pw.elka.bd2.models.Order;
 import pl.edu.pw.elka.bd2.models.Person;
 import pl.edu.pw.elka.bd2.models.ServiceType;
 import pl.edu.pw.elka.bd2.models.Vehicle;
+import pl.edu.pw.elka.bd2.models.VehicleVersion;
 
 @SuppressWarnings({ "serial", "rawtypes" })
 public class AppWindow extends JFrame {
@@ -128,12 +129,8 @@ public class AppWindow extends JFrame {
 		String sql = "select * from vehicle";
 
 		if (STATE == ADD_ORDER_CHOOSE_VEHICLE || STATE == ADD_ORDER_ADD_VEHICLE
-				|| STATE == ADD_ORDER_CHOOSE_CLIENT || STATE == ADD_ORDER_ADD_CLIENT) {
+				|| STATE == ADD_ORDER_CHOOSE_CLIENT || STATE == ADD_ORDER_ADD_CLIENT) // due to invoke this before state changed
 			sql += " where client_id = " + this.order.getClientId();
-
-			System.out.println(this.order.getClientId());	
-		}
-		System.out.println(STATE);
 
 		List<Vehicle> vehicles = DBManager.run(new Query() {
 			public void prepareQuery(PreparedStatement ps) throws Exception {
@@ -149,7 +146,15 @@ public class AppWindow extends JFrame {
 			data[i][1] = v.getVinNumber();
 			data[i][2] = v.getProductionDate();
 			data[i][3] = v.getRegistration();
-			data[i][4] = "TODO";//v.getBrand();
+
+			final int vversion_id = v.getVversion_id();
+			List<VehicleVersion> vversion = DBManager.run(new Query() {
+				public void prepareQuery(PreparedStatement ps) throws Exception {
+					ps.setInt(1, vversion_id);
+				}
+			}, DBManager.vehicleVersionConverter, "select * from vehicle_version where vversion_id = ?");
+
+			data[i][4] = vversion.get(0).getBrand();
 
 			++i;
 		}
@@ -570,6 +575,7 @@ public class AppWindow extends JFrame {
 						.getValueAt(row, 1));
 				this.vehicleTmp.setType((String) this.vehicleTable.getValueAt(
 						row, 3));
+				this.vehicleTmp.setRegistration(this.vehicleTmp.getType());
 				this.vehicleTmp.setBrand((String) this.vehicleTable.getValueAt(
 						row, 4));
 
@@ -582,8 +588,6 @@ public class AppWindow extends JFrame {
 				this.order.setValue(Float.parseFloat(this.moneyCostTextField
 						.getText()));
 				this.order.setNote(this.moneyNoteArea.getText());
-
-				// Kajo
 
 				Client c = this.clientTmp;
 				Vehicle v = this.vehicleTmp;
@@ -600,8 +604,7 @@ public class AppWindow extends JFrame {
 				this.finalCostLabel.setText("" + this.order.getValue());
 				this.finalNoteLabel.setText(this.order.getNote());
 				this.finalServiceLabel.setText(this.order.getServiceType());
-				this.finalVehicleLabel.setText(v.getBrand() + " " + v.getType()
-						+ " " + v.getVinNumber());
+				this.finalVehicleLabel.setText(v.getBrand() + " " + v.getRegistration() + " v/n:" + v.getVinNumber());
 
 				changeState(ADD_ORDER_FINALIZATION);
 			} catch (NumberFormatException e) {
@@ -767,38 +770,14 @@ public class AppWindow extends JFrame {
 					boolean result = false;
 
 					if (STATE == JUST_ADD_VEHICLE) {
+
+						// Model inserter
 						result = DBManager.executeTask(
 								new Task<Boolean>() {
 									public Boolean execute(PreparedStatement ps)
 											throws Exception {
-										ps.setInt(1, clientId);
-										ps.setString(2, vin);
-										ps.setDate(
-												3,
-												new java.sql.Date(date
-														.getTime()));
-										ps.setString(4, type);
-										//ps.setString(5, brand);
-
-										return ps.executeUpdate() > 0;
-									}
-								},
-								"insert into vehicle (client_id, vin_number, production_date, registration, vversion_id) values (?, ?, ? ,?, 0)");
-
-					} else if (STATE == ADD_ORDER_ADD_VEHICLE) {
-
-						result = DBManager.executeTask(
-								new Task<Boolean>() {
-									public Boolean execute(PreparedStatement ps)
-											throws Exception {
-										ps.setInt(1, clientId);
-										ps.setString(2, vin);
-										ps.setDate(
-												3,
-												new java.sql.Date(date
-														.getTime()));
-										ps.setString(4, type);
-										//ps.setString(5, brand);
+										ps.setString(1, "x5"); // due to simplifier
+										ps.setString(2, brand);
 
 										boolean r = ps.executeUpdate() > 0;
 
@@ -810,7 +789,78 @@ public class AppWindow extends JFrame {
 										return r;
 									}
 								},
-								"insert into vehicle (client_id, vin_number, production_date, registration, vversion_id) values (?, ?, ? ,?, 0)",
+								"insert into vehicle_version (model, brand) values (?, ?)", new String[] { "vversion_id" });
+						
+						final int vversion_id = (int) AppWindow.tmp;
+						
+						// Proper vehicle inserter
+						result = DBManager.executeTask(
+								new Task<Boolean>() {
+									public Boolean execute(PreparedStatement ps)
+											throws Exception {
+										ps.setInt(1, clientId);
+										ps.setString(2, vin);
+										ps.setDate(
+												3,
+												new java.sql.Date(date
+														.getTime()));
+										ps.setString(4, type);
+										ps.setInt(5, vversion_id);
+
+										return ps.executeUpdate() > 0;
+									}
+								},
+								"insert into vehicle (client_id, vin_number, production_date, registration, vversion_id) values (?, ?, ? ,?, ?)");
+
+					} else if (STATE == ADD_ORDER_ADD_VEHICLE) {
+						// Model inserter
+						result = DBManager.executeTask(
+								new Task<Boolean>() {
+									public Boolean execute(PreparedStatement ps)
+											throws Exception {
+										ps.setString(1, "x5"); // due to simplifier
+										ps.setString(2, brand);
+
+										boolean r = ps.executeUpdate() > 0;
+
+										ResultSet rs = ps.getGeneratedKeys();
+										if (rs.next()) {
+											int key = rs.getInt(1);
+											AppWindow.tmp = key;
+										}
+										return r;
+									}
+								},
+								"insert into vehicle_version (model, brand) values (?, ?)",
+								this.connection, new String[] { "vversion_id" });
+						
+						final int vversion_id = (int) AppWindow.tmp;
+						
+						// Proper vehicle inserter
+						result = DBManager.executeTask(
+								new Task<Boolean>() {
+									public Boolean execute(PreparedStatement ps)
+											throws Exception {
+										ps.setInt(1, clientId);
+										ps.setString(2, vin);
+										ps.setDate(
+												3,
+												new java.sql.Date(date
+														.getTime()));
+										ps.setString(4, type);
+										ps.setInt(5, vversion_id);
+
+										boolean r = ps.executeUpdate() > 0;
+
+										ResultSet rs = ps.getGeneratedKeys();
+										if (rs.next()) {
+											int key = rs.getInt(1);
+											AppWindow.tmp = key;
+										}
+										return r;
+									}
+								},
+								"insert into vehicle (client_id, vin_number, production_date, registration, vversion_id) values (?, ?, ? ,?, ?)",
 								this.connection, new String[] { "vehicle_id" });
 
 					}
@@ -827,6 +877,7 @@ public class AppWindow extends JFrame {
 							this.vehicleTmp.setBrand(brand);
 							this.vehicleTmp.setProductionDate(date);
 							this.vehicleTmp.setType(type);
+							this.vehicleTmp.setRegistration(type);
 							this.vehicleTmp.setVinNumber(vin);
 						}
 
