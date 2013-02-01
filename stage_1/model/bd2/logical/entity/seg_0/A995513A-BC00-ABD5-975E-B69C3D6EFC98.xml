@@ -51,7 +51,7 @@
 </FontObject>
 </fonts>
 <attributes>
-<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="part_id" id="0A4F2ED2-6706-AAEF-9F74-F938B8F98A98">
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="catalog_number" id="0A4F2ED2-6706-AAEF-9F74-F938B8F98A98">
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-29 23:36:46 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
@@ -89,15 +89,43 @@
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>500</dataTypeSize>
 </Attribute>
-<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="part_type" id="21239876-4944-15C4-B561-6798858ECADE">
-<createdBy>Kajo</createdBy>
-<createdTime>2012-12-29 23:40:16 UTC</createdTime>
-<generatorID>507A79CD-CCD3-D455-8BD7-670205F587ED</generatorID>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="default_price" id="2ECAEAC4-08E8-FE5C-7D95-D359321FA3ED">
+<createdBy>kopasiak</createdBy>
+<createdTime>2013-02-01 08:24:21 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
 <item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
 </engineerTo>
-<referedAttribute>F0D15688-EA72-CE18-E32E-C31542C2488E</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="part_number" id="E6CB0DD6-0135-5B02-3287-57E9877FC8E5">
+<createdBy>kopasiak</createdBy>
+<createdTime>2013-02-01 08:28:13 UTC</createdTime>
+<generatorID>C6E1568D-4AF0-7E17-B950-A741E4B8C6B0</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+</engineerTo>
+<referedAttribute>B5E0DD2F-DB89-8F88-926B-8DC7E5D8BE29</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="name1" id="C7BC6EC6-FA5E-9136-FABB-E39E0E62AD67">
+<createdBy>kopasiak</createdBy>
+<createdTime>2013-02-01 08:32:58 UTC</createdTime>
+<generatorID>3BA2302A-61FC-76D8-F322-20543C8CFF60</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+</engineerTo>
+<referedAttribute>A1EB9A54-B5CD-7063-C87E-A2D476B6064F</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -115,6 +143,7 @@
 <pk>true</pk>
 <usedAttributes>
 <attributeRef>0A4F2ED2-6706-AAEF-9F74-F938B8F98A98</attributeRef>
+<attributeRef>C7BC6EC6-FA5E-9136-FABB-E39E0E62AD67</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

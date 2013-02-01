@@ -1,0 +1,153 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" id="F15E844A-2433-49EA-D7EB-40F1DACF5928" directorySegmentName="seg_0" name="PARAMETER_INSTANCE">
+<createdBy>kopasiak</createdBy>
+<createdTime>2013-01-31 21:34:36 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+</engineerTo>
+<pkName>VEHICLE_PARAMETER PK</pkName>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Table per child</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Attribute</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<attributes>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="unit" id="C85EE29C-4901-50C7-91C9-72CF78C5C825">
+<createdBy>kopasiak</createdBy>
+<createdTime>2013-01-31 23:11:57 UTC</createdTime>
+<generatorID>CDDFB728-9FA4-B57E-DCB0-4524C7153559</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>88C5981E-8080-8A4D-52DE-0EBD68FEF608</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="parameter_id1" id="57DB8337-8D37-DEC1-BC19-8A482C585F46">
+<createdBy>kopasiak</createdBy>
+<createdTime>2013-01-31 23:16:53 UTC</createdTime>
+<generatorID>CDDFB728-9FA4-B57E-DCB0-4524C7153559</generatorID>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>15F8DAD1-4376-183B-DBAE-F2B4EE257E05</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="param_instance_id" id="AE07F4E3-DA3B-6711-A66A-C297D2FC47B5">
+<createdBy>kopasiak</createdBy>
+<createdTime>2013-01-31 23:29:27 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="name" id="56C4917D-89C3-0358-AE9E-CA8EC6647FBE">
+<createdBy>kopasiak</createdBy>
+<createdTime>2013-01-31 23:29:47 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="numeric_value" id="D67BCCF9-D151-73EC-C135-625D2FE590E0">
+<createdBy>kopasiak</createdBy>
+<createdTime>2013-01-31 23:30:25 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="text_value" id="D3E7051B-207E-6694-B04D-5FF1F02C35DA">
+<createdBy>kopasiak</createdBy>
+<createdTime>2013-01-31 23:31:58 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+</Attribute>
+</attributes>
+<identifiers>
+<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="3C4005CB-5D1F-38DD-C32E-FF4C2D4B3139" name="VEHICLE_PARAMETER PK">
+<createdBy>kopasiak</createdBy>
+<createdTime>2013-01-31 23:29:42 UTC</createdTime>
+<ownerDesignName>bd2</ownerDesignName>
+<engineerTo>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>AE07F4E3-DA3B-6711-A66A-C297D2FC47B5</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

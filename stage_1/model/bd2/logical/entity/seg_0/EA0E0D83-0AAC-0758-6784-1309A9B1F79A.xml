@@ -4,7 +4,7 @@
 <createdTime>2012-12-29 20:57:24 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
 </engineerTo>
 <pkName>Vehicle PK</pkName>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -57,7 +57,7 @@
 <generatorID>2498F338-EC1D-5E8D-328F-1E45D3E966F0</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
 </engineerTo>
 <referedAttribute>8A5463FE-D288-2513-6548-D8ABFC803106</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -71,7 +71,7 @@
 <createdTime>2012-12-29 23:47:43 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -84,7 +84,7 @@
 <createdTime>2012-12-29 23:48:01 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -96,39 +96,26 @@
 <createdTime>2012-12-29 23:48:43 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
 </engineerTo>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT007</logicalDatatype>
 </Attribute>
-<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="type" id="12B7AB15-4F60-3C4F-1DD5-ED20C4EAF33F">
-<createdBy>Kajo</createdBy>
-<createdTime>2012-12-29 23:49:25 UTC</createdTime>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="vversion_id" id="4D6CBF4A-7150-CA4A-FD73-3B2F5DAF1CF8">
+<createdBy>kopasiak</createdBy>
+<createdTime>2013-01-31 23:37:49 UTC</createdTime>
+<generatorID>3F4C2E5C-941C-1257-F580-DCD03DD7D1C3</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
 </engineerTo>
-<nullsAllowed>true</nullsAllowed>
+<referedAttribute>B73A6CA4-CB56-D065-CD89-6CED9445D191</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>20</dataTypeSize>
-</Attribute>
-<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="brand" id="11FF5A78-3F0F-545B-FE79-792891AEBC25">
-<createdBy>Kajo</createdBy>
-<createdTime>2012-12-30 02:00:30 UTC</createdTime>
-<generatorID>414B806A-CEA5-5CC3-2E41-B43EA9306D92</generatorID>
-<ownerDesignName>bd2</ownerDesignName>
-<engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
-</engineerTo>
-<referedAttribute>B42E622E-18CF-8902-F4AB-C84349A52046</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>20</dataTypeSize>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
 </Attribute>
 </attributes>
 <identifiers>
@@ -137,7 +124,7 @@
 <createdTime>2012-12-29 23:48:00 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
@@ -149,7 +136,7 @@
 <createdTime>2012-12-30 01:25:24 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="E4DDDBC7-7F02-C368-CCA8-5D4350B98F1F" value="true"/>
+<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
 </engineerTo>
 <usedAttributes>
 <attributeRef>807ADC95-6087-44A9-FB8F-EBB915093B6F</attributeRef>
