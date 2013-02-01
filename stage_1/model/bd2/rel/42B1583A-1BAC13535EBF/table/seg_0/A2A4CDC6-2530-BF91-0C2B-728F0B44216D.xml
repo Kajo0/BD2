@@ -165,7 +165,7 @@
 </Column>
 </columns>
 <indexes>
-<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="48B330E4-C6EF-452E-B523-4EC54BA47DB6" name="VEHICLE_PARAMETER PK">
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="48B330E4-C6EF-452E-B523-4EC54BA47DB6" name="VEHICLE_PARAMETER0 PK">
 <createdBy>kopasiak</createdBy>
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>3C4005CB-5D1F-38DD-C32E-FF4C2D4B3139</generatorID>
@@ -186,7 +186,7 @@
 <colUsage columnID="20D9801A-7576-C3F5-867B-65EFE88C9D97"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9ECD1DC7-1FAC-59D2-8C1B-E13263827FE1" name="Relation_26">
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9ECD1DC7-1FAC-59D2-8C1B-E13263827FE1" name="Relation_260">
 <createdBy>kopasiak</createdBy>
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>CDDFB728-9FA4-B57E-DCB0-4524C7153559</generatorID>

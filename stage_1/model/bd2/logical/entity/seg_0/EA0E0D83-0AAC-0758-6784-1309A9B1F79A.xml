@@ -143,7 +143,7 @@
 <attributeRef>1BB0306B-2AB7-0FB2-3F8D-128D912B4380</attributeRef>
 </usedAttributes>
 </identifier>
-<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="6DECB33C-14EA-FA74-ECFC-162550EEC832" name="Key_2">
+<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="6DECB33C-14EA-FA74-ECFC-162550EEC832" name="Key_2f">
 <createdBy>Kajo</createdBy>
 <createdTime>2012-12-30 01:25:24 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>

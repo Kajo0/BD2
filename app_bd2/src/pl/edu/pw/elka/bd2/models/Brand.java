@@ -20,7 +20,7 @@ public class Brand {
 				ps.setString(1, brand);
 				return ps.executeUpdate() > 0;
 			}
-		}, "insert into brands (brand) values (?)");
+		}, "insert into brand (brand) values (?)");
 	}
 
 	public String toString() {

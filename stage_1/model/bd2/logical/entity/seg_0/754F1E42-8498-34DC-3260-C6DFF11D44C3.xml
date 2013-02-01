@@ -4,7 +4,7 @@
 <createdTime>2013-02-01 08:09:59 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pkName>VEHICLE_PARAMETER PK</pkName>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -58,7 +58,7 @@
 <generatorID>1E5CB408-CC86-83D0-A4ED-436040226E3E</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>B73A6CA4-CB56-D065-CD89-6CED9445D191</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -73,7 +73,7 @@
 <generatorID>86C01C2C-BC69-38B2-F52A-BB61E657F2EC</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <referedAttribute>BAD72D86-8D38-7941-095C-4D8CBD13322A</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -84,12 +84,12 @@
 </Attribute>
 </attributes>
 <identifiers>
-<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="56C04F7A-1A8F-2C2A-6375-9F9A1675B830" name="VEHICLE_PARAMETER PK">
+<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="56C04F7A-1A8F-2C2A-6375-9F9A1675B830" name="VEHICLE_PARAMETER1 PK">
 <createdBy>kopasiak</createdBy>
 <createdTime>2013-02-01 08:13:50 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

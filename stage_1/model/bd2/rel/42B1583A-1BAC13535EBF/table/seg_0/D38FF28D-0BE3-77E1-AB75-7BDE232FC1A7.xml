@@ -147,7 +147,6 @@
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>D56F93F5-2FF8-4EF3-7CC5-73ACAAAB75F8</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -160,6 +159,7 @@
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>AFA60875-D401-4D49-A617-D3DD86DD20D3</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -172,6 +172,7 @@
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>DAF06763-B01F-D4E6-5D0E-E6926AB5A93E</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -184,6 +185,7 @@
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>3D4C98C1-3AF8-8726-EC2B-E7C061A60E8E</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -197,6 +199,7 @@
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>F5D28D61-EF74-73B2-6A7B-BD00B3CEC8E3</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -209,6 +212,7 @@
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>7A32DAAB-B39B-15A1-B20B-7A2006F548CF</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -230,7 +234,7 @@
 <colUsage columnID="702243A6-E12D-0488-2C95-CCAFDCB15407"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="3A2F1B80-EDF9-9536-ADBD-CA3C362723F2" name="Key_2">
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="3A2F1B80-EDF9-9536-ADBD-CA3C362723F2" name="Key_2a">
 <createdBy>kopasiak</createdBy>
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>938063BB-21D2-3C5C-F3BC-36771C9AD877</generatorID>

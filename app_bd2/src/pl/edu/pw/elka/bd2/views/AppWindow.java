@@ -79,7 +79,7 @@ public class AppWindow extends JFrame {
 		List<Brand> brands = DBManager.run(new Query() {
 			public void prepareQuery(PreparedStatement ps) throws Exception {
 			}
-		}, DBManager.brandConverter, "select * from brands");
+		}, DBManager.brandConverter, "select * from brand");
 
 		LinkedList<String> brnds = new LinkedList<>();
 		brnds.add("Dowolna");
@@ -104,7 +104,7 @@ public class AppWindow extends JFrame {
 			public void prepareQuery(PreparedStatement ps) throws Exception {
 			}
 		}, DBManager.orderConverter,
-				"select * from orders order by order_date desc");
+				"select * from order_t order by order_date desc");
 
 		Object[][] data = new Object[orders.size()][orderTable.getModel()
 				.getColumnCount()];
@@ -125,11 +125,15 @@ public class AppWindow extends JFrame {
 	}
 
 	public void getVehiclesToTable() {
-		String sql = "select * from vehicles";
+		String sql = "select * from vehicle";
 
 		if (STATE == ADD_ORDER_CHOOSE_VEHICLE || STATE == ADD_ORDER_ADD_VEHICLE
-				|| STATE == ADD_ORDER_CHOOSE_CLIENT)
+				|| STATE == ADD_ORDER_CHOOSE_CLIENT || STATE == ADD_ORDER_ADD_CLIENT) {
 			sql += " where client_id = " + this.order.getClientId();
+
+			System.out.println(this.order.getClientId());	
+		}
+		System.out.println(STATE);
 
 		List<Vehicle> vehicles = DBManager.run(new Query() {
 			public void prepareQuery(PreparedStatement ps) throws Exception {
@@ -144,8 +148,8 @@ public class AppWindow extends JFrame {
 			data[i][0] = v.getVehicleId();
 			data[i][1] = v.getVinNumber();
 			data[i][2] = v.getProductionDate();
-			data[i][3] = v.getType();
-			data[i][4] = v.getBrand();
+			data[i][3] = v.getRegistration();
+			data[i][4] = "TODO";//v.getBrand();
 
 			++i;
 		}
@@ -160,7 +164,7 @@ public class AppWindow extends JFrame {
 							throws Exception {
 					}
 				}, DBManager.personConverter,
-						"select * from clients where pesel is not null order by client_id asc");
+						"select * from client where pesel is not null order by client_id asc");
 
 		List<Company> companies = DBManager
 				.run(new Query() {
@@ -168,7 +172,7 @@ public class AppWindow extends JFrame {
 							throws Exception {
 					}
 				}, DBManager.companyConverter,
-						"select * from clients where pesel is null order by client_id asc");
+						"select * from client where pesel is null order by client_id asc");
 
 		Object[][] data = new Object[persons.size() + companies.size()][clientTable
 				.getModel().getColumnCount()];
@@ -285,7 +289,7 @@ public class AppWindow extends JFrame {
 			List<Client> clients = DBManager.run(new Query() {
 				public void prepareQuery(PreparedStatement ps) throws Exception {
 				}
-			}, DBManager.clientConverter, "select * from clients");
+			}, DBManager.clientConverter, "select * from client");
 
 			this.client.removeAllItems();
 			for (Client c : clients)
@@ -408,7 +412,7 @@ public class AppWindow extends JFrame {
 						}
 					},
 					DBManager.clientConverter,
-					"select * from clients where client_id = "
+					"select * from client where client_id = "
 							+ this.order.getClientId());
 
 			if (clients.size() == 0)
@@ -439,7 +443,7 @@ public class AppWindow extends JFrame {
 			List<ServiceType> services = DBManager.run(new Query() {
 				public void prepareQuery(PreparedStatement ps) throws Exception {
 				}
-			}, DBManager.serviceTypeConverter, "select * from service_types");
+			}, DBManager.serviceTypeConverter, "select * from service_type");
 
 			this.serviceTypeComboBox.removeAllItems();
 			for (ServiceType s : services)
@@ -632,7 +636,7 @@ public class AppWindow extends JFrame {
 						}
 					},
 					DBManager.personConverter,
-					"select * from clients where pesel is not null and (first_name like ? or last_name like ?) order by client_id asc");
+					"select * from client where pesel is not null and (first_name like ? or last_name like ?) order by client_id asc");
 
 			clients.addAll(persons);
 		} else {
@@ -641,7 +645,7 @@ public class AppWindow extends JFrame {
 					ps.setString(1, "%" + search + "%");
 				}
 			}, DBManager.companyConverter,
-					"select * from clients where pesel is null and name like ?");
+					"select * from client where pesel is null and name like ?");
 
 			clients.addAll(companies);
 		}
@@ -697,7 +701,7 @@ public class AppWindow extends JFrame {
 		final int allBrand = this.findByBrandCombo.getSelectedIndex();
 		final String search = this.findByBrandTextField.getText();
 
-		String sql = "select * from vehicles where ";
+		String sql = "select * from vehicle where ";
 
 		if (allBrand != 0)
 			sql += "brand = ? and ";
@@ -705,7 +709,7 @@ public class AppWindow extends JFrame {
 		if (STATE == ADD_ORDER_CHOOSE_VEHICLE)
 			sql += "client_id = " + this.order.getClientId() + " and ";
 
-		sql += "(vin_number like ? or type like ?)";
+		sql += "(vin_number like ? or registration like ?)";
 
 		List<Vehicle> vehicles = DBManager.run(new Query() {
 			public void prepareQuery(PreparedStatement ps) throws Exception {
@@ -725,8 +729,8 @@ public class AppWindow extends JFrame {
 			data[i][0] = v.getVehicleId();
 			data[i][1] = v.getVinNumber();
 			data[i][2] = v.getProductionDate();
-			data[i][3] = v.getType();
-			data[i][4] = v.getBrand();
+			data[i][3] = v.getRegistration();
+			data[i][4] = "TODO";//v.getBrand();
 
 			++i;
 		}
@@ -745,7 +749,8 @@ public class AppWindow extends JFrame {
 
 			if (this.client.getSelectedIndex() < 0
 					|| this.brand.getSelectedIndex() < 0
-					|| this.vin.getText().length() != 17)
+					|| this.vin.getText().length() != 17
+					|| this.vehicleType.getText().length() <= 0)
 				JOptionPane.showMessageDialog(this, "Źle wypełniłeś dane! vin("
 						+ this.vin.getText().length() + "/17)");
 			else {
@@ -773,12 +778,12 @@ public class AppWindow extends JFrame {
 												new java.sql.Date(date
 														.getTime()));
 										ps.setString(4, type);
-										ps.setString(5, brand);
+										//ps.setString(5, brand);
 
 										return ps.executeUpdate() > 0;
 									}
 								},
-								"insert into vehicles (client_id, vin_number, production_date, type, brand) values (?, ?, ? ,?, ?)");
+								"insert into vehicle (client_id, vin_number, production_date, registration, vversion_id) values (?, ?, ? ,?, 0)");
 
 					} else if (STATE == ADD_ORDER_ADD_VEHICLE) {
 
@@ -793,7 +798,7 @@ public class AppWindow extends JFrame {
 												new java.sql.Date(date
 														.getTime()));
 										ps.setString(4, type);
-										ps.setString(5, brand);
+										//ps.setString(5, brand);
 
 										boolean r = ps.executeUpdate() > 0;
 
@@ -805,7 +810,7 @@ public class AppWindow extends JFrame {
 										return r;
 									}
 								},
-								"insert into vehicles (client_id, vin_number, production_date, type, brand) values (?, ?, ? ,?, ?)",
+								"insert into vehicle (client_id, vin_number, production_date, registration, vversion_id) values (?, ?, ? ,?, 0)",
 								this.connection, new String[] { "vehicle_id" });
 
 					}
@@ -894,7 +899,7 @@ public class AppWindow extends JFrame {
 						throw new IllegalArgumentException(
 								"Podaj poprawny email!");
 
-					String sql = "insert into clients (street, building_number, apartment_number, postal_code, city, additional_address, phone_number, email";
+					String sql = "insert into client (street, building_number, apartment_number, postal_code, city, additional_address, phone_number, email";
 
 					long psl = 0;
 					long np = 0;
@@ -1076,7 +1081,7 @@ public class AppWindow extends JFrame {
 										return ps.executeUpdate() > 0;
 									}
 								},
-								"insert into orders (client_id, vehicle_id, service_type, value, note) values (?, ?, ?, ?, ?)",
+								"insert into order_t (client_id, vehicle_id, service_type, value, note) values (?, ?, ?, ?, ?)",
 								this.connection, new String[] { "order_id" });
 
 				if (result) {
@@ -1492,7 +1497,7 @@ public class AppWindow extends JFrame {
 				.setModel(new javax.swing.table.DefaultTableModel(
 						new Object[][] {
 
-						}, new String[] { "ID", "VIN", "Data produkcji", "Typ",
+						}, new String[] { "ID", "VIN", "Data produkcji", "Numer rejestracyjny",
 								"Marka" }) {
 					Class[] types = new Class[] { java.lang.Integer.class,
 							java.lang.String.class, java.lang.Object.class,
@@ -2292,7 +2297,7 @@ public class AppWindow extends JFrame {
 		jLabel21.setText("Marka");
 
 		jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-		jLabel27.setText("Typ nadwozia");
+		jLabel27.setText("Numer rejestracyjny");
 
 		javax.swing.GroupLayout addVehicleLayout = new javax.swing.GroupLayout(
 				addVehicle);

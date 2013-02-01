@@ -1,6 +1,6 @@
-ALTER TABLE orders MODIFY order_date DEFAULT SYSDATE;
-ALTER TABLE services MODIFY begin_date DEFAULT SYSDATE;
-ALTER TABLE services MODIFY cost DEFAULT 0;
+ALTER TABLE order_t MODIFY order_date DEFAULT SYSDATE;
+ALTER TABLE service MODIFY begin_date DEFAULT SYSDATE;
+ALTER TABLE service MODIFY cost DEFAULT 0;
 
 
 
@@ -14,7 +14,7 @@ CREATE SEQUENCE vehicles_sequence
   CACHE 100;
 
 CREATE OR REPLACE TRIGGER vehicles_sequence_trigger
-  BEFORE INSERT ON vehicles
+  BEFORE INSERT ON vehicle
   FOR EACH ROW
 BEGIN
   :new.vehicle_id := vehicles_sequence.nextval;
@@ -32,7 +32,7 @@ CREATE SEQUENCE clients_sequence
   CACHE 100;
 
 CREATE OR REPLACE TRIGGER clients_sequence_trigger
-  BEFORE INSERT ON clients
+  BEFORE INSERT ON client
   FOR EACH ROW
 BEGIN
   :new.client_id := clients_sequence.nextval;
@@ -50,7 +50,7 @@ CREATE SEQUENCE orders_sequence
   CACHE 100;
 
 CREATE OR REPLACE TRIGGER orders_sequence_trigger
-  BEFORE INSERT ON orders
+  BEFORE INSERT ON order_t
   FOR EACH ROW
 BEGIN
   :new.order_id := orders_sequence.nextval;
@@ -61,11 +61,11 @@ END;
 /* Zmiana kosztu realizacji us³ugi, zwiêksza/zmniejsza koszt zamówienia */
 
 CREATE OR REPLACE TRIGGER update_order_cost_by_service
-before UPDATE OF cost ON services
+before UPDATE OF cost ON service
 FOR EACH ROW
 BEGIN
   if (:new.cost <> :old.cost) then
-    update orders set value = value + :new.cost - :old.cost where order_id = :old.order_id;
+    update order_t set value = value + :new.cost - :old.cost where order_id = :old.order_id;
   end if;
 END;
 /
@@ -73,10 +73,10 @@ END;
 
 /* Zliczanie sumy kosztów zamówieñ dla klienta o podanym id */
 
-create or replace function get_sum_of_client_orders (i_client_id in clients.client_id%type) return orders.value%type is
-  val orders.value%type;
+create or replace function get_sum_of_client_orders (i_client_id in client.client_id%type) return order_t.value%type is
+  val order_t.value%type;
 begin
-  select sum(value) into val from orders where client_id = i_client_id;
+  select sum(value) into val from order_t where client_id = i_client_id;
 
   if val is null then
     val := 0;
@@ -97,8 +97,8 @@ end;
 
 create or replace procedure get_clients_without_orders is
   amount NUMBER(5,0);
-  cursor cur is select * from clients where client_id not in (select distinct client_id from orders);
-  os clients%rowtype;
+  cursor cur is select * from client where client_id not in (select distinct client_id from order_t);
+  os client%rowtype;
 begin
   amount := 0;
   open cur;

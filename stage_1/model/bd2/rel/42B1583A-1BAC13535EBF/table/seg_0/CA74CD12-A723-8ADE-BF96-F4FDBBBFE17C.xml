@@ -117,7 +117,7 @@
 <colUsage columnID="3B516F6F-0506-48FF-017E-A266F4CB53EA"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="2A0842AB-5F93-F9E0-D393-AC232510F7FD" name="Key_2">
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="2A0842AB-5F93-F9E0-D393-AC232510F7FD" name="Key_2b">
 <createdBy>kopasiak</createdBy>
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>26B52632-2138-33FC-17F8-9A791F75B052</generatorID>
@@ -127,7 +127,7 @@
 <colUsage columnID="A472A872-D4FA-4FDE-30A3-395C56B087BA"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="1FE07C85-AA86-D87C-826E-CE7FD3EADD00" name="Key_3">
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="1FE07C85-AA86-D87C-826E-CE7FD3EADD00" name="Key_3b">
 <createdBy>kopasiak</createdBy>
 <createdTime>2013-02-01 14:18:54 UTC</createdTime>
 <generatorID>DAF59590-27BA-ACF2-16F5-4C74BC0C737A</generatorID>

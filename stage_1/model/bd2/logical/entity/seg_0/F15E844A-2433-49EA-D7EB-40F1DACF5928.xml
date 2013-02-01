@@ -4,7 +4,7 @@
 <createdTime>2013-01-31 21:34:36 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pkName>VEHICLE_PARAMETER PK</pkName>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -57,7 +57,7 @@
 <generatorID>CDDFB728-9FA4-B57E-DCB0-4524C7153559</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <referedAttribute>88C5981E-8080-8A4D-52DE-0EBD68FEF608</referedAttribute>
@@ -72,7 +72,7 @@
 <generatorID>CDDFB728-9FA4-B57E-DCB0-4524C7153559</generatorID>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <referedAttribute>15F8DAD1-4376-183B-DBAE-F2B4EE257E05</referedAttribute>
@@ -87,7 +87,7 @@
 <createdTime>2013-01-31 23:29:27 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -100,7 +100,7 @@
 <createdTime>2013-01-31 23:29:47 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -113,7 +113,7 @@
 <createdTime>2013-01-31 23:30:25 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -127,7 +127,7 @@
 <createdTime>2013-01-31 23:31:58 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -137,12 +137,12 @@
 </Attribute>
 </attributes>
 <identifiers>
-<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="3C4005CB-5D1F-38DD-C32E-FF4C2D4B3139" name="VEHICLE_PARAMETER PK">
+<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="3C4005CB-5D1F-38DD-C32E-FF4C2D4B3139" name="VEHICLE_PARAMETER0 PK">
 <createdBy>kopasiak</createdBy>
 <createdTime>2013-01-31 23:29:42 UTC</createdTime>
 <ownerDesignName>bd2</ownerDesignName>
 <engineerTo>
-<item key="8B4C3298-9B76-FE9E-4D22-52ADDD08C927" value="true"/>
+<item key="42B1583A-24C2-0CE7-F29F-1BAC13535EBF" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

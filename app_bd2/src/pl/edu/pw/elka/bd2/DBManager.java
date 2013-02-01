@@ -199,9 +199,10 @@ public class DBManager {
 			e.setClientId(rs.getInt("client_id"));
 			e.setVehicleId(rs.getInt("vehicle_id"));
 			e.setVinNumber(rs.getString("vin_number"));
-			e.setType(rs.getString("type"));
+			//e.setType(rs.getString("type"));
 			e.setProductionDate(rs.getDate("production_date"));
-			e.setBrand(rs.getString("brand"));
+			//e.setBrand(rs.getString("brand"));
+			e.setRegistration(rs.getString("registration"));
 
 			return e;
 		}

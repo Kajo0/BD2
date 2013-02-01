@@ -10,6 +10,7 @@ public class Vehicle {
 	private Date productionDate;
 	private String type;
 	private String brand;
+	private String registration;
 
 	public Vehicle() {
 
@@ -73,6 +74,14 @@ public class Vehicle {
 
 	public void setBrand(String brand) {
 		this.brand = brand;
+	}
+
+	public String getRegistration() {
+		return registration;
+	}
+
+	public void setRegistration(String registration) {
+		this.registration = registration;
 	}
 
 }

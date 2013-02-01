@@ -38,7 +38,7 @@ public class Order {
 								return ps.executeUpdate() > 0;
 							}
 						},
-						"insert into orders (client_id, service_type, vehicle_id, order_id, order_date, value, note) values (?, ?, ?, ?, ?, ?, ?)");
+						"insert into order (client_id, service_type, vehicle_id, order_id, order_date, value, note) values (?, ?, ?, ?, ?, ?, ?)");
 	}
 
 	public String toString() {
