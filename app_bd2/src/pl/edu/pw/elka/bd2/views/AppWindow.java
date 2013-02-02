@@ -699,6 +699,7 @@ public class AppWindow extends JFrame {
 	 * 
 	 * @param evt
 	 */
+	@SuppressWarnings("unused")
 	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
 		final String brand = this.findByBrandCombo.getSelectedItem().toString();
 		final int allBrand = this.findByBrandCombo.getSelectedIndex();
@@ -706,8 +707,8 @@ public class AppWindow extends JFrame {
 
 		String sql = "select * from vehicle where ";
 
-		if (allBrand != 0)
-			sql += "brand = ? and ";
+//		if (allBrand != 0)
+//			sql += "brand = ? and "; // due to model changed
 
 		if (STATE == ADD_ORDER_CHOOSE_VEHICLE)
 			sql += "client_id = " + this.order.getClientId() + " and ";
@@ -717,8 +718,8 @@ public class AppWindow extends JFrame {
 		List<Vehicle> vehicles = DBManager.run(new Query() {
 			public void prepareQuery(PreparedStatement ps) throws Exception {
 				int i = 1;
-				if (allBrand != 0)
-					ps.setString(i++, brand);
+//				if (allBrand != 0)
+//					ps.setString(i++, brand);
 				ps.setString(i++, "%" + search + "%");
 				ps.setString(i++, "%" + search + "%");
 			}
@@ -733,7 +734,16 @@ public class AppWindow extends JFrame {
 			data[i][1] = v.getVinNumber();
 			data[i][2] = v.getProductionDate();
 			data[i][3] = v.getRegistration();
-			data[i][4] = "TODO";//v.getBrand();
+			
+
+			final int vversion_id = v.getVversion_id();
+			List<VehicleVersion> vversion = DBManager.run(new Query() {
+				public void prepareQuery(PreparedStatement ps) throws Exception {
+					ps.setInt(1, vversion_id);
+				}
+			}, DBManager.vehicleVersionConverter, "select * from vehicle_version where vversion_id = ?");
+
+			data[i][4] = vversion.get(0).getBrand();
 
 			++i;
 		}

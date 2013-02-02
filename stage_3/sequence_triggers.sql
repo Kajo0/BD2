@@ -1,11 +1,25 @@
+DROP TRIGGER vehicles_sequence_trigger;
+DROP SEQUENCE vehicles_sequence;
+
+DROP TRIGGER clients_sequence_trigger;
+DROP SEQUENCE clients_sequence;
+
+DROP TRIGGER orders_sequence_trigger;
+DROP SEQUENCE orders_sequence;
+
+DROP TRIGGER vversion_sequence_trigger;
+DROP SEQUENCE vversion_sequence;
+
+
+
+
 ALTER TABLE order_t MODIFY order_date DEFAULT SYSDATE;
 ALTER TABLE service MODIFY begin_date DEFAULT SYSDATE;
 ALTER TABLE service MODIFY cost DEFAULT 0;
 
 
 
-DROP TRIGGER vehicles_sequence_trigger;
-DROP SEQUENCE vehicles_sequence;
+
 
 
 CREATE SEQUENCE vehicles_sequence
@@ -22,10 +36,6 @@ END;
 
 
 
-DROP TRIGGER clients_sequence_trigger;
-DROP SEQUENCE clients_sequence;
-
-
 CREATE SEQUENCE clients_sequence
   START WITH 1
   INCREMENT BY 1
@@ -40,10 +50,6 @@ END;
 
 
 
-DROP TRIGGER orders_sequence_trigger;
-DROP SEQUENCE orders_sequence;
-
-
 CREATE SEQUENCE orders_sequence
   START WITH 1
   INCREMENT BY 1
@@ -56,10 +62,6 @@ BEGIN
   :new.order_id := orders_sequence.nextval;
 END;
 
-
-
-DROP TRIGGER vversion_sequence_trigger;
-DROP SEQUENCE vversion_sequence;
 
 
 CREATE SEQUENCE vversion_sequence
